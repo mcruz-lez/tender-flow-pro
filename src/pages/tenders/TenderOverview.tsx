@@ -390,7 +390,7 @@ const TenderOverview = () => {
               )}
             </TabsContent>
 
-            {/* Other tab contents remain the same but filtered */}
+            {/* Other tab contents with fixed syntax */}
             {["active", "evaluation", "draft", "closed"].map((status) => (
               <TabsContent key={status} value={status}>
                 {filteredTenders.filter((tender) => tender.status.toLowerCase() === status).length > 0 ? (
