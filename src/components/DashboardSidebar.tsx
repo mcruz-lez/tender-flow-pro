@@ -9,7 +9,7 @@ import {
   FileText,
   Users,
   Award,
-  FileContract,
+  FileCheck,
   MessageSquare,
   FolderOpen,
   BarChart3,
@@ -77,7 +77,7 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
           badge: "3"
         },
         {
-          icon: FileContract,
+          icon: FileCheck,
           label: "Contracts",
           href: "/contracts",
           badge: null
