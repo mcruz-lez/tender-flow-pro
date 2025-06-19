@@ -393,7 +393,7 @@ const TenderOverview = () => {
             {/* Other tab contents remain the same but filtered */}
             {["active", "evaluation", "draft", "closed"].map((status) => (
               <TabsContent key={status} value={status}>
-                {filteredTenders.length > 0 ? (
+                {filteredTenders.filter((tender) => tender.status.toLowerCase() === status).length > 0 ? (
                   viewMode === "grid" ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {filteredTenders
@@ -499,7 +499,7 @@ const TenderOverview = () => {
                               </div>
                             </CardContent>
                           </Card>
-                        )}
+                        ))}
                     </div>
                   ) : (
                     <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
