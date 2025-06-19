@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -16,7 +15,7 @@ interface QuickAction {
 interface PageTemplateProps {
   title: string;
   description: string;
-  children?: React.ReactNode;
+  children?: React.ReactNode; // Made optional
   quickActions?: QuickAction[];
   relatedPages?: { label: string; href: string }[];
 }
@@ -26,7 +25,7 @@ const PageTemplate = ({ title, description, children, quickActions, relatedPages
   const location = useLocation();
 
   // Auto-generate context-aware quick actions based on current page
-  const getContextualActions = (): QuickAction[] => {
+  function getContextualActions(): QuickAction[] {
     const path = location.pathname;
     
     if (path.includes('/tenders')) {
@@ -70,10 +69,10 @@ const PageTemplate = ({ title, description, children, quickActions, relatedPages
     }
     
     return [];
-  };
+  }
 
   // Auto-generate related pages based on current section
-  const getRelatedPages = () => {
+  function getRelatedPages() {
     const path = location.pathname;
     
     if (path.includes('/tenders')) {
@@ -113,7 +112,7 @@ const PageTemplate = ({ title, description, children, quickActions, relatedPages
     }
     
     return [];
-  };
+  }
 
   const contextualActions = quickActions || getContextualActions();
   const contextualRelatedPages = relatedPages || getRelatedPages();
@@ -173,7 +172,7 @@ const PageTemplate = ({ title, description, children, quickActions, relatedPages
           {children || (
             <div className="bg-white rounded-lg shadow p-8 text-center">
               <Construction className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">Content Coming Soon</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">Coming Soon</h2>
               <p className="text-gray-600 mb-4">
                 This section is being developed. Please check back later for updates.
               </p>
