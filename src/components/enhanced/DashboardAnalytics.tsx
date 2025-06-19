@@ -29,11 +29,18 @@ export const DashboardAnalytics = () => {
   const totalContracts = contracts?.length || 0;
   const activeContracts = contracts?.filter(c => c.status === 'active').length || 0;
 
-  // Calculate financial metrics
-  const totalContractValue = contracts?.reduce((sum, contract) => sum + (contract.contract_value || 0), 0) || 0;
-  const avgTenderBudget = tenders?.filter(t => t.budget_max).reduce((sum, t) => sum + (t.budget_max || 0), 0) / (tenders?.filter(t => t.budget_max).length || 1) || 0;
+  // Calculate financial metrics with proper type checking
+  const totalContractValue = contracts?.reduce((sum, contract) => {
+    const value = typeof contract.contract_value === 'number' ? contract.contract_value : 0;
+    return sum + value;
+  }, 0) || 0;
 
-  // Calculate performance metrics
+  const tendersWithBudgets = tenders?.filter(t => t.budget_max && typeof t.budget_max === 'number') || [];
+  const avgTenderBudget = tendersWithBudgets.length > 0 
+    ? tendersWithBudgets.reduce((sum, t) => sum + (t.budget_max || 0), 0) / tendersWithBudgets.length 
+    : 0;
+
+  // Calculate performance metrics with proper type checking
   const bidsPerTender = totalTenders > 0 ? (totalBids / totalTenders).toFixed(1) : '0';
   const vendorPrequalificationRate = totalVendors > 0 ? Math.round((approvedVendors / totalVendors) * 100) : 0;
 
