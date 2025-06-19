@@ -27,7 +27,7 @@ export const useTenders = () => {
     queryKey: ['tenders'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('tenders')
+        .from('tenders' as any)
         .select('*')
         .order('created_at', { ascending: false });
       
@@ -47,7 +47,7 @@ export const useCreateTender = () => {
   return useMutation({
     mutationFn: async (tender: Omit<Tender, 'id' | 'created_at' | 'updated_at'>) => {
       const { data, error } = await supabase
-        .from('tenders')
+        .from('tenders' as any)
         .insert([tender])
         .select()
         .single();
@@ -76,7 +76,7 @@ export const useUpdateTender = () => {
   return useMutation({
     mutationFn: async ({ id, ...updates }: Partial<Tender> & { id: string }) => {
       const { data, error } = await supabase
-        .from('tenders')
+        .from('tenders' as any)
         .update(updates)
         .eq('id', id)
         .select()

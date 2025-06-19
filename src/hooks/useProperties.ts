@@ -25,7 +25,7 @@ export const useProperties = () => {
     queryKey: ['properties'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('properties')
+        .from('properties' as any)
         .select('*')
         .order('created_at', { ascending: false });
       
@@ -45,7 +45,7 @@ export const useCreateProperty = () => {
   return useMutation({
     mutationFn: async (property: Omit<Property, 'id' | 'created_at' | 'updated_at'>) => {
       const { data, error } = await supabase
-        .from('properties')
+        .from('properties' as any)
         .insert([property])
         .select()
         .single();

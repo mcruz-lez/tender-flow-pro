@@ -28,7 +28,7 @@ export const useVendors = () => {
     queryKey: ['vendors'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('vendors')
+        .from('vendors' as any)
         .select('*')
         .order('created_at', { ascending: false });
       
@@ -48,7 +48,7 @@ export const useCreateVendor = () => {
   return useMutation({
     mutationFn: async (vendor: Omit<Vendor, 'id' | 'created_at' | 'updated_at'>) => {
       const { data, error } = await supabase
-        .from('vendors')
+        .from('vendors' as any)
         .insert([vendor])
         .select()
         .single();
