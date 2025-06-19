@@ -24,8 +24,8 @@ export const useProperties = () => {
   return useQuery({
     queryKey: ['properties'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('properties' as any)
+      const { data, error } = await (supabase as any)
+        .from('properties')
         .select('*')
         .order('created_at', { ascending: false });
       
@@ -34,7 +34,7 @@ export const useProperties = () => {
         throw error;
       }
       
-      return data as unknown as Property[];
+      return (data || []) as Property[];
     }
   });
 };
@@ -44,8 +44,8 @@ export const useCreateProperty = () => {
   
   return useMutation({
     mutationFn: async (property: Omit<Property, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await supabase
-        .from('properties' as any)
+      const { data, error } = await (supabase as any)
+        .from('properties')
         .insert([property])
         .select()
         .single();
@@ -55,7 +55,7 @@ export const useCreateProperty = () => {
         throw error;
       }
       
-      return data as unknown as Property;
+      return data as Property;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['properties'] });

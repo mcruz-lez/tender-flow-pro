@@ -26,8 +26,8 @@ export const useTenders = () => {
   return useQuery({
     queryKey: ['tenders'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('tenders' as any)
+      const { data, error } = await (supabase as any)
+        .from('tenders')
         .select('*')
         .order('created_at', { ascending: false });
       
@@ -36,7 +36,7 @@ export const useTenders = () => {
         throw error;
       }
       
-      return data as unknown as Tender[];
+      return (data || []) as Tender[];
     }
   });
 };
@@ -46,8 +46,8 @@ export const useCreateTender = () => {
   
   return useMutation({
     mutationFn: async (tender: Omit<Tender, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await supabase
-        .from('tenders' as any)
+      const { data, error } = await (supabase as any)
+        .from('tenders')
         .insert([tender])
         .select()
         .single();
@@ -57,7 +57,7 @@ export const useCreateTender = () => {
         throw error;
       }
       
-      return data as unknown as Tender;
+      return data as Tender;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tenders'] });
@@ -75,8 +75,8 @@ export const useUpdateTender = () => {
   
   return useMutation({
     mutationFn: async ({ id, ...updates }: Partial<Tender> & { id: string }) => {
-      const { data, error } = await supabase
-        .from('tenders' as any)
+      const { data, error } = await (supabase as any)
+        .from('tenders')
         .update(updates)
         .eq('id', id)
         .select()
@@ -87,7 +87,7 @@ export const useUpdateTender = () => {
         throw error;
       }
       
-      return data as unknown as Tender;
+      return data as Tender;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tenders'] });

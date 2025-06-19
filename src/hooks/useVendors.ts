@@ -27,8 +27,8 @@ export const useVendors = () => {
   return useQuery({
     queryKey: ['vendors'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('vendors' as any)
+      const { data, error } = await (supabase as any)
+        .from('vendors')
         .select('*')
         .order('created_at', { ascending: false });
       
@@ -37,7 +37,7 @@ export const useVendors = () => {
         throw error;
       }
       
-      return data as unknown as Vendor[];
+      return (data || []) as Vendor[];
     }
   });
 };
@@ -47,8 +47,8 @@ export const useCreateVendor = () => {
   
   return useMutation({
     mutationFn: async (vendor: Omit<Vendor, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await supabase
-        .from('vendors' as any)
+      const { data, error } = await (supabase as any)
+        .from('vendors')
         .insert([vendor])
         .select()
         .single();
@@ -58,7 +58,7 @@ export const useCreateVendor = () => {
         throw error;
       }
       
-      return data as unknown as Vendor;
+      return data as Vendor;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['vendors'] });
