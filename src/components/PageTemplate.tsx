@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -15,7 +16,7 @@ interface QuickAction {
 interface PageTemplateProps {
   title: string;
   description: string;
-  children?: React.ReactNode; // Made optional
+  children?: React.ReactNode;
   quickActions?: QuickAction[];
   relatedPages?: { label: string; href: string }[];
 }
