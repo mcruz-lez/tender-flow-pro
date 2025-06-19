@@ -16,7 +16,7 @@ interface QuickAction {
 interface PageTemplateProps {
   title: string;
   description: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   quickActions?: QuickAction[];
   relatedPages?: { label: string; href: string }[];
 }
@@ -170,7 +170,25 @@ const PageTemplate = ({ title, description, children, quickActions, relatedPages
             </div>
           )}
 
-          {children}
+          {children || (
+            <div className="bg-white rounded-lg shadow p-8 text-center">
+              <Construction className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">Content Coming Soon</h2>
+              <p className="text-gray-600 mb-4">
+                This section is being developed. Please check back later for updates.
+              </p>
+              <div className="flex justify-center space-x-2">
+                <Button asChild variant="outline">
+                  <Link to="/dashboard">Return to Dashboard</Link>
+                </Button>
+                {contextualActions.length > 0 && (
+                  <Button asChild>
+                    <Link to={contextualActions[0].href}>{contextualActions[0].label}</Link>
+                  </Button>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
