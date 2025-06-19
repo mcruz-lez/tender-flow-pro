@@ -18,11 +18,16 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   Home,
   Briefcase,
-  Shield,
   Clock,
-  TrendingUp
+  TrendingUp,
+  Brain,
+  Bot,
+  Search,
+  Zap
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -44,13 +49,26 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
           icon: LayoutDashboard,
           label: "Dashboard",
           href: "/dashboard",
-          badge: null
+          badge: null,
+          children: [
+            { label: "Property Manager", href: "/pm-dashboard" },
+            { label: "Contractor", href: "/contractor-dashboard" },
+            { label: "Vendor", href: "/vendor-dashboard" },
+            { label: "Finance", href: "/finance-dashboard" },
+            { label: "Admin", href: "/admin-dashboard" }
+          ]
         },
         {
           icon: Home,
           label: "Properties",
           href: "/properties",
-          badge: "24"
+          badge: "24",
+          children: [
+            { label: "Service Categories", href: "/properties/services" },
+            { label: "Maintenance", href: "/properties/maintenance" },
+            { label: "Cost Analysis", href: "/properties/cost-analysis" },
+            { label: "Performance", href: "/properties/service-performance" }
+          ]
         }
       ]
     },
@@ -62,25 +80,51 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
           icon: FileText,
           label: "Tenders",
           href: "/tenders",
-          badge: "8"
+          badge: "8",
+          children: [
+            { label: "Create Tender", href: "/tenders/create" },
+            { label: "Categories", href: "/tenders/categories" },
+            { label: "Templates", href: "/tenders/templates" },
+            { label: "AI Create", href: "/tenders/ai-create", icon: Brain },
+            { label: "Risk Analysis", href: "/tenders/risk-analysis" }
+          ]
         },
         {
           icon: Briefcase,
           label: "Bids",
           href: "/bids",
-          badge: "12"
+          badge: "12",
+          children: [
+            { label: "Bid Tracking", href: "/bids/tracking" },
+            { label: "Bid Library", href: "/bids/library" },
+            { label: "AI Assistant", href: "/bids/ai-bid", icon: Bot },
+            { label: "Win Score", href: "/bids/win-score" },
+            { label: "Optimize", href: "/bids/optimize" }
+          ]
         },
         {
           icon: Award,
           label: "Evaluation",
           href: "/evaluation",
-          badge: "3"
+          badge: "3",
+          children: [
+            { label: "Awards", href: "/evaluation/awards" },
+            { label: "Workflows", href: "/evaluation/workflows" },
+            { label: "Auto Score", href: "/evaluation/auto-score", icon: Zap },
+            { label: "Bias Check", href: "/evaluation/bias-check" }
+          ]
         },
         {
           icon: FileCheck,
           label: "Contracts",
           href: "/contracts",
-          badge: null
+          badge: null,
+          children: [
+            { label: "Performance", href: "/contracts/performance" },
+            { label: "Renewals", href: "/contracts/renewals" },
+            { label: "Value Analysis", href: "/contracts/value-analysis" },
+            { label: "Risk Monitor", href: "/contracts/risk-monitor" }
+          ]
         }
       ]
     },
@@ -92,19 +136,37 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
           icon: Users,
           label: "Vendors",
           href: "/vendors",
-          badge: "156"
+          badge: "156",
+          children: [
+            { label: "Registration", href: "/vendors/register" },
+            { label: "Prequalification", href: "/vendors/prequalification" },
+            { label: "Analytics", href: "/vendors/analytics" },
+            { label: "Portal", href: "/vendor-portal" }
+          ]
         },
         {
           icon: MessageSquare,
           label: "Communication",
           href: "/communication",
-          badge: "5"
+          badge: "5",
+          children: [
+            { label: "Q&A Management", href: "/communication/qa" },
+            { label: "Announcements", href: "/communication/announcements" },
+            { label: "Collaboration", href: "/communication/collaborate" },
+            { label: "Notifications", href: "/communication/notifications" }
+          ]
         },
         {
           icon: FolderOpen,
           label: "Documents",
           href: "/documents",
-          badge: null
+          badge: null,
+          children: [
+            { label: "Version Control", href: "/documents/versions" },
+            { label: "Secure Sharing", href: "/documents/sharing" },
+            { label: "AI Extract", href: "/documents/extract", icon: Brain },
+            { label: "Classify", href: "/documents/classify" }
+          ]
         }
       ]
     },
@@ -116,13 +178,24 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
           icon: BarChart3,
           label: "Analytics",
           href: "/analytics",
-          badge: null
+          badge: null,
+          children: [
+            { label: "Tender Analytics", href: "/analytics/tender-analytics" },
+            { label: "Vendor Analytics", href: "/analytics/vendor-analytics" },
+            { label: "Financial Reports", href: "/analytics/financial" },
+            { label: "Predictions", href: "/analytics/predictions", icon: Brain }
+          ]
         },
         {
           icon: TrendingUp,
           label: "Reports",
-          href: "/reports",
-          badge: null
+          href: "/custom-reports",
+          badge: null,
+          children: [
+            { label: "Custom Reports", href: "/analytics/custom" },
+            { label: "Compliance", href: "/analytics/compliance" },
+            { label: "Market Intel", href: "/analytics/market-intel" }
+          ]
         }
       ]
     },
@@ -132,15 +205,27 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
       items: [
         {
           icon: Settings,
-          label: "Settings",
-          href: "/settings",
-          badge: null
+          label: "Admin",
+          href: "/admin",
+          badge: null,
+          children: [
+            { label: "Users", href: "/admin/users" },
+            { label: "Organizations", href: "/admin/organizations" },
+            { label: "Security", href: "/admin/security" },
+            { label: "Configuration", href: "/admin/config" }
+          ]
         },
         {
           icon: HelpCircle,
           label: "Help & Support",
           href: "/help",
-          badge: null
+          badge: null,
+          children: [
+            { label: "Training", href: "/help/training" },
+            { label: "Support", href: "/help/support" },
+            { label: "Forums", href: "/help/forums" },
+            { label: "Feature Requests", href: "/help/feature-requests" }
+          ]
         }
       ]
     }
@@ -154,8 +239,23 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
     );
   };
 
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
+
+  const toggleItem = (itemLabel: string) => {
+    if (!isOpen) return;
+    setExpandedItems(prev => 
+      prev.includes(itemLabel) 
+        ? prev.filter(item => item !== itemLabel)
+        : [...prev, itemLabel]
+    );
+  };
+
   const isActiveRoute = (href: string) => {
-    return location.pathname === href;
+    return location.pathname === href || location.pathname.startsWith(href + '/');
+  };
+
+  const hasActiveChild = (item: any) => {
+    return item.children?.some((child: any) => isActiveRoute(child.href));
   };
 
   return (
@@ -198,6 +298,20 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
         )}
       </Button>
 
+      {/* Quick Search - Only when expanded */}
+      {isOpen && (
+        <div className="p-4 border-b border-gray-100">
+          <div className="relative">
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Quick search..."
+              className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto p-4 space-y-6">
         {navigationItems.map((section) => (
@@ -212,47 +326,80 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             
             <div className="space-y-1">
               {section.items.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors relative group ${
-                    isActiveRoute(item.href)
-                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                >
-                  <item.icon className={`flex-shrink-0 ${isOpen ? 'w-5 h-5 mr-3' : 'w-5 h-5'}`} />
+                <div key={item.href}>
+                  <div
+                    className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors relative group cursor-pointer ${
+                      isActiveRoute(item.href) || hasActiveChild(item)
+                        ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    }`}
+                    onClick={() => item.children && toggleItem(item.label)}
+                  >
+                    <Link to={item.href} className="flex items-center flex-1">
+                      <item.icon className={`flex-shrink-0 ${isOpen ? 'w-5 h-5 mr-3' : 'w-5 h-5'}`} />
+                      
+                      {isOpen && (
+                        <>
+                          <span className="flex-1">{item.label}</span>
+                          {item.badge && (
+                            <Badge 
+                              variant="secondary" 
+                              className={`text-xs ml-2 ${
+                                isActiveRoute(item.href) || hasActiveChild(item)
+                                  ? 'bg-blue-100 text-blue-700' 
+                                  : 'bg-gray-100 text-gray-600'
+                              }`}
+                            >
+                              {item.badge}
+                            </Badge>
+                          )}
+                        </>
+                      )}
+                    </Link>
+                    
+                    {isOpen && item.children && (
+                      <div className="ml-2">
+                        {expandedItems.includes(item.label) ? (
+                          <ChevronUp className="w-4 h-4" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4" />
+                        )}
+                      </div>
+                    )}
+                    
+                    {/* Tooltip for collapsed state */}
+                    {!isOpen && (
+                      <div className="absolute left-16 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+                        {item.label}
+                        {item.badge && (
+                          <span className="ml-2 px-1 py-0.5 bg-white text-gray-900 rounded text-xs">
+                            {item.badge}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
                   
-                  {isOpen && (
-                    <>
-                      <span className="flex-1">{item.label}</span>
-                      {item.badge && (
-                        <Badge 
-                          variant="secondary" 
-                          className={`text-xs ${
-                            isActiveRoute(item.href) 
-                              ? 'bg-blue-100 text-blue-700' 
-                              : 'bg-gray-100 text-gray-600'
+                  {/* Submenu */}
+                  {isOpen && item.children && expandedItems.includes(item.label) && (
+                    <div className="ml-8 mt-1 space-y-1">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          to={child.href}
+                          className={`flex items-center px-3 py-1.5 rounded-md text-sm transition-colors ${
+                            isActiveRoute(child.href)
+                              ? 'bg-blue-50 text-blue-700 font-medium'
+                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                           }`}
                         >
-                          {item.badge}
-                        </Badge>
-                      )}
-                    </>
-                  )}
-                  
-                  {/* Tooltip for collapsed state */}
-                  {!isOpen && (
-                    <div className="absolute left-16 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
-                      {item.label}
-                      {item.badge && (
-                        <span className="ml-2 px-1 py-0.5 bg-white text-gray-900 rounded text-xs">
-                          {item.badge}
-                        </span>
-                      )}
+                          {child.icon && <child.icon className="w-4 h-4 mr-2" />}
+                          <span>{child.label}</span>
+                        </Link>
+                      ))}
                     </div>
                   )}
-                </Link>
+                </div>
               ))}
             </div>
             
