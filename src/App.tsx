@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -11,7 +12,6 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import UserManagement from "./pages/admin/UserManagement";
 import OrganizationManagement from "./pages/admin/OrganizationManagement";
-import Communication from "./pages/communication/Communication";
 import AccountSetup from "./pages/auth/AccountSetup";
 
 const queryClient = new QueryClient();
@@ -50,13 +50,6 @@ const App = () => (
             <Route path="/admin/organizations" element={
               <ProtectedRoute>
                 <OrganizationManagement />
-              </ProtectedRoute>
-            } />
-
-            {/* Communication routes */}
-            <Route path="/communication" element={
-              <ProtectedRoute>
-                <Communication />
               </ProtectedRoute>
             } />
             
