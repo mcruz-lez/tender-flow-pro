@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { Building2, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { useEffect } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,16 +17,34 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { signIn, user } = useAuth();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate login process
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const { error } = await signIn(email, password);
     
-    toast.success("Login successful! Welcome to TendProcure.");
-    navigate("/dashboard");
+    if (error) {
+      if (error.message.includes('Invalid login credentials')) {
+        toast.error("Invalid email or password. Please check your credentials.");
+      } else if (error.message.includes('Email not confirmed')) {
+        toast.error("Please check your email and click the confirmation link before signing in.");
+      } else {
+        toast.error(error.message || "An error occurred during sign in.");
+      }
+    } else {
+      toast.success("Login successful! Welcome to TendProcure.");
+      navigate("/dashboard");
+    }
+    
     setIsLoading(false);
   };
 

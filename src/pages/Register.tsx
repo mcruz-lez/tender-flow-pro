@@ -10,6 +10,8 @@ import { Separator } from "@/components/ui/separator";
 import { Building2, Mail, Lock, User, Building, Phone, Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { useEffect } from "react";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +29,14 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { signUp, user } = useAuth();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,11 +53,25 @@ const Register = () => {
 
     setIsLoading(true);
     
-    // Simulate registration process
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    const { error } = await signUp(formData.email, formData.password, {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      phone: formData.phone,
+      organization: formData.organization,
+      role: formData.role
+    });
     
-    toast.success("Account created successfully! Please check your email to verify your account.");
-    navigate("/login");
+    if (error) {
+      if (error.message.includes('User already registered')) {
+        toast.error("An account with this email already exists. Please sign in instead.");
+      } else {
+        toast.error(error.message || "An error occurred during registration.");
+      }
+    } else {
+      toast.success("Account created successfully! Please check your email to verify your account.");
+      navigate("/login");
+    }
+    
     setIsLoading(false);
   };
 
@@ -187,13 +211,12 @@ const Register = () => {
                       <SelectValue placeholder="Select your role" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="property-manager">Property Manager</SelectItem>
-                      <SelectItem value="procurement-manager">Procurement Manager</SelectItem>
-                      <SelectItem value="facilities-manager">Facilities Manager</SelectItem>
-                      <SelectItem value="operations-director">Operations Director</SelectItem>
-                      <SelectItem value="finance-manager">Finance Manager</SelectItem>
-                      <SelectItem value="contractor">Contractor/Vendor</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="property_manager">Property Manager</SelectItem>
+                      <SelectItem value="procurement_manager">Procurement Manager</SelectItem>
+                      <SelectItem value="contractor">Contractor</SelectItem>
+                      <SelectItem value="vendor">Vendor</SelectItem>
+                      <SelectItem value="finance_manager">Finance Manager</SelectItem>
+                      <SelectItem value="evaluator">Evaluator</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
