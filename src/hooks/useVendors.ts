@@ -37,7 +37,7 @@ export const useVendors = () => {
         throw error;
       }
       
-      return data as Vendor[];
+      return data as unknown as Vendor[];
     }
   });
 };
@@ -58,7 +58,7 @@ export const useCreateVendor = () => {
         throw error;
       }
       
-      return data;
+      return data as unknown as Vendor;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['vendors'] });

@@ -36,7 +36,7 @@ export const useTenders = () => {
         throw error;
       }
       
-      return data as Tender[];
+      return data as unknown as Tender[];
     }
   });
 };
@@ -57,7 +57,7 @@ export const useCreateTender = () => {
         throw error;
       }
       
-      return data;
+      return data as unknown as Tender;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tenders'] });
@@ -87,7 +87,7 @@ export const useUpdateTender = () => {
         throw error;
       }
       
-      return data;
+      return data as unknown as Tender;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tenders'] });

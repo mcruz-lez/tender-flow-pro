@@ -34,7 +34,7 @@ export const useProperties = () => {
         throw error;
       }
       
-      return data as Property[];
+      return data as unknown as Property[];
     }
   });
 };
@@ -55,7 +55,7 @@ export const useCreateProperty = () => {
         throw error;
       }
       
-      return data;
+      return data as unknown as Property;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['properties'] });
