@@ -19,15 +19,15 @@ export const DashboardAnalytics = () => {
   const { data: bids } = useBids();
   const { data: contracts } = useContracts();
 
-  // Calculate KPIs
-  const totalTenders = tenders?.length || 0;
-  const activeTenders = tenders?.filter(t => t.status === 'active').length || 0;
-  const totalVendors = vendors?.length || 0;
-  const approvedVendors = vendors?.filter(v => v.prequalification_status === 'approved').length || 0;
-  const totalProperties = properties?.length || 0;
-  const totalBids = bids?.length || 0;
-  const totalContracts = contracts?.length || 0;
-  const activeContracts = contracts?.filter(c => c.status === 'active').length || 0;
+  // Calculate KPIs with explicit number casting
+  const totalTenders = Number(tenders?.length || 0);
+  const activeTenders = Number(tenders?.filter(t => t.status === 'active').length || 0);
+  const totalVendors = Number(vendors?.length || 0);
+  const approvedVendors = Number(vendors?.filter(v => v.prequalification_status === 'approved').length || 0);
+  const totalProperties = Number(properties?.length || 0);
+  const totalBids = Number(bids?.length || 0);
+  const totalContracts = Number(contracts?.length || 0);
+  const activeContracts = Number(contracts?.filter(c => c.status === 'active').length || 0);
 
   // Calculate financial metrics with proper type checking
   const totalContractValue = contracts?.reduce((sum, contract) => {
@@ -40,7 +40,7 @@ export const DashboardAnalytics = () => {
     ? tendersWithBudgets.reduce((sum, t) => sum + (t.budget_max || 0), 0) / tendersWithBudgets.length 
     : 0;
 
-  // Calculate performance metrics with proper type checking
+  // Calculate performance metrics with explicit number operations
   const bidsPerTender = totalTenders > 0 ? (totalBids / totalTenders).toFixed(1) : '0';
   const vendorPrequalificationRate = totalVendors > 0 ? Math.round((approvedVendors / totalVendors) * 100) : 0;
 
