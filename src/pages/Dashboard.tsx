@@ -22,7 +22,8 @@ import {
   Bell,
   Settings,
   LogOut,
-  User
+  User,
+  Eye
 } from "lucide-react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import { Link } from "react-router-dom";
@@ -127,6 +128,12 @@ const Dashboard = () => {
     }
   ];
 
+  const topVendors = [
+    { name: "Elite Construction Co.", rating: 4.8, projects: 89, category: "Construction" },
+    { name: "ProClean Services", rating: 4.6, projects: 234, category: "Cleaning" },
+    { name: "SecureGuard Solutions", rating: 4.9, projects: 67, category: "Security" }
+  ];
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Open": return "bg-blue-100 text-blue-700";
@@ -163,9 +170,11 @@ const Dashboard = () => {
                 <Calendar className="w-4 h-4 mr-2" />
                 Last 30 days
               </Button>
-              <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                <Plus className="w-4 h-4 mr-2" />
-                Create Tender
+              <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
+                <Link to="/tenders/create">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Create Tender
+                </Link>
               </Button>
               <Button variant="ghost" size="sm">
                 <Bell className="w-5 h-5" />
@@ -312,63 +321,187 @@ const Dashboard = () => {
             </TabsContent>
 
             <TabsContent value="tenders">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Tender Management</CardTitle>
-                  <CardDescription>Comprehensive tender overview and management tools</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Tender Management Coming Soon</h3>
-                    <p className="text-gray-600 mb-4">Advanced tender creation, management, and tracking tools will be available here.</p>
-                    <Button className="bg-blue-600 hover:bg-blue-700">
-                      <Plus className="w-4 h-4 mr-2" />
-                      Create First Tender
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Active Tenders</CardTitle>
+                    <CardDescription>Currently open for bidding</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {recentTenders.filter(t => t.status === "Open").map((tender, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                          <div>
+                            <h4 className="font-medium">{tender.title}</h4>
+                            <p className="text-sm text-gray-600">{tender.bidCount} bids • {tender.budget}</p>
+                          </div>
+                          <Button asChild size="sm">
+                            <Link to="/tenders">View</Link>
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                    <Button asChild className="w-full mt-4">
+                      <Link to="/tenders">
+                        <Eye className="w-4 h-4 mr-2" />
+                        View All Tenders
+                      </Link>
                     </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Quick Actions</CardTitle>
+                    <CardDescription>Common tender management tasks</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button asChild className="w-full">
+                      <Link to="/tenders/create">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Create New Tender
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/evaluation">
+                        <CheckCircle className="w-4 h-4 mr-2" />
+                        Evaluation Dashboard
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/tenders/templates">
+                        <FileText className="w-4 h-4 mr-2" />
+                        Tender Templates
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
 
             <TabsContent value="vendors">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Vendor Management</CardTitle>
-                  <CardDescription>Manage your vendor relationships and performance</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Vendor Portal Coming Soon</h3>
-                    <p className="text-gray-600 mb-4">Comprehensive vendor management, onboarding, and performance tracking.</p>
-                    <Button className="bg-blue-600 hover:bg-blue-700">
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add Vendor
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Top Performing Vendors</CardTitle>
+                    <CardDescription>Highest rated vendors by category</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {topVendors.map((vendor, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                          <div>
+                            <h4 className="font-medium">{vendor.name}</h4>
+                            <div className="flex items-center space-x-2 text-sm text-gray-600">
+                              <span>★ {vendor.rating}</span>
+                              <span>•</span>
+                              <span>{vendor.projects} projects</span>
+                              <span>•</span>
+                              <span>{vendor.category}</span>
+                            </div>
+                          </div>
+                          <Button asChild size="sm" variant="outline">
+                            <Link to={`/vendors/profile/${index + 1}`}>View</Link>
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                    <Button asChild className="w-full mt-4">
+                      <Link to="/vendors">
+                        <Users className="w-4 h-4 mr-2" />
+                        View All Vendors
+                      </Link>
                     </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Vendor Management</CardTitle>
+                    <CardDescription>Manage vendor relationships</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/vendors/register">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Register New Vendor
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/vendors/prequalification">
+                        <Filter className="w-4 h-4 mr-2" />
+                        Prequalification
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/vendors/analytics">
+                        <BarChart3 className="w-4 h-4 mr-2" />
+                        Performance Analytics
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
 
             <TabsContent value="analytics">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Analytics & Reporting</CardTitle>
-                  <CardDescription>Insights and analytics for data-driven procurement decisions</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Advanced Analytics Coming Soon</h3>
-                    <p className="text-gray-600 mb-4">Detailed reporting, performance metrics, and predictive analytics.</p>
-                    <Button className="bg-blue-600 hover:bg-blue-700">
-                      <BarChart3 className="w-4 h-4 mr-2" />
-                      View Reports
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Procurement Analytics</CardTitle>
+                    <CardDescription>Key insights and trends</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                        <span className="font-medium">Cost Savings This Quarter</span>
+                        <span className="text-2xl font-bold text-blue-600">€340K</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <span className="font-medium">Average Tender Response</span>
+                        <span className="text-2xl font-bold text-green-600">8.4</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+                        <span className="font-medium">Vendor Satisfaction</span>
+                        <span className="text-2xl font-bold text-purple-600">4.8/5</span>
+                      </div>
+                    </div>
+                    <Button asChild className="w-full mt-4">
+                      <Link to="/analytics">
+                        <BarChart3 className="w-4 h-4 mr-2" />
+                        View Detailed Reports
+                      </Link>
                     </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Quick Reports</CardTitle>
+                    <CardDescription>Generate and export reports</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/analytics/tender-analytics">
+                        <FileText className="w-4 h-4 mr-2" />
+                        Tender Performance
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/analytics/vendor-performance-analytics">
+                        <Users className="w-4 h-4 mr-2" />
+                        Vendor Analysis
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/analytics/financial-reports">
+                        <DollarSign className="w-4 h-4 mr-2" />
+                        Financial Reports
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
           </Tabs>
         </main>

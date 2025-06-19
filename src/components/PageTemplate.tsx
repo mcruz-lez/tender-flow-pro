@@ -3,7 +3,6 @@ import { useState } from "react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Construction, Plus, Search, Filter, ExternalLink } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -17,7 +16,7 @@ interface QuickAction {
 interface PageTemplateProps {
   title: string;
   description: string;
-  children?: React.ReactNode;
+  children: React.ReactNode;
   quickActions?: QuickAction[];
   relatedPages?: { label: string; href: string }[];
 }
@@ -171,36 +170,7 @@ const PageTemplate = ({ title, description, children, quickActions, relatedPages
             </div>
           )}
 
-          {children || (
-            <Card className="max-w-2xl mx-auto text-center">
-              <CardHeader>
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Construction className="w-8 h-8 text-blue-600" />
-                </div>
-                <CardTitle>Page Under Development</CardTitle>
-                <CardDescription>
-                  This feature is currently being developed and will be available soon.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-500 mb-4">
-                  We're working hard to bring you this functionality. Check back soon!
-                </p>
-                <div className="flex justify-center space-x-2">
-                  <Button variant="outline">
-                    Request Feature Updates
-                  </Button>
-                  {contextualActions.length > 0 && (
-                    <Button asChild>
-                      <Link to={contextualActions[0].href}>
-                        Explore Related Features
-                      </Link>
-                    </Button>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+          {children}
         </div>
       </div>
     </div>
