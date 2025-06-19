@@ -1,132 +1,197 @@
 
 import { useState } from "react";
-import DashboardSidebar from "@/components/DashboardSidebar";
+import { Plus, Search, Filter, Grid3X3, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Building } from "lucide-react";
-import { Link } from "react-router-dom";
-import { mockTenders, getStatusColor, getPriorityColor, type Tender } from "./data/tenderData";
-import TenderStats from "./components/TenderStats";
-import TenderFilters from "./components/TenderFilters";
-import TenderGrid from "./components/TenderGrid";
-import TenderTable from "./components/TenderTable";
-import EmptyTenderState from "./components/EmptyTenderState";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import PageTemplate from "@/components/PageTemplate";
+import { useTenders } from "@/hooks/useTenders";
+import { TenderCard } from "@/components/enhanced/TenderCard";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const TenderOverview = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate();
+  const { data: tenders, isLoading, error } = useTenders();
   const [searchTerm, setSearchTerm] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  const filteredTenders = mockTenders.filter(tender => {
+  const filteredTenders = tenders?.filter(tender => {
     const matchesSearch = tender.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          tender.category.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || 
-                           tender.status.toLowerCase() === selectedCategory.toLowerCase();
-    return matchesSearch && matchesCategory;
-  });
+    const matchesStatus = statusFilter === "all" || tender.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  }) || [];
 
-  const stats = {
-    total: mockTenders.length,
-    active: mockTenders.filter(t => t.status === "Active").length,
-    draft: mockTenders.filter(t => t.status === "Draft").length,
-    evaluation: mockTenders.filter(t => t.status === "Evaluation").length,
-    closed: mockTenders.filter(t => t.status === "Closed").length,
-    awarded: mockTenders.filter(t => t.status === "Awarded").length,
-    totalValue: mockTenders.reduce((sum, t) => sum + parseInt(t.value.replace(/[$,]/g, "")), 0),
-    avgBids: Math.round(mockTenders.reduce((sum, t) => sum + t.bids, 0) / mockTenders.length)
+  const tenderStats = {
+    total: tenders?.length || 0,
+    active: tenders?.filter(t => t.status === 'active').length || 0,
+    draft: tenders?.filter(t => t.status === 'draft').length || 0,
+    closed: tenders?.filter(t => t.status === 'closed').length || 0,
+    awarded: tenders?.filter(t => t.status === 'awarded').length || 0
   };
 
-  const renderTenderContent = (statusFilter: string) => {
-    const statusTenders = statusFilter === "all" 
-      ? filteredTenders 
-      : filteredTenders.filter(tender => tender.status.toLowerCase() === statusFilter);
-
-    if (statusTenders.length === 0) {
-      return <EmptyTenderState status={statusFilter} />;
-    }
-
-    return viewMode === "grid" ? (
-      <TenderGrid 
-        tenders={statusTenders} 
-        getStatusColor={getStatusColor} 
-        getPriorityColor={getPriorityColor} 
-      />
-    ) : (
-      <TenderTable 
-        tenders={statusTenders} 
-        getStatusColor={getStatusColor} 
-      />
-    );
+  const handleViewDetails = (tenderId: string) => {
+    navigate(`/tenders/${tenderId}`);
   };
+
+  const handleSubmitBid = (tenderId: string) => {
+    navigate(`/bids/submit?tender=${tenderId}`);
+  };
+
+  if (error) {
+    console.error('Error loading tenders:', error);
+    toast.error('Failed to load tenders');
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <DashboardSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
-      
-      <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h1 className="text-3xl font-bold text-white">Tender Management</h1>
-              <p className="text-white/70 mt-2">Create, manage, and track all your tenders</p>
-            </div>
-            <div className="flex gap-3">
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                <Link to="/tenders/templates">
-                  <Building className="w-4 h-4 mr-2" />
-                  Templates
-                </Link>
-              </Button>
-              <Button asChild className="bg-blue-600 hover:bg-blue-700">
-                <Link to="/tenders/create">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Tender
-                </Link>
-              </Button>
-            </div>
+    <PageTemplate 
+      title="Tender Management" 
+      description="Manage and track all tender opportunities"
+    >
+      <div className="space-y-6">
+        {/* Header Actions */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+          <div className="flex gap-2">
+            <Button onClick={() => navigate('/tenders/create')}>
+              <Plus className="w-4 h-4 mr-2" />
+              Create Tender
+            </Button>
+            <Button variant="outline" onClick={() => navigate('/tenders/ai-create')}>
+              AI Create
+            </Button>
           </div>
-
-          <TenderStats stats={stats} />
-          <TenderFilters 
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-          />
-
-          <Tabs defaultValue="all" className="space-y-6" onValueChange={setSelectedCategory}>
-            <TabsList className="bg-white/10 backdrop-blur-xl border-white/20">
-              <TabsTrigger value="all" className="data-[state=active]:bg-white/20">All Tenders ({stats.total})</TabsTrigger>
-              <TabsTrigger value="active" className="data-[state=active]:bg-white/20">Active ({stats.active})</TabsTrigger>
-              <TabsTrigger value="evaluation" className="data-[state=active]:bg-white/20">Evaluation ({stats.evaluation})</TabsTrigger>
-              <TabsTrigger value="draft" className="data-[state=active]:bg-white/20">Draft ({stats.draft})</TabsTrigger>
-              <TabsTrigger value="closed" className="data-[state=active]:bg-white/20">Closed ({stats.closed})</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="all">
-              {renderTenderContent("all")}
-            </TabsContent>
-
-            <TabsContent value="active">
-              {renderTenderContent("active")}
-            </TabsContent>
-
-            <TabsContent value="evaluation">
-              {renderTenderContent("evaluation")}
-            </TabsContent>
-
-            <TabsContent value="draft">
-              {renderTenderContent("draft")}
-            </TabsContent>
-
-            <TabsContent value="closed">
-              {renderTenderContent("closed")}
-            </TabsContent>
-          </Tabs>
+          
+          <div className="flex gap-2">
+            <Button
+              variant={viewMode === 'grid' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setViewMode('grid')}
+            >
+              <Grid3X3 className="w-4 h-4" />
+            </Button>
+            <Button
+              variant={viewMode === 'list' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setViewMode('list')}
+            >
+              <List className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
+
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-2xl">{tenderStats.total}</CardTitle>
+              <CardDescription>Total Tenders</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-2xl text-green-600">{tenderStats.active}</CardTitle>
+              <CardDescription>Active</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-2xl text-gray-600">{tenderStats.draft}</CardTitle>
+              <CardDescription>Draft</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-2xl text-red-600">{tenderStats.closed}</CardTitle>
+              <CardDescription>Closed</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-2xl text-blue-600">{tenderStats.awarded}</CardTitle>
+              <CardDescription>Awarded</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+
+        {/* Filters */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+            <Input
+              placeholder="Search tenders..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          
+          <div className="flex gap-2">
+            {['all', 'active', 'draft', 'closed', 'awarded'].map((status) => (
+              <Button
+                key={status}
+                variant={statusFilter === status ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setStatusFilter(status)}
+              >
+                {status.charAt(0).toUpperCase() + status.slice(1)}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <Card key={i} className="animate-pulse">
+                <CardHeader>
+                  <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 rounded"></div>
+                    <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : filteredTenders.length === 0 ? (
+          <Card className="text-center py-12">
+            <CardContent>
+              <p className="text-gray-500 mb-4">
+                {searchTerm || statusFilter !== 'all' 
+                  ? 'No tenders match your current filters' 
+                  : 'No tenders available yet'
+                }
+              </p>
+              <Button onClick={() => navigate('/tenders/create')}>
+                <Plus className="w-4 h-4 mr-2" />
+                Create Your First Tender
+              </Button>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className={viewMode === 'grid' 
+            ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" 
+            : "space-y-4"
+          }>
+            {filteredTenders.map((tender) => (
+              <TenderCard
+                key={tender.id}
+                tender={tender}
+                onViewDetails={handleViewDetails}
+                onSubmitBid={handleSubmitBid}
+              />
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </PageTemplate>
   );
 };
 
