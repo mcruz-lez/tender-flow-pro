@@ -426,7 +426,7 @@ const NotificationCenter = () => {
                       <Switch defaultChecked />
                     </div>
                     <p className="text-sm text-gray-600 mb-2">
-                      Send immediate notification when a bid is submitted for tenders with budget > $100,000
+                      Send immediate notification when a bid is submitted for tenders with budget greater than $100,000
                     </p>
                     <div className="flex items-center space-x-2 text-xs">
                       <Badge variant="outline">Email</Badge>
