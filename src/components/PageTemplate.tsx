@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 interface QuickAction {
   label: string;
   href: string;
-  icon?: React.ComponentType<any>;
+  icon?: React.ComponentType<{ className?: string }>;
   variant?: "default" | "outline" | "secondary";
 }
 
@@ -141,7 +141,12 @@ const PageTemplate = ({ title, description, children, quickActions, relatedPages
                     className={action.variant === "default" ? "bg-blue-600 hover:bg-blue-700" : ""}
                   >
                     <Link to={action.href}>
-                      {action.icon && <action.icon className="w-4 h-4 mr-2" />}
+                      {action.icon &&
+                        (() => {
+                          const Icon = action.icon;
+                          return <Icon className="w-4 h-4 mr-2" />;
+                        })()
+                      }
                       {action.label}
                     </Link>
                   </Button>

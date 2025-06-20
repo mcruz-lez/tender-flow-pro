@@ -1,4 +1,3 @@
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -21,19 +20,17 @@ export interface Property {
 }
 
 export const useProperties = () => {
-  return useQuery({
+  return useQuery<Property[]>({
     queryKey: ['properties'],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('properties')
         .select('*')
         .order('created_at', { ascending: false });
-      
       if (error) {
         console.error('Error fetching properties:', error);
         throw error;
       }
-      
       return (data || []) as Property[];
     }
   });
@@ -44,7 +41,7 @@ export const useCreateProperty = () => {
   
   return useMutation({
     mutationFn: async (property: Omit<Property, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('properties')
         .insert([property])
         .select()

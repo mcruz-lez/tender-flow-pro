@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import PageTemplate from "@/components/PageTemplate";
@@ -26,6 +25,24 @@ import {
   ThumbsDown
 } from "lucide-react";
 import { toast } from "sonner";
+
+interface EvaluatorScore {
+  technical: number;
+  price: number;
+  experience: number;
+  resources: number;
+  compliance: number;
+}
+
+interface BidWithScores {
+  id: string;
+  vendor: string;
+  amount: string;
+  submittedDate: string;
+  status: string;
+  overallScore: number;
+  evaluatorScores: Record<string, EvaluatorScore>;
+}
 
 const EvaluationPanel = () => {
   const { tenderId } = useParams();
@@ -57,7 +74,7 @@ const EvaluationPanel = () => {
     { id: "compliance", name: "Compliance & Certifications", weight: 10, maxScore: 100 }
   ];
 
-  const bids = [
+  const bids: BidWithScores[] = [
     {
       id: "1",
       vendor: "Climate Control Solutions",
@@ -119,13 +136,13 @@ const EvaluationPanel = () => {
     }
   ];
 
-  const calculateWeightedScore = (bid: any) => {
+  const calculateWeightedScore = (bid: BidWithScores) => {
     let totalScore = 0;
     const evaluatorCount = Object.keys(bid.evaluatorScores).length;
     
     evaluationCriteria.forEach(criteria => {
       let criteriaAvg = 0;
-      Object.values(bid.evaluatorScores).forEach((evaluatorScore: any) => {
+      Object.values(bid.evaluatorScores).forEach((evaluatorScore: EvaluatorScore) => {
         criteriaAvg += evaluatorScore[criteria.id] || 0;
       });
       criteriaAvg = criteriaAvg / evaluatorCount;
@@ -310,7 +327,7 @@ const EvaluationPanel = () => {
                           <TableRow key={criteria.id}>
                             <TableCell className="font-medium">{criteria.name}</TableCell>
                             {bids.map(bid => {
-                              const avgScore = Object.values(bid.evaluatorScores).reduce((sum: number, scores: any) => 
+                              const avgScore = Object.values(bid.evaluatorScores).reduce((sum: number, scores: EvaluatorScore) => 
                                 sum + (scores[criteria.id] || 0), 0) / Object.keys(bid.evaluatorScores).length;
                               return (
                                 <TableCell key={bid.id}>

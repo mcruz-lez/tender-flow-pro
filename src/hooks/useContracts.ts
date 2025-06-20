@@ -1,41 +1,24 @@
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import type { Database } from '@/integrations/supabase/types';
 
-export interface Contract {
-  id: string;
-  organization_id: string;
-  tender_id?: string;
-  vendor_id: string;
-  property_id?: string;
-  title: string;
-  description?: string;
-  contract_value: number;
-  start_date: string;
-  end_date: string;
-  status: 'draft' | 'active' | 'completed' | 'terminated' | 'expired';
-  terms?: any;
-  performance_metrics?: any;
-  documents?: any;
-  created_at: string;
-  updated_at: string;
-}
+export type Contract = Database['public']['Tables']['contracts']['Row'];
+export type ContractInsert = Database['public']['Tables']['contracts']['Insert'];
+export type ContractUpdate = Database['public']['Tables']['contracts']['Update'];
 
 export const useContracts = () => {
-  return useQuery({
+  return useQuery<Contract[]>({
     queryKey: ['contracts'],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('contracts')
         .select('*')
         .order('created_at', { ascending: false });
-      
       if (error) {
         console.error('Error fetching contracts:', error);
         throw error;
       }
-      
       return (data || []) as Contract[];
     }
   });
@@ -43,20 +26,17 @@ export const useContracts = () => {
 
 export const useCreateContract = () => {
   const queryClient = useQueryClient();
-  
   return useMutation({
-    mutationFn: async (contract: Omit<Contract, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await (supabase as any)
+    mutationFn: async (contract: ContractInsert) => {
+      const { data, error } = await supabase
         .from('contracts')
         .insert([contract])
         .select()
         .single();
-      
       if (error) {
         console.error('Error creating contract:', error);
         throw error;
       }
-      
       return data as Contract;
     },
     onSuccess: () => {
@@ -72,21 +52,18 @@ export const useCreateContract = () => {
 
 export const useUpdateContract = () => {
   const queryClient = useQueryClient();
-  
   return useMutation({
-    mutationFn: async ({ id, ...updates }: Partial<Contract> & { id: string }) => {
-      const { data, error } = await (supabase as any)
+    mutationFn: async ({ id, ...updates }: ContractUpdate & { id: string }) => {
+      const { data, error } = await supabase
         .from('contracts')
         .update(updates)
         .eq('id', id)
         .select()
         .single();
-      
       if (error) {
         console.error('Error updating contract:', error);
         throw error;
       }
-      
       return data as Contract;
     },
     onSuccess: () => {

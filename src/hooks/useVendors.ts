@@ -1,4 +1,3 @@
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -15,7 +14,7 @@ export interface Vendor {
   registration_number?: string;
   tax_id?: string;
   categories?: string[];
-  certifications?: any[];
+  certifications?: unknown[];
   prequalification_status: 'pending' | 'approved' | 'rejected';
   rating: number;
   verified: boolean;
@@ -24,19 +23,17 @@ export interface Vendor {
 }
 
 export const useVendors = () => {
-  return useQuery({
+  return useQuery<Vendor[]>({
     queryKey: ['vendors'],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('vendors')
         .select('*')
         .order('created_at', { ascending: false });
-      
       if (error) {
         console.error('Error fetching vendors:', error);
         throw error;
       }
-      
       return (data || []) as Vendor[];
     }
   });
@@ -47,7 +44,7 @@ export const useCreateVendor = () => {
   
   return useMutation({
     mutationFn: async (vendor: Omit<Vendor, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('vendors')
         .insert([vendor])
         .select()

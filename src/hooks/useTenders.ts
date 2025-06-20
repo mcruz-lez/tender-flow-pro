@@ -1,41 +1,24 @@
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import type { Database } from '@/integrations/supabase/types';
 
-export interface Tender {
-  id: string;
-  organization_id: string;
-  property_id?: string;
-  title: string;
-  description?: string;
-  category: string;
-  tender_type: string;
-  status: 'draft' | 'active' | 'closed' | 'awarded' | 'cancelled';
-  budget_min?: number;
-  budget_max?: number;
-  submission_deadline?: string;
-  evaluation_criteria?: any;
-  requirements?: any;
-  created_by: string;
-  created_at: string;
-  updated_at: string;
-}
+export type Tender = Database['public']['Tables']['tenders']['Row'];
+export type TenderInsert = Database['public']['Tables']['tenders']['Insert'];
+export type TenderUpdate = Database['public']['Tables']['tenders']['Update'];
 
 export const useTenders = () => {
-  return useQuery({
+  return useQuery<Tender[]>({
     queryKey: ['tenders'],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('tenders')
         .select('*')
         .order('created_at', { ascending: false });
-      
       if (error) {
         console.error('Error fetching tenders:', error);
         throw error;
       }
-      
       return (data || []) as Tender[];
     }
   });
@@ -43,20 +26,17 @@ export const useTenders = () => {
 
 export const useCreateTender = () => {
   const queryClient = useQueryClient();
-  
   return useMutation({
-    mutationFn: async (tender: Omit<Tender, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await (supabase as any)
+    mutationFn: async (tender: TenderInsert) => {
+      const { data, error } = await supabase
         .from('tenders')
         .insert([tender])
         .select()
         .single();
-      
       if (error) {
         console.error('Error creating tender:', error);
         throw error;
       }
-      
       return data as Tender;
     },
     onSuccess: () => {
@@ -72,21 +52,18 @@ export const useCreateTender = () => {
 
 export const useUpdateTender = () => {
   const queryClient = useQueryClient();
-  
   return useMutation({
-    mutationFn: async ({ id, ...updates }: Partial<Tender> & { id: string }) => {
-      const { data, error } = await (supabase as any)
+    mutationFn: async ({ id, ...updates }: TenderUpdate & { id: string }) => {
+      const { data, error } = await supabase
         .from('tenders')
         .update(updates)
         .eq('id', id)
         .select()
         .single();
-      
       if (error) {
         console.error('Error updating tender:', error);
         throw error;
       }
-      
       return data as Tender;
     },
     onSuccess: () => {

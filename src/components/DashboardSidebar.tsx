@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -36,11 +35,25 @@ interface DashboardSidebarProps {
   onToggle: () => void;
 }
 
+interface NavigationChild {
+  label: string;
+  href: string;
+  icon?: React.ElementType;
+}
+
+interface NavigationItem {
+  icon: React.ElementType;
+  label: string;
+  href: string;
+  badge?: string | null;
+  children?: NavigationChild[];
+}
+
 const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
   const location = useLocation();
   const [expandedSections, setExpandedSections] = useState<string[]>(['main']);
 
-  const navigationItems = [
+  const navigationItems: { section: string; title: string; items: NavigationItem[] }[] = [
     {
       section: "main",
       title: "Main",
@@ -254,8 +267,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
     return location.pathname === href || location.pathname.startsWith(href + '/');
   };
 
-  const hasActiveChild = (item: any) => {
-    return item.children?.some((child: any) => isActiveRoute(child.href));
+  const hasActiveChild = (item: NavigationItem) => {
+    return item.children?.some((child: NavigationChild) => isActiveRoute(child.href));
   };
 
   return (

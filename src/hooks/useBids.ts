@@ -1,39 +1,24 @@
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import type { Database } from '@/integrations/supabase/types';
 
-export interface Bid {
-  id: string;
-  tender_id: string;
-  vendor_id: string;
-  organization_id: string;
-  title: string;
-  description?: string;
-  total_amount: number;
-  submission_date?: string;
-  status: 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected';
-  documents?: any;
-  evaluation_score?: number;
-  notes?: string;
-  created_at: string;
-  updated_at: string;
-}
+export type Bid = Database['public']['Tables']['bids']['Row'];
+export type BidInsert = Database['public']['Tables']['bids']['Insert'];
+export type BidUpdate = Database['public']['Tables']['bids']['Update'];
 
 export const useBids = () => {
-  return useQuery({
+  return useQuery<Bid[]>({
     queryKey: ['bids'],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('bids')
         .select('*')
         .order('created_at', { ascending: false });
-      
       if (error) {
         console.error('Error fetching bids:', error);
         throw error;
       }
-      
       return (data || []) as Bid[];
     }
   });
@@ -43,7 +28,7 @@ export const useBidsByTender = (tenderId: string) => {
   return useQuery({
     queryKey: ['bids', tenderId],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('bids')
         .select('*')
         .eq('tender_id', tenderId)
@@ -64,8 +49,8 @@ export const useCreateBid = () => {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async (bid: Omit<Bid, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await (supabase as any)
+    mutationFn: async (bid: BidInsert) => {
+      const { data, error } = await supabase
         .from('bids')
         .insert([bid])
         .select()
@@ -93,8 +78,8 @@ export const useUpdateBid = () => {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async ({ id, ...updates }: Partial<Bid> & { id: string }) => {
-      const { data, error } = await (supabase as any)
+    mutationFn: async ({ id, ...updates }: BidUpdate & { id: string }) => {
+      const { data, error } = await supabase
         .from('bids')
         .update(updates)
         .eq('id', id)
