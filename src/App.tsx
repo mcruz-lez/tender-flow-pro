@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -24,6 +23,7 @@ import Maintenance from "./pages/admin/Maintenance";
 import Releases from "./pages/admin/Releases";
 import Training from "./pages/admin/Training";
 import APIDocs from "./pages/admin/APIDocs";
+import Config from "./pages/admin/Config";
 
 // Dashboard routes
 import PMDashboard from "./pages/dashboard/PMDashboard";
@@ -45,6 +45,7 @@ import AICreateTender from "./pages/tenders/AICreateTender";
 import RiskAnalysis from "./pages/tenders/RiskAnalysis";
 import CostPredict from "./pages/tenders/CostPredict";
 import ComplianceCheck from "./pages/tenders/ComplianceCheck";
+import Categories from "./pages/tenders/Categories";
 
 // Bid routes
 import BidOverview from "./pages/bids/BidOverview";
@@ -65,6 +66,8 @@ import AutoScore from "./pages/evaluation/AutoScore";
 import BiasCheck from "./pages/evaluation/BiasCheck";
 import RiskEval from "./pages/evaluation/RiskEval";
 import ComplianceVerify from "./pages/evaluation/ComplianceVerify";
+import Awards from "./pages/evaluation/Awards";
+import Workflows from "./pages/evaluation/Workflows";
 
 // Contract routes
 import ContractOverview from "./pages/contracts/ContractOverview";
@@ -98,6 +101,7 @@ import Integrations from "./pages/communication/Integrations";
 import EmailSync from "./pages/communication/EmailSync";
 import Calendar from "./pages/communication/Calendar";
 import APIManage from "./pages/communication/APIManage";
+import Collaborate from "./pages/communication/Collaborate";
 
 // Document routes
 import DocumentLibrary from "./pages/documents/DocumentLibrary";
@@ -114,6 +118,8 @@ import Extract from "./pages/documents/Extract";
 import Analyze from "./pages/documents/Analyze";
 import Classify from "./pages/documents/Classify";
 import DocCompliance from "./pages/documents/DocCompliance";
+import DocumentVersions from "./pages/documents/Versions";
+import DocumentSharing from "./pages/documents/Sharing";
 
 // Analytics routes
 import AnalyticsDashboard from "./pages/analytics/AnalyticsDashboard";
@@ -126,6 +132,7 @@ import Predictions from "./pages/analytics/Predictions";
 import MarketIntel from "./pages/analytics/MarketIntel";
 import OptimizeInsights from "./pages/analytics/OptimizeInsights";
 import RiskForecast from "./pages/analytics/RiskForecast";
+import BidAnalytics from "./pages/analytics/BidAnalytics";
 
 // Property routes
 import PropertyPortfolio from "./pages/properties/PropertyPortfolio";
@@ -145,6 +152,12 @@ import Forums from "./pages/help/Forums";
 import FeatureRequests from "./pages/help/FeatureRequests";
 import UserGroups from "./pages/help/UserGroups";
 import SuccessStories from "./pages/help/SuccessStories";
+import Documentation from "./pages/help/Documentation";
+import Ticket from "./pages/help/Ticket";
+
+// Privacy and Terms
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 
 const queryClient = new QueryClient();
 
@@ -159,6 +172,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
             
             {/* Protected routes */}
             <Route path="/dashboard" element={
@@ -227,6 +242,11 @@ const App = () => (
             <Route path="/admin/api-docs" element={
               <ProtectedRoute>
                 <APIDocs />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/config" element={
+              <ProtectedRoute>
+                <Config />
               </ProtectedRoute>
             } />
 
@@ -615,6 +635,16 @@ const App = () => (
                 <DocCompliance />
               </ProtectedRoute>
             } />
+            <Route path="/documents/versions" element={
+              <ProtectedRoute>
+                <DocumentVersions />
+              </ProtectedRoute>
+            } />
+            <Route path="/documents/sharing" element={
+              <ProtectedRoute>
+                <DocumentSharing />
+              </ProtectedRoute>
+            } />
 
             {/* Analytics routes */}
             <Route path="/analytics" element={
@@ -665,6 +695,11 @@ const App = () => (
             <Route path="/analytics/risk" element={
               <ProtectedRoute>
                 <RiskForecast />
+              </ProtectedRoute>
+            } />
+            <Route path="/analytics/bid-analytics" element={
+              <ProtectedRoute>
+                <BidAnalytics />
               </ProtectedRoute>
             } />
 
@@ -744,6 +779,16 @@ const App = () => (
             <Route path="/help/success" element={
               <ProtectedRoute>
                 <SuccessStories />
+              </ProtectedRoute>
+            } />
+            <Route path="/help/documentation" element={
+              <ProtectedRoute>
+                <Documentation />
+              </ProtectedRoute>
+            } />
+            <Route path="/help/ticket" element={
+              <ProtectedRoute>
+                <Ticket />
               </ProtectedRoute>
             } />
             

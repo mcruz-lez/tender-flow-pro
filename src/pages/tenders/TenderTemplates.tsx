@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import { Button } from "@/components/ui/button";
@@ -24,7 +23,9 @@ import {
   Shield,
   Leaf,
   Laptop,
-  Briefcase
+  Briefcase,
+  BarChart3,
+  TrendingUp
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -149,10 +150,17 @@ const TenderTemplates = () => {
     toast.info(`Opening preview for template ${templateId}`);
   };
 
+  // Add export and analytics quick actions
+  const quickActions = [
+    { label: "Create Template", href: "#", icon: Plus, variant: "default" },
+    { label: "Import Template", href: "#", icon: Upload, variant: "outline" },
+    { label: "Export Data", href: "#", icon: Download, variant: "outline" },
+    { label: "Analytics Dashboard", href: "/analytics", icon: BarChart3, variant: "outline" },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <DashboardSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
-      
       <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
@@ -161,14 +169,12 @@ const TenderTemplates = () => {
               <p className="text-white/70 mt-2">Create tenders faster with pre-built templates</p>
             </div>
             <div className="flex gap-3">
-              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                <Upload className="w-4 h-4 mr-2" />
-                Import Template
-              </Button>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                <Plus className="w-4 h-4 mr-2" />
-                Create Template
-              </Button>
+              {quickActions.map((action, idx) => (
+                <Button key={idx} variant={action.variant as "default" | "outline" | "link" | "destructive" | "secondary" | "ghost"} className={action.variant === "default" ? "bg-blue-600 hover:bg-blue-700" : "border-white/20 text-white hover:bg-white/10"}>
+                  {action.icon && <action.icon className="w-4 h-4 mr-2" />}
+                  {action.label}
+                </Button>
+              ))}
             </div>
           </div>
 

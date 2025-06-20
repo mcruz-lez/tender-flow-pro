@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import DashboardSidebar from "@/components/DashboardSidebar";
@@ -15,6 +14,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { useForm } from "react-hook-form";
 import { Save, Send, FileUp, Calculator, Users, Clock, DollarSign, FileText, AlertCircle, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
 
 const BidSubmission = () => {
   const { tenderId } = useParams();
@@ -130,6 +130,14 @@ const BidSubmission = () => {
                 <Send className="w-4 h-4 mr-2" />
                 Submit Bid
               </Button>
+              {/* Stripe Payment for Bid Submission */}
+              <StripeCheckoutButton
+                amount={100}
+                currency="usd"
+                description="Bid Submission Fee"
+                type="bid"
+                onSuccess={() => toast({ title: 'Bid payment successful!' })}
+              />
             </div>
           </div>
 

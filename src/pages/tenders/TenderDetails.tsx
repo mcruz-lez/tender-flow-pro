@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import DashboardSidebar from "@/components/DashboardSidebar";
@@ -29,6 +28,7 @@ import {
   Star
 } from "lucide-react";
 import { toast } from "sonner";
+import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
 
 const TenderDetails = () => {
   const { id } = useParams();
@@ -434,6 +434,28 @@ const TenderDetails = () => {
               </Card>
             </TabsContent>
           </Tabs>
+
+          {/* Payment/Checkout Section */}
+          <Card className="mb-6 bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
+            <CardHeader>
+              <CardTitle className="text-xl text-white flex items-center gap-2">
+                <DollarSign className="w-5 h-5 text-green-400" />
+                Secure Payment
+              </CardTitle>
+              <CardDescription className="text-white/70">
+                Pay tender fees, EMD, or subscription securely via Stripe.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <StripeCheckoutButton
+                amount={500}
+                currency="usd"
+                description={`Tender Fee for ${tender.title}`}
+                type="tender"
+                onSuccess={() => toast.success('Payment successful!')}
+              />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

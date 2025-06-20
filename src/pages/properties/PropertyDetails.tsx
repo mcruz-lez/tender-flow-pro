@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Building2, MapPin, DollarSign, Calendar, Users, Wrench, FileText, BarChart3, Edit, AlertTriangle, CheckCircle, Clock, TrendingUp } from "lucide-react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import Breadcrumb from "@/components/Breadcrumb";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -52,6 +52,24 @@ const PropertyDetails = () => {
     { name: "Annual Inspection Report", type: "Inspection", date: "2024-01-15", size: "5.1 MB" },
     { name: "Tenant Lease Agreements", type: "Legal", date: "2023-12-01", size: "8.7 MB" },
     { name: "Maintenance Contracts", type: "Contract", date: "2023-11-15", size: "3.2 MB" }
+  ];
+
+  const financialData = [
+    { month: "Jan", revenue: 48000, expenses: 12000 },
+    { month: "Feb", revenue: 47000, expenses: 11000 },
+    { month: "Mar", revenue: 49500, expenses: 13000 },
+    { month: "Apr", revenue: 50000, expenses: 12500 },
+  ];
+
+  const occupancyData = [
+    { name: "Occupied", value: 22, color: "#10b981" },
+    { name: "Vacant", value: 2, color: "#f59e0b" },
+  ];
+
+  const aiInsights = [
+    "AI predicts 95% occupancy next quarter.",
+    "Maintenance costs expected to decrease by 8%.",
+    "Suggests renegotiating 2 vendor contracts for savings.",
   ];
 
   const getStatusColor = (status: string) => {
@@ -396,6 +414,146 @@ const PropertyDetails = () => {
               </div>
             </TabsContent>
           </Tabs>
+
+          {/* New Analytics Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
+              <CardHeader>
+                <CardTitle className="text-white">Financial Overview</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={financialData}>
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" />
+                    <Bar dataKey="expenses" fill="#f59e0b" name="Expenses" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
+              <CardHeader>
+                <CardTitle className="text-white">Occupancy</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={200}>
+                  <PieChart>
+                    <Pie data={occupancyData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60}>
+                      {occupancyData.map((entry, idx) => <Cell key={idx} fill={entry.color} />)}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="flex justify-between mt-2">
+                  <span>Occupied: 22</span>
+                  <span>Vacant: 2</span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="mb-8">
+            <CardHeader><CardTitle>AI Insights</CardTitle></CardHeader>
+            <CardContent>
+              <ul className="list-disc list-inside space-y-2 text-gray-700">
+                {aiInsights.map((insight, idx) => <li key={idx}>{insight}</li>)}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Tabs defaultValue="tenders" className="mb-8">
+            <TabsList>
+              <TabsTrigger value="tenders">Tenders</TabsTrigger>
+              <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
+              <TabsTrigger value="documents">Documents</TabsTrigger>
+            </TabsList>
+            <TabsContent value="tenders">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Budget</TableHead>
+                    <TableHead>Bids</TableHead>
+                    <TableHead>Deadline</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {tenders.map(tender => (
+                    <TableRow key={tender.id}>
+                      <TableCell>{tender.title}</TableCell>
+                      <TableCell>{tender.status}</TableCell>
+                      <TableCell>${tender.budget.toLocaleString()}</TableCell>
+                      <TableCell>{tender.bids}</TableCell>
+                      <TableCell>{tender.deadline}</TableCell>
+                      <TableCell>
+                        <Button asChild size="sm" variant="secondary"><Link to={`/tenders/${tender.id}`}>View</Link></Button>
+                        <Button asChild size="sm" variant="outline"><Link to={`/contracts?property=${property.id}`}>Contracts</Link></Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TabsContent>
+            <TabsContent value="maintenance">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Task</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Cost</TableHead>
+                    <TableHead>Contractor</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {maintenanceHistory.map((m, idx) => (
+                    <TableRow key={idx}>
+                      <TableCell>{m.date}</TableCell>
+                      <TableCell>{m.task}</TableCell>
+                      <TableCell>{m.status}</TableCell>
+                      <TableCell>${m.cost.toLocaleString()}</TableCell>
+                      <TableCell>{m.contractor}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TabsContent>
+            <TabsContent value="documents">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Size</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {documents.map((doc, idx) => (
+                    <TableRow key={idx}>
+                      <TableCell>{doc.name}</TableCell>
+                      <TableCell>{doc.type}</TableCell>
+                      <TableCell>{doc.date}</TableCell>
+                      <TableCell>{doc.size}</TableCell>
+                      <TableCell>
+                        <Button size="sm" variant="secondary">Download</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TabsContent>
+          </Tabs>
+          <div className="flex gap-2">
+            <Button asChild variant="outline"><Link to={`/vendors?property=${property.id}`}>View Vendors</Link></Button>
+            <Button asChild variant="outline"><Link to={`/analytics?property=${property.id}`}>Analytics</Link></Button>
+          </div>
         </div>
       </div>
     </div>

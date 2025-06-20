@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import DashboardSidebar from "@/components/DashboardSidebar";
@@ -10,10 +9,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Progress } from "@/components/ui/progress";
-import { Search, Filter, Eye, MessageSquare, Clock, CheckCircle, XCircle, AlertCircle, TrendingUp, Calendar } from "lucide-react";
+import { Search, Filter, Eye, MessageSquare, Clock, CheckCircle, XCircle, AlertCircle, TrendingUp, Calendar, Download, ExternalLink, Zap } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const BidTracking = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // Sample analytics data
+  const trackingTrends = [
+    { stage: 'Submitted', count: 18 },
+    { stage: 'Initial Review', count: 15 },
+    { stage: 'Technical Review', count: 12 },
+    { stage: 'Financial Review', count: 9 },
+    { stage: 'Final Decision', count: 7 }
+  ];
+
+  // Ensure searchTerm and activeTab are defined before use
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("active");
 
@@ -125,7 +136,6 @@ const BidTracking = () => {
   const filteredBids = bids.filter(bid => {
     const matchesSearch = bid.tenderTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          bid.id.toLowerCase().includes(searchTerm.toLowerCase());
-    
     if (activeTab === "active") return matchesSearch && ["Submitted", "Under Review"].includes(bid.status);
     if (activeTab === "awarded") return matchesSearch && bid.status === "Awarded";
     if (activeTab === "rejected") return matchesSearch && bid.status === "Rejected";
@@ -135,7 +145,6 @@ const BidTracking = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <DashboardSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
-      
       <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
         <div className="p-6">
           {/* Breadcrumb */}
@@ -160,19 +169,65 @@ const BidTracking = () => {
           </Breadcrumb>
 
           {/* Header */}
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-start mb-8">
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent mb-2">
                 Bid Tracking
               </h1>
               <p className="text-purple-200">Monitor the status and progress of your submitted bids</p>
             </div>
-            <Button asChild className="glass-button-primary">
-              <Link to="/bids">
-                <TrendingUp className="w-4 h-4 mr-2" />
-                View All Bids
-              </Link>
-            </Button>
+            <div className="flex gap-3">
+              <Button asChild variant="outline">
+                <a href="/bids/ai-bid"><Zap className="w-4 h-4 mr-2" />AI Bid Assistant</a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href="/tenders"><ExternalLink className="w-4 h-4 mr-2" />Find Opportunities</a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href="#"><Download className="w-4 h-4 mr-2" />Export Data</a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Analytics and Insights */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Bid Progress by Stage</CardTitle>
+                <CardDescription>Track how many bids are at each stage</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={trackingTrends}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="stage" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="count" fill="#6366f1" name="Bids" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>AI Insights</CardTitle>
+                <CardDescription>Smart recommendations for your bid tracking</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc list-inside space-y-2 text-gray-200">
+                  <li>Automate reminders for upcoming deadlines and reviews.</li>
+                  <li>Use AI to predict bottlenecks in the evaluation process.</li>
+                  <li>Visualize bid progress to optimize resource allocation.</li>
+                  <li>Integrate with analytics for deeper performance insights.</li>
+                </ul>
+                <Button asChild variant="outline" className="mt-4">
+                  <a href="/analytics/bid-analytics" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View Analytics
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Search and Filters */}

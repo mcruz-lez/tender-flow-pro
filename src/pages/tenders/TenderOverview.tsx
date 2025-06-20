@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Plus, Search, Filter, Grid3X3, List } from "lucide-react";
+import { Plus, Search, Filter, Grid3X3, List, Download, ExternalLink, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +9,7 @@ import { useTenders } from "@/hooks/useTenders";
 import { TenderCard } from "@/components/enhanced/TenderCard";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const TenderOverview = () => {
   const navigate = useNavigate();
@@ -33,6 +33,15 @@ const TenderOverview = () => {
     awarded: tenders?.filter(t => t.status === 'awarded').length || 0
   };
 
+  const tenderTrends = [
+    { month: 'Jan', tenders: 12, bids: 48, awarded: 8 },
+    { month: 'Feb', tenders: 15, bids: 62, awarded: 11 },
+    { month: 'Mar', tenders: 18, bids: 71, awarded: 14 },
+    { month: 'Apr', tenders: 14, bids: 55, awarded: 10 },
+    { month: 'May', tenders: 20, bids: 85, awarded: 16 },
+    { month: 'Jun', tenders: 16, bids: 68, awarded: 12 }
+  ];
+
   const handleViewDetails = (tenderId: string) => {
     navigate(`/tenders/${tenderId}`);
   };
@@ -50,6 +59,17 @@ const TenderOverview = () => {
     <PageTemplate 
       title="Tender Management" 
       description="Manage and track all tender opportunities"
+      quickActions={[
+        { label: "Create Tender", href: "/tenders/create", icon: Plus },
+        { label: "AI Create", href: "/tenders/ai-create", icon: Zap, variant: "outline" },
+        { label: "Export Data", href: "#", icon: Download, variant: "outline" },
+      ]}
+      relatedPages={[
+        { label: "Bid Management", href: "/bids" },
+        { label: "Contract Management", href: "/contracts" },
+        { label: "Vendor Directory", href: "/vendors" },
+        { label: "Analytics Dashboard", href: "/analytics" },
+      ]}
     >
       <div className="space-y-6">
         {/* Header Actions */}
@@ -190,6 +210,49 @@ const TenderOverview = () => {
             ))}
           </div>
         )}
+
+        {/* Analytics and Insights */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Tender Activity Trends</CardTitle>
+              <CardDescription>Monthly tender and bid statistics</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={tenderTrends}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="tenders" fill="#3b82f6" name="Tenders" />
+                  <Bar dataKey="bids" fill="#8b5cf6" name="Bids" />
+                  <Bar dataKey="awarded" fill="#10b981" name="Awarded" />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>AI Insights</CardTitle>
+              <CardDescription>Smart recommendations for your tenders</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc list-inside space-y-2 text-gray-700">
+                <li>Automate bid evaluation to reduce manual errors.</li>
+                <li>Leverage AI to predict tender success rates.</li>
+                <li>Optimize document workflows for faster approvals.</li>
+                <li>Schedule regular vendor performance reviews.</li>
+              </ul>
+              <Button asChild variant="outline" className="mt-4">
+                <a href="/analytics/tender-analytics" target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  View Analytics
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </PageTemplate>
   );

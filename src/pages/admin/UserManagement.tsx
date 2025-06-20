@@ -1,10 +1,11 @@
-
 import PageTemplate from "@/components/PageTemplate";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Users, UserPlus, Shield, Settings, Mail, MoreHorizontal } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { Lightbulb } from "lucide-react";
 
 const UserManagement = () => {
   const quickActions = [
@@ -20,6 +21,28 @@ const UserManagement = () => {
     { id: 4, name: "Lisa Chen", email: "lisa@company.com", role: "Finance Manager", status: "Active", lastLogin: "2024-01-13" }
   ];
 
+  const userStats = [
+    { label: "Total Users", value: 24 },
+    { label: "Active", value: 21 },
+    { label: "Pending", value: 3 },
+    { label: "Roles", value: 5 },
+  ];
+
+  const activityData = [
+    { month: "Jan", logins: 120 },
+    { month: "Feb", logins: 140 },
+    { month: "Mar", logins: 135 },
+    { month: "Apr", logins: 150 },
+    { month: "May", logins: 160 },
+    { month: "Jun", logins: 170 },
+  ];
+
+  const aiInsights = [
+    "AI suggests enabling 2FA for all users.",
+    "3 users have not logged in for 60+ days.",
+    "Consider reviewing permissions for vendor accounts.",
+  ];
+
   return (
     <PageTemplate
       title="User Management"
@@ -27,34 +50,37 @@ const UserManagement = () => {
       quickActions={quickActions}
     >
       <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          {userStats.map((item, idx) => (
+            <Card key={idx} className="text-center">
+              <CardHeader><CardTitle>{item.label}</CardTitle></CardHeader>
+              <CardContent className="text-2xl font-bold">{item.value}</CardContent>
+            </Card>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <Card>
-            <CardContent className="p-4 text-center">
-              <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold">24</div>
-              <div className="text-sm text-gray-600">Total Users</div>
+            <CardHeader><CardTitle>User Activity Trend</CardTitle></CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={activityData}>
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="logins" fill="#3b82f6" name="Logins" />
+                </BarChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">21</div>
-              <div className="text-sm text-gray-600">Active</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600">3</div>
-              <div className="text-sm text-gray-600">Pending</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-purple-600">5</div>
-              <div className="text-sm text-gray-600">Roles</div>
+            <CardHeader><CardTitle>AI Insights</CardTitle></CardHeader>
+            <CardContent>
+              <ul className="list-disc list-inside space-y-2 text-gray-700">
+                {aiInsights.map((insight, idx) => <li key={idx}><Lightbulb className="inline w-4 h-4 mr-1 text-yellow-500" />{insight}</li>)}
+              </ul>
             </CardContent>
           </Card>
         </div>
-
         <Card>
           <CardHeader>
             <CardTitle>Users</CardTitle>
@@ -73,21 +99,16 @@ const UserManagement = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user) => (
+                {users.map((user, idx) => (
                   <TableRow key={user.id}>
-                    <TableCell className="font-medium">{user.name}</TableCell>
+                    <TableCell>{user.name}</TableCell>
                     <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.role}</TableCell>
-                    <TableCell>
-                      <Badge variant={user.status === 'Active' ? 'default' : 'secondary'}>
-                        {user.status}
-                      </Badge>
-                    </TableCell>
+                    <TableCell><Button asChild size="sm" variant="outline"><a href={`/admin/roles?user=${user.id}`}>{user.role}</a></Button></TableCell>
+                    <TableCell>{user.status}</TableCell>
                     <TableCell>{user.lastLogin}</TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="sm">
-                        <MoreHorizontal className="w-4 h-4" />
-                      </Button>
+                      <Button asChild size="sm" variant="secondary"><a href={`/admin/users/${user.id}`}>Profile</a></Button>
+                      <Button asChild size="sm" variant="outline"><a href={`/admin/permissions?user=${user.id}`}>Permissions</a></Button>
                     </TableCell>
                   </TableRow>
                 ))}

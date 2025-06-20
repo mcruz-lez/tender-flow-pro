@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +9,7 @@ import { Building2, MapPin, DollarSign, Calendar, Search, Filter, Plus, Eye, Edi
 import { Link } from "react-router-dom";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import Breadcrumb from "@/components/Breadcrumb";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
 interface Property {
   id: string;
@@ -133,349 +133,168 @@ const PropertyPortfolio = () => {
   const totalRevenue = properties.reduce((sum, prop) => sum + prop.monthlyRevenue, 0);
   const avgMaintenanceScore = Math.round(properties.reduce((sum, prop) => sum + prop.maintenanceScore, 0) / properties.length);
 
+  const portfolioSummary = [
+    { label: "Total Properties", value: properties.length },
+    { label: "Total Value", value: `$${properties.reduce((a, p) => a + p.value, 0).toLocaleString()}` },
+    { label: "Avg. Occupancy", value: "91%" },
+    { label: "Monthly Revenue", value: `$${properties.reduce((a, p) => a + p.monthlyRevenue, 0).toLocaleString()}` },
+  ];
+
+  const typeData = [
+    { name: "Commercial", value: properties.filter(p => p.type === "Commercial").length, color: "#3b82f6" },
+    { name: "Residential", value: properties.filter(p => p.type === "Residential").length, color: "#10b981" },
+    { name: "Mixed Use", value: properties.filter(p => p.type === "Mixed Use").length, color: "#f59e0b" },
+  ];
+
+  const aiInsights = [
+    "2 properties flagged for upcoming maintenance risk.",
+    "Portfolio value increased 4% in last quarter.",
+    "AI suggests optimizing lease terms for 3 units.",
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <DashboardSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
-      
-      <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
-        <div className="p-6">
-          <Breadcrumb />
-          
-          {/* Header Section */}
-          <div className="flex justify-between items-start mb-8">
-            <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-                Property Portfolio
-              </h1>
-              <p className="text-gray-400 text-lg">Manage your property portfolio and assets across the USA</p>
-            </div>
-            
-            <div className="flex items-center space-x-3">
-              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-xl">
-                <BarChart3 className="w-4 h-4 mr-2" />
-                Analytics
-              </Button>
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl shadow-blue-500/25">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Property
-              </Button>
-            </div>
-          </div>
-
-          {/* Portfolio Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-400 text-sm">Total Portfolio Value</p>
-                    <p className="text-2xl font-bold text-white">${(totalValue / 1000000).toFixed(1)}M</p>
-                  </div>
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl flex items-center justify-center">
-                    <DollarSign className="w-6 h-6 text-green-400" />
-                  </div>
-                </div>
-                <div className="flex items-center mt-2 text-green-400 text-sm">
-                  <TrendingUp className="w-4 h-4 mr-1" />
-                  +12.5% vs last quarter
-                </div>
-              </CardContent>
+    <div className="flex">
+      <DashboardSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen((v) => !v)} />
+      <main className="flex-1 p-6">
+        <Breadcrumb />
+        <h1 className="text-3xl font-bold mb-2">Property Portfolio</h1>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          {portfolioSummary.map((item, idx) => (
+            <Card key={idx} className="text-center">
+              <CardHeader><CardTitle>{item.label}</CardTitle></CardHeader>
+              <CardContent className="text-2xl font-bold">{item.value}</CardContent>
             </Card>
-
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-400 text-sm">Monthly Revenue</p>
-                    <p className="text-2xl font-bold text-white">${(totalRevenue / 1000).toFixed(0)}K</p>
-                  </div>
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center">
-                    <BarChart3 className="w-6 h-6 text-blue-400" />
-                  </div>
-                </div>
-                <div className="flex items-center mt-2 text-blue-400 text-sm">
-                  <TrendingUp className="w-4 h-4 mr-1" />
-                  +8.2% vs last month
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-400 text-sm">Properties</p>
-                    <p className="text-2xl font-bold text-white">{properties.length}</p>
-                  </div>
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center">
-                    <Building2 className="w-6 h-6 text-purple-400" />
-                  </div>
-                </div>
-                <div className="flex items-center mt-2 text-gray-400 text-sm">
-                  <Building2 className="w-4 h-4 mr-1" />
-                  {properties.reduce((sum, p) => sum + p.units, 0)} total units
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-400 text-sm">Avg Maintenance Score</p>
-                    <p className={`text-2xl font-bold ${getScoreColor(avgMaintenanceScore)}`}>{avgMaintenanceScore}%</p>
-                  </div>
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl flex items-center justify-center">
-                    <Wrench className="w-6 h-6 text-orange-400" />
-                  </div>
-                </div>
-                <div className="flex items-center mt-2 text-orange-400 text-sm">
-                  <AlertTriangle className="w-4 h-4 mr-1" />
-                  {properties.filter(p => p.maintenanceScore < 75).length} need attention
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Filters and Search */}
-          <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20 mb-6">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                <div className="flex flex-1 items-center space-x-4">
-                  <div className="relative flex-1 max-w-md">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                    <Input
-                      placeholder="Search properties..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 bg-white/10 border-white/20 text-white placeholder-gray-400"
-                    />
-                  </div>
-                  
-                  <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="w-40 bg-white/10 border-white/20 text-white">
-                      <SelectValue placeholder="Status" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-gray-800 border-white/20">
-                      <SelectItem value="all">All Status</SelectItem>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="maintenance">Maintenance</SelectItem>
-                      <SelectItem value="vacant">Vacant</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={typeFilter} onValueChange={setTypeFilter}>
-                    <SelectTrigger className="w-40 bg-white/10 border-white/20 text-white">
-                      <SelectValue placeholder="Type" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-gray-800 border-white/20">
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="commercial">Commercial</SelectItem>
-                      <SelectItem value="residential">Residential</SelectItem>
-                      <SelectItem value="mixeduse">Mixed Use</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Button
-                    variant={viewMode === "grid" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setViewMode("grid")}
-                    className={viewMode === "grid" ? "bg-blue-600 hover:bg-blue-700" : "border-white/20 text-white hover:bg-white/10"}
-                  >
-                    Grid
-                  </Button>
-                  <Button
-                    variant={viewMode === "table" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setViewMode("table")}
-                    className={viewMode === "table" ? "bg-blue-600 hover:bg-blue-700" : "border-white/20 text-white hover:bg-white/10"}
-                  >
-                    Table
-                  </Button>
-                </div>
-              </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <Card>
+            <CardHeader><CardTitle>Property Types</CardTitle></CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={200}>
+                <PieChart>
+                  <Pie data={typeData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60}>
+                    {typeData.map((entry, idx) => <Cell key={idx} fill={entry.color} />)}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
-
-          {/* Properties Display */}
-          {viewMode === "grid" ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProperties.map((property) => (
-                <Card key={property.id} className="group bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105 overflow-hidden">
-                  <div className="relative">
-                    <img 
-                      src={property.image} 
-                      alt={property.name}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <Badge className={`${getStatusColor(property.status)} backdrop-blur-sm`}>
-                        {property.status}
-                      </Badge>
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/20 backdrop-blur-sm">
-                        {property.type}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  <CardHeader>
-                    <CardTitle className="text-white group-hover:text-blue-200 transition-colors text-lg">
-                      {property.name}
-                    </CardTitle>
-                    <CardDescription className="text-gray-400 flex items-center">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      {property.address}
-                    </CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Value</span>
-                        <span className="text-white font-semibold">${(property.value / 1000000).toFixed(1)}M</span>
-                      </div>
-                      
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Monthly Revenue</span>
-                        <span className="text-green-400 font-semibold">${(property.monthlyRevenue / 1000).toFixed(0)}K</span>
-                      </div>
-                      
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Maintenance Score</span>
-                        <span className={`font-semibold ${getScoreColor(property.maintenanceScore)}`}>
-                          {property.maintenanceScore}%
-                        </span>
-                      </div>
-                      
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Active Tenders</span>
-                        <span className="text-blue-400 font-semibold">{property.activeTenders}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex space-x-2 mt-6">
-                      <Button size="sm" className="flex-1 bg-blue-600 hover:bg-blue-700" asChild>
-                        <Link to={`/properties/property/${property.id}`}>
-                          <Eye className="w-4 h-4 mr-1" />
-                          View
-                        </Link>
-                      </Button>
-                      <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                        <Edit className="w-4 h-4 mr-1" />
-                        Edit
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
-              <CardContent className="p-0">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-white/10">
-                      <TableHead className="text-gray-300">Property</TableHead>
-                      <TableHead className="text-gray-300">Type</TableHead>
-                      <TableHead className="text-gray-300">Status</TableHead>
-                      <TableHead className="text-gray-300">Value</TableHead>
-                      <TableHead className="text-gray-300">Revenue</TableHead>
-                      <TableHead className="text-gray-300">Score</TableHead>
-                      <TableHead className="text-gray-300">Tenders</TableHead>
-                      <TableHead className="text-gray-300">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredProperties.map((property) => (
-                      <TableRow key={property.id} className="border-white/10 hover:bg-white/5">
-                        <TableCell>
-                          <div className="flex items-center space-x-3">
-                            <img 
-                              src={property.image} 
-                              alt={property.name}
-                              className="w-12 h-12 rounded-lg object-cover"
-                            />
-                            <div>
-                              <div className="text-white font-medium">{property.name}</div>
-                              <div className="text-gray-400 text-sm flex items-center">
-                                <MapPin className="w-3 h-3 mr-1" />
-                                {property.address.split(',')[0]}
-                              </div>
-                            </div>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/20">
-                            {property.type}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge className={getStatusColor(property.status)}>
-                            {property.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="text-white">${(property.value / 1000000).toFixed(1)}M</TableCell>
-                        <TableCell className="text-green-400">${(property.monthlyRevenue / 1000).toFixed(0)}K</TableCell>
-                        <TableCell className={getScoreColor(property.maintenanceScore)}>
-                          {property.maintenanceScore}%
-                        </TableCell>
-                        <TableCell className="text-blue-400">{property.activeTenders}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center space-x-2">
-                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>
-                              <Link to={`/properties/property/${property.id}`}>
-                                <Eye className="w-4 h-4" />
-                              </Link>
-                            </Button>
-                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                              <Edit className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Quick Links */}
-          <div className="mt-8">
-            <h3 className="text-xl font-semibold text-white mb-4">Quick Actions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-xl h-auto p-4">
-                <Link to="/properties/maintenance" className="flex flex-col items-center space-y-2">
-                  <Wrench className="w-6 h-6" />
-                  <span>Maintenance Planning</span>
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-xl h-auto p-4">
-                <Link to="/properties/cost-analysis" className="flex flex-col items-center space-y-2">
-                  <BarChart3 className="w-6 h-6" />
-                  <span>Cost Analysis</span>
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-xl h-auto p-4">
-                <Link to="/tenders" className="flex flex-col items-center space-y-2">
-                  <Building2 className="w-6 h-6" />
-                  <span>Create Tender</span>
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-xl h-auto p-4">
-                <Link to="/vendors" className="flex flex-col items-center space-y-2">
-                  <Building2 className="w-6 h-6" />
-                  <span>Find Contractors</span>
-                </Link>
-              </Button>
-            </div>
-          </div>
+          <Card>
+            <CardHeader><CardTitle>Monthly Revenue Trend</CardTitle></CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={properties.map(p => ({ name: p.name, revenue: p.monthlyRevenue }))}>
+                  <XAxis dataKey="name" hide />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="revenue" fill="#3b82f6" />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
         </div>
-      </div>
+        <Card className="mb-8">
+          <CardHeader><CardTitle>AI Insights</CardTitle></CardHeader>
+          <CardContent>
+            <ul className="list-disc list-inside space-y-2 text-gray-700">
+              {aiInsights.map((insight, idx) => <li key={idx}>{insight}</li>)}
+            </ul>
+          </CardContent>
+        </Card>
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex gap-2">
+            <Input placeholder="Search properties..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger><SelectValue placeholder="Status" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="Active">Active</SelectItem>
+                <SelectItem value="Maintenance">Maintenance</SelectItem>
+                <SelectItem value="Vacant">Vacant</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={typeFilter} onValueChange={setTypeFilter}>
+              <SelectTrigger><SelectValue placeholder="Type" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="Commercial">Commercial</SelectItem>
+                <SelectItem value="Residential">Residential</SelectItem>
+                <SelectItem value="Mixed Use">Mixed Use</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <Button asChild variant="outline"><Link to="/properties/create"><Plus className="mr-2" />Add Property</Link></Button>
+        </div>
+        <div className="mb-8 flex gap-2">
+          <Button variant={viewMode === "grid" ? "default" : "outline"} onClick={() => setViewMode("grid")}>Grid</Button>
+          <Button variant={viewMode === "table" ? "default" : "outline"} onClick={() => setViewMode("table")}>Table</Button>
+        </div>
+        {viewMode === "grid" ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {properties.filter(p => (statusFilter === "all" || p.status === statusFilter) && (typeFilter === "all" || p.type === typeFilter) && p.name.toLowerCase().includes(searchTerm.toLowerCase())).map(property => (
+              <Card key={property.id} className="relative">
+                <img src={property.image} alt={property.name} className="w-full h-32 object-cover rounded-t" />
+                <CardHeader>
+                  <CardTitle>{property.name}</CardTitle>
+                  <CardDescription>{property.address}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    <Badge>{property.type}</Badge>
+                    <Badge variant="secondary">{property.status}</Badge>
+                    <Badge variant="outline">${property.value.toLocaleString()}</Badge>
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-500 mb-2">
+                    <span><Building2 className="inline w-4 h-4 mr-1" />{property.units} units</span>
+                    <span><Calendar className="inline w-4 h-4 mr-1" />Last Inspection: {property.lastInspection}</span>
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-500 mb-2">
+                    <span><BarChart3 className="inline w-4 h-4 mr-1" />Score: {property.maintenanceScore}</span>
+                    <span><DollarSign className="inline w-4 h-4 mr-1" />${property.monthlyRevenue.toLocaleString()}/mo</span>
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    <Button asChild size="sm" variant="secondary"><Link to={`/properties/${property.id}`}>Details</Link></Button>
+                    <Button asChild size="sm" variant="outline"><Link to={`/tenders?property=${property.id}`}>Tenders</Link></Button>
+                    <Button asChild size="sm" variant="outline"><Link to={`/maintenance?property=${property.id}`}>Maintenance</Link></Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Value</TableHead>
+                <TableHead>Units</TableHead>
+                <TableHead>Revenue</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {properties.filter(p => (statusFilter === "all" || p.status === statusFilter) && (typeFilter === "all" || p.type === typeFilter) && p.name.toLowerCase().includes(searchTerm.toLowerCase())).map(property => (
+                <TableRow key={property.id}>
+                  <TableCell>{property.name}</TableCell>
+                  <TableCell>{property.type}</TableCell>
+                  <TableCell>{property.status}</TableCell>
+                  <TableCell>${property.value.toLocaleString()}</TableCell>
+                  <TableCell>{property.units}</TableCell>
+                  <TableCell>${property.monthlyRevenue.toLocaleString()}</TableCell>
+                  <TableCell>
+                    <Button asChild size="sm" variant="secondary"><Link to={`/properties/${property.id}`}>Details</Link></Button>
+                    <Button asChild size="sm" variant="outline"><Link to={`/tenders?property=${property.id}`}>Tenders</Link></Button>
+                    <Button asChild size="sm" variant="outline"><Link to={`/maintenance?property=${property.id}`}>Maintenance</Link></Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+      </main>
     </div>
   );
 };

@@ -121,7 +121,7 @@ const EvaluationPanel = () => {
 
   const calculateWeightedScore = (bid: any) => {
     let totalScore = 0;
-    let evaluatorCount = Object.keys(bid.evaluatorScores).length;
+    const evaluatorCount = Object.keys(bid.evaluatorScores).length;
     
     evaluationCriteria.forEach(criteria => {
       let criteriaAvg = 0;

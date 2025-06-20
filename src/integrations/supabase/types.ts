@@ -512,6 +512,36 @@ export type Database = {
           },
         ]
       }
+      payments: {
+        Row: Payment;
+        Insert: Partial<Payment>;
+        Update: Partial<Payment>;
+        Relationships: [];
+      };
+      subscriptions: {
+        Row: Subscription;
+        Insert: Partial<Subscription>;
+        Update: Partial<Subscription>;
+        Relationships: [];
+      };
+      invoices: {
+        Row: Invoice;
+        Insert: Partial<Invoice>;
+        Update: Partial<Invoice>;
+        Relationships: [];
+      };
+      emd_payments: {
+        Row: EMDPayment;
+        Insert: Partial<EMDPayment>;
+        Update: Partial<EMDPayment>;
+        Relationships: [];
+      };
+      security_deposits: {
+        Row: SecurityDeposit;
+        Insert: Partial<SecurityDeposit>;
+        Update: Partial<SecurityDeposit>;
+        Relationships: [];
+      };
     }
     Views: {
       [_ in never]: never
@@ -550,6 +580,74 @@ export type Database = {
   }
 }
 
+// Stripe payment and subscription types
+export type Payment = {
+  id: string;
+  user_id: string;
+  organization_id?: string;
+  vendor_id?: string;
+  tender_id?: string;
+  contract_id?: string;
+  amount: number;
+  currency: string;
+  status: 'pending' | 'succeeded' | 'failed' | 'refunded' | 'cancelled';
+  type: 'subscription' | 'emd' | 'security' | 'tender' | 'document' | 'vendor' | 'other';
+  stripe_payment_intent_id?: string;
+  stripe_session_id?: string;
+  description?: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type Subscription = {
+  id: string;
+  user_id: string;
+  organization_id?: string;
+  vendor_id?: string;
+  status: 'active' | 'trialing' | 'past_due' | 'canceled' | 'unpaid';
+  stripe_subscription_id?: string;
+  plan: string;
+  current_period_end?: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type Invoice = {
+  id: string;
+  payment_id?: string;
+  user_id?: string;
+  organization_id?: string;
+  amount: number;
+  currency: string;
+  status: 'draft' | 'open' | 'paid' | 'void' | 'uncollectible' | 'refunded';
+  stripe_invoice_id?: string;
+  due_date?: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type EMDPayment = {
+  id: string;
+  tender_id: string;
+  vendor_id: string;
+  amount: number;
+  status: 'pending' | 'succeeded' | 'refunded' | 'cancelled';
+  stripe_payment_intent_id?: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SecurityDeposit = {
+  id: string;
+  contract_id: string;
+  vendor_id: string;
+  amount: number;
+  status: 'pending' | 'succeeded' | 'refunded' | 'cancelled';
+  stripe_payment_intent_id?: string;
+  created_at: string;
+  updated_at: string;
+};
+
 type DefaultSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
@@ -561,7 +659,7 @@ export type Tables<
   }
     ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never,
 > = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
   ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
       Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {

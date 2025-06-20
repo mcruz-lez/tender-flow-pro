@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -255,10 +254,10 @@ const Index = () => {
           </p>
           
           <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-400">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Contact Support</a>
-            <a href="#" className="hover:text-white transition-colors">Documentation</a>
+            <a href="/PrivacyPolicy" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/TermsOfService" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="/help/support" className="hover:text-white transition-colors">Contact Support</a>
+            <a href="/help/Documentation" className="hover:text-white transition-colors">Documentation</a>
           </div>
           
           <div className="mt-8 pt-8 border-t border-gray-800 text-sm text-gray-500">

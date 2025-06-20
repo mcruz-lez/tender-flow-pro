@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import PageTemplate from "@/components/PageTemplate";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,6 +24,8 @@ import {
   Reply
 } from "lucide-react";
 import { toast } from "sonner";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { Lightbulb } from "lucide-react";
 
 const MessageCenter = () => {
   const [selectedConversation, setSelectedConversation] = useState("1");
@@ -107,6 +108,26 @@ const MessageCenter = () => {
     starred: 8
   };
 
+  const messageStats = [
+    { label: "Total Conversations", value: 18 },
+    { label: "Unread Messages", value: 4 },
+    { label: "Avg. Response Time", value: "1.2h" },
+  ];
+
+  const activityData = [
+    { day: "Mon", messages: 12 },
+    { day: "Tue", messages: 15 },
+    { day: "Wed", messages: 10 },
+    { day: "Thu", messages: 18 },
+    { day: "Fri", messages: 20 },
+  ];
+
+  const aiInsights = [
+    "AI suggests enabling smart replies for faster responses.",
+    "2 conversations flagged for follow-up.",
+    "Consider archiving inactive threads.",
+  ];
+
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "High": return "bg-red-100 text-red-800";
@@ -173,6 +194,7 @@ const MessageCenter = () => {
             <TabsTrigger value="sent">Sent</TabsTrigger>
             <TabsTrigger value="starred">Starred ({stats.starred})</TabsTrigger>
             <TabsTrigger value="archived">Archived</TabsTrigger>
+            <TabsTrigger value="conversations">Conversations</TabsTrigger>
           </TabsList>
 
           <TabsContent value="inbox">
@@ -361,6 +383,52 @@ const MessageCenter = () => {
                 <div className="text-center py-8 text-gray-500">
                   <Archive className="w-12 h-12 mx-auto mb-4 opacity-50" />
                   <p>Archived messages will appear here</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="conversations">
+            <Card>
+              <CardHeader>
+                <CardTitle>Conversations</CardTitle>
+                <CardDescription>All your conversations in one place</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {messageStats.map((item, idx) => (
+                    <Card key={idx} className="text-center">
+                      <CardHeader><CardTitle>{item.label}</CardTitle></CardHeader>
+                      <CardContent className="text-2xl font-bold">{item.value}</CardContent>
+                    </Card>
+                  ))}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <Card>
+                    <CardHeader><CardTitle>Message Activity Trend</CardTitle></CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <BarChart data={activityData}>
+                          <XAxis dataKey="day" />
+                          <YAxis />
+                          <Tooltip />
+                          <Bar dataKey="messages" fill="#3b82f6" name="Messages" />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader><CardTitle>AI Insights</CardTitle></CardHeader>
+                    <CardContent>
+                      <ul className="list-disc list-inside space-y-2 text-gray-700">
+                        {aiInsights.map((insight, idx) => <li key={idx}><Lightbulb className="inline w-4 h-4 mr-1 text-yellow-500" />{insight}</li>)}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button asChild size="sm" variant="outline"><a href="/vendors">Vendor Profiles</a></Button>
+                  <Button asChild size="sm" variant="outline"><a href="/docs/communication">Docs</a></Button>
                 </div>
               </CardContent>
             </Card>

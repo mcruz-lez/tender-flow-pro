@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import {
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Link } from "react-router-dom";
 import PageTemplate from "@/components/PageTemplate";
+import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
 
 interface DashboardData {
   totalProjects: number;
@@ -491,6 +491,28 @@ const VendorPortal = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Payment/Checkout Section */}
+        <Card className="mb-6 bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
+          <CardHeader>
+            <CardTitle className="text-xl text-white flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-green-400" />
+              Vendor Portal Payment
+            </CardTitle>
+            <CardDescription className="text-white/70">
+              Pay vendor subscription or service fees securely via Stripe.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <StripeCheckoutButton
+              amount={50}
+              currency="usd"
+              description="Vendor Portal Subscription"
+              type="vendor"
+              onSuccess={() => alert('Vendor payment successful!')}
+            />
+          </CardContent>
+        </Card>
       </div>
     </PageTemplate>
   );

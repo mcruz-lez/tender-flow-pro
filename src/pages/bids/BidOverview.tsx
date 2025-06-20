@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import DashboardSidebar from "@/components/DashboardSidebar";
@@ -9,7 +8,9 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Plus, Search, Filter, Calendar, Grid3X3, List, Eye, Edit, TrendingUp, Clock, DollarSign, FileText, Award } from "lucide-react";
+import { Plus, Search, Filter, Calendar, Grid3X3, List, Eye, Edit, TrendingUp, Clock, DollarSign, FileText, Award, Download, ExternalLink, Zap } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
 
 const BidOverview = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -80,6 +81,15 @@ const BidOverview = () => {
     }
   ];
 
+  const bidTrends = [
+    { month: 'Jan', submitted: 10, awarded: 4, winRate: 40 },
+    { month: 'Feb', submitted: 12, awarded: 5, winRate: 42 },
+    { month: 'Mar', submitted: 15, awarded: 7, winRate: 47 },
+    { month: 'Apr', submitted: 11, awarded: 4, winRate: 36 },
+    { month: 'May', submitted: 18, awarded: 9, winRate: 50 },
+    { month: 'Jun', submitted: 14, awarded: 6, winRate: 43 }
+  ];
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Submitted": return "bg-blue-100 text-blue-800 border-blue-200";
@@ -119,7 +129,6 @@ const BidOverview = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <DashboardSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
-      
       <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
         <div className="p-6">
           {/* Breadcrumb */}
@@ -138,7 +147,7 @@ const BidOverview = () => {
           </Breadcrumb>
 
           {/* Header */}
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-start mb-8">
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent mb-2">
                 Bid Management
@@ -146,17 +155,14 @@ const BidOverview = () => {
               <p className="text-purple-200">Track and manage all your bid submissions</p>
             </div>
             <div className="flex gap-3">
-              <Button asChild className="glass-button">
-                <Link to="/bids/ai-bid">
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  AI Bid Assistant
-                </Link>
+              <Button asChild variant="outline">
+                <a href="/bids/ai-bid"><Zap className="w-4 h-4 mr-2" />AI Bid Assistant</a>
               </Button>
-              <Button asChild className="glass-button-primary">
-                <Link to="/opportunities">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Find Opportunities
-                </Link>
+              <Button asChild variant="outline">
+                <a href="/tenders"><ExternalLink className="w-4 h-4 mr-2" />Find Opportunities</a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href="#"><Download className="w-4 h-4 mr-2" />Export Data</a>
               </Button>
             </div>
           </div>
@@ -372,6 +378,48 @@ const BidOverview = () => {
             </TabsContent>
           </Tabs>
 
+          {/* Analytics and Insights */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Bid Trends</CardTitle>
+                <CardDescription>Monthly bid submissions and win rates</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={bidTrends}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="submitted" fill="#6366f1" name="Submitted" />
+                    <Bar dataKey="awarded" fill="#10b981" name="Awarded" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>AI Insights</CardTitle>
+                <CardDescription>Smart recommendations for your bids</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc list-inside space-y-2 text-gray-200">
+                  <li>Use AI to optimize bid pricing and maximize win probability.</li>
+                  <li>Analyze competitor trends for strategic advantage.</li>
+                  <li>Automate compliance checks for faster submissions.</li>
+                  <li>Leverage past bid data to improve future proposals.</li>
+                </ul>
+                <Button asChild variant="outline" className="mt-4">
+                  <a href="/analytics/bid-analytics" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View Analytics
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Quick Actions */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="glass-card border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 transform hover:scale-105">
@@ -407,6 +455,28 @@ const BidOverview = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Payment/Checkout Section */}
+          <Card className="mb-6 bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
+            <CardHeader>
+              <CardTitle className="text-xl text-white flex items-center gap-2">
+                <DollarSign className="w-5 h-5 text-green-400" />
+                Secure Bid Payment
+              </CardTitle>
+              <CardDescription className="text-white/70">
+                Pay bid fees or deposits securely via Stripe.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <StripeCheckoutButton
+                amount={100}
+                currency="usd"
+                description="Bid Fee Payment"
+                type="bid"
+                onSuccess={() => alert('Bid payment successful!')}
+              />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

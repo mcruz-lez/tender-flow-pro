@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
+import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -287,10 +287,21 @@ const Register = () => {
                 />
                 <Label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
                   I agree to the{" "}
-                  <a href="#" className="text-blue-600 hover:underline font-medium">Terms of Service</a> and{" "}
-                  <a href="#" className="text-blue-600 hover:underline font-medium">Privacy Policy</a>. 
+                  <a href="/TermsOfService" className="text-blue-600 hover:underline font-medium">Terms of Service</a> and{" "}
+                  <a href="/PrivacyPolicy" className="text-blue-600 hover:underline font-medium">Privacy Policy</a>. 
                   I understand that TendProcure will process my data according to these terms.
                 </Label>
+              </div>
+
+              {/* Registration Payment (optional/required) */}
+              <div className="my-4">
+                <StripeCheckoutButton
+                  amount={99}
+                  currency="usd"
+                  description="Registration Fee"
+                  type="registration"
+                  onSuccess={() => toast.success('Registration payment successful!')}
+                />
               </div>
 
               <Button 
