@@ -1,10 +1,40 @@
-
 # TendProcure Platform Changelog
 
 All notable changes to the TendProcure platform will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.4.0] - 2025-06-21
+
+### Major Enhancements
+- **Full UI/UX Overhaul**
+  - Modern, vibrant, animated, and accessible design system applied across the entire platform
+  - Gradients, glassmorphism, 3D shadows, rounded corners, animated CTAs, badge/status systems, and responsive layouts
+  - Consistent use of Tailwind, ShadCN, and Vite for all components and pages
+  - Accessibility improvements (WCAG 2.1 AA compliance, color contrast, keyboard navigation)
+
+### Communication & Notification Modules
+- Message Center, Notification Center, Announcements, Q&A Management, and all widgets/components professionally enhanced
+- Unified design system for all communication, notification, and collaboration features
+- Real-time messaging, notification rules, analytics, and advanced filtering
+
+### Contract, Vendor, Property, and Analytics Modules
+- All dashboards, templates, property details, contract management, vendor management, and analytics pages fully upgraded
+- Animated cards, widgets, and layouts for all business modules
+- Badge systems, animated progress, and status indicators throughout
+
+### Technical Improvements
+- Type safety and ESLint compliance across all files
+- Refactored exports for fast refresh compatibility
+- Increased Vite chunk size warning limit to 3000KB
+- Bundle analysis enabled with rollup-plugin-visualizer
+- Optimized build and loading performance
+
+### Bug Fixes & Maintenance
+- Resolved all previous ESLint warnings and type errors
+- Fixed build and runtime issues related to exports and chunk size
+- Updated documentation and PRD to reflect new design and features
 
 ## [1.3.0] - 2024-01-20
 
@@ -163,14 +193,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Upcoming Features (Roadmap)
-
-### [1.4.0] - Planned for 2024-01-25
-- **Document Management System**
-  - Advanced document library with search and categorization
-  - Version control system with audit trails
-  - Secure sharing with permission controls
-  - AI-powered document analysis and classification
-  - Electronic signatures and approval workflows
 
 ### [1.5.0] - Planned for 2024-02-01
 - **Property Management Integration**

@@ -1,4 +1,3 @@
-
 # TendProcure Platform - Product Requirements Document (PRD)
 
 ## Document Information
@@ -504,10 +503,12 @@ TendProcure is a comprehensive, AI-powered tender management platform designed t
 
 ### 9.3 Version History
 | Version | Date | Author | Changes |
-|---------|------|--------|---------|
+|--------|------|--------|---------|
 | 1.0 | 2024-01-01 | Product Team | Initial document creation |
 | 1.1 | 2024-01-15 | Product Team | Added technical architecture |
 | 1.2 | 2024-01-19 | Product Team | Enhanced evaluation system details |
+| 1.3.0 | 2024-01-20 | Product Team | Communication & Notification Hub, Q&A, Announcements |
+| 1.4.0 | 2025-06-21 | Product Team | Full UI/UX overhaul, accessibility, technical improvements, bundle analysis, all modules enhanced |
 
 ---
 
