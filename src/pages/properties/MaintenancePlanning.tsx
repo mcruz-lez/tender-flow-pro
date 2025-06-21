@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BarChart2, Sparkles, Download, Activity, ArrowRight } from "lucide-react";
+import {
+  BarChart2,
+  Sparkles,
+  Download,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 const MaintenancePlanning = () => {
@@ -73,10 +85,14 @@ const MaintenancePlanning = () => {
                 <Link to="/properties/PropertyPortfolio">Portfolio</Link>
               </Button>
               <Button asChild variant="outline" className="glass-button">
-                <Link to="/properties/ServicePerformance">Service Performance</Link>
+                <Link to="/properties/ServicePerformance">
+                  Service Performance
+                </Link>
               </Button>
               <Button asChild variant="outline" className="glass-button">
-                <Link to="/properties/MaintenanceTrends">Maintenance Trends</Link>
+                <Link to="/properties/MaintenanceTrends">
+                  Maintenance Trends
+                </Link>
               </Button>
             </div>
           </CardContent>
@@ -101,7 +117,9 @@ const MaintenancePlanning = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center text-blue-200">
                   [Recent Planning Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive planning dashboard</p>
+                <p className="mt-4 text-sm text-blue-200">
+                  Coming soon: Interactive planning dashboard
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -119,7 +137,9 @@ const MaintenancePlanning = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-green-200">
                   [Planning Trends Chart Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-green-200">Coming soon: Interactive planning trends charts</p>
+                <p className="mt-4 text-sm text-green-200">
+                  Coming soon: Interactive planning trends charts
+                </p>
               </div>
             </CardContent>
           </Card>

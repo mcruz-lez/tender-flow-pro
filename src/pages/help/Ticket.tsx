@@ -21,7 +21,8 @@ const Ticket = () => {
         <CardContent>
           {submitted ? (
             <div className="text-green-600 font-medium mt-4">
-              Your ticket has been submitted. Our support team will contact you soon.
+              Your ticket has been submitted. Our support team will contact you
+              soon.
             </div>
           ) : (
             <form className="space-y-4 mt-4" onSubmit={handleSubmit}>

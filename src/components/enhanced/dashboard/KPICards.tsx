@@ -1,8 +1,14 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, TrendingDown, DollarSign, Building, Users, FileText } from "lucide-react";
+import {
+  TrendingUp,
+  TrendingDown,
+  DollarSign,
+  Building,
+  Users,
+  FileText,
+} from "lucide-react";
 
 interface KPICardData {
   title: string;
@@ -32,7 +38,7 @@ export const KPICards = ({
   totalVendors,
   activeContracts,
   totalContracts,
-  totalContractValue
+  totalContractValue,
 }: KPICardsProps) => {
   const kpiCards: KPICardData[] = [
     {
@@ -43,7 +49,7 @@ export const KPICards = ({
       color: "text-blue-600",
       bgColor: "bg-blue-50",
       trend: "+12%",
-      trendUp: true
+      trendUp: true,
     },
     {
       title: "Approved Vendors",
@@ -53,7 +59,7 @@ export const KPICards = ({
       color: "text-green-600",
       bgColor: "bg-green-50",
       trend: "+8%",
-      trendUp: true
+      trendUp: true,
     },
     {
       title: "Active Contracts",
@@ -63,7 +69,7 @@ export const KPICards = ({
       color: "text-purple-600",
       bgColor: "bg-purple-50",
       trend: "+5%",
-      trendUp: true
+      trendUp: true,
     },
     {
       title: "Contract Value",
@@ -73,8 +79,8 @@ export const KPICards = ({
       color: "text-orange-600",
       bgColor: "bg-orange-50",
       trend: "+15%",
-      trendUp: true
-    }
+      trendUp: true,
+    },
   ];
 
   return (
@@ -87,8 +93,15 @@ export const KPICards = ({
                 <p className="text-sm font-medium text-gray-600">{kpi.title}</p>
                 <div className="flex items-center space-x-2">
                   <p className="text-2xl font-bold">{kpi.value}</p>
-                  <Badge variant="outline" className={`${kpi.trendUp ? 'text-green-600' : 'text-red-600'}`}>
-                    {kpi.trendUp ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
+                  <Badge
+                    variant="outline"
+                    className={`${kpi.trendUp ? "text-green-600" : "text-red-600"}`}
+                  >
+                    {kpi.trendUp ? (
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                    ) : (
+                      <TrendingDown className="w-3 h-3 mr-1" />
+                    )}
                     {kpi.trend}
                   </Badge>
                 </div>
@@ -96,9 +109,14 @@ export const KPICards = ({
                   <div className="space-y-1">
                     <div className="flex justify-between text-xs text-gray-500">
                       <span>Progress</span>
-                      <span>{Math.round((Number(kpi.value) / kpi.total) * 100)}%</span>
+                      <span>
+                        {Math.round((Number(kpi.value) / kpi.total) * 100)}%
+                      </span>
                     </div>
-                    <Progress value={(Number(kpi.value) / kpi.total) * 100} className="h-2" />
+                    <Progress
+                      value={(Number(kpi.value) / kpi.total) * 100}
+                      className="h-2"
+                    />
                   </div>
                 )}
               </div>

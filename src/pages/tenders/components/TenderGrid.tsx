@@ -1,4 +1,3 @@
-
 import TenderCard from "./TenderCard";
 
 interface Tender {
@@ -22,7 +21,11 @@ interface TenderGridProps {
   getPriorityColor: (priority: string) => string;
 }
 
-const TenderGrid = ({ tenders, getStatusColor, getPriorityColor }: TenderGridProps) => {
+const TenderGrid = ({
+  tenders,
+  getStatusColor,
+  getPriorityColor,
+}: TenderGridProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {tenders.map((tender) => (

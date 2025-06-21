@@ -1,7 +1,10 @@
 import PageTemplate from "@/components/PageTemplate";
 
 const TermsOfService = () => (
-  <PageTemplate title="Terms of Service" description="The rules and guidelines for using our platform.">
+  <PageTemplate
+    title="Terms of Service"
+    description="The rules and guidelines for using our platform."
+  >
     <div className="prose max-w-2xl mx-auto">
       <h2>Acceptance of Terms</h2>
       <p>By using this platform, you agree to these terms and conditions.</p>
@@ -22,7 +25,16 @@ const TermsOfService = () => (
         <li>Service is provided "as is" without warranties.</li>
       </ul>
       <h3>Contact</h3>
-      <p>For questions, email <a href="mailto:support@tendprocure.com" className="text-blue-600 underline">support@tendprocure.com</a>.</p>
+      <p>
+        For questions, email{" "}
+        <a
+          href="mailto:support@tendprocure.com"
+          className="text-blue-600 underline"
+        >
+          support@tendprocure.com
+        </a>
+        .
+      </p>
     </div>
   </PageTemplate>
 );

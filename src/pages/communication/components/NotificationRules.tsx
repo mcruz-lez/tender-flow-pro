@@ -1,5 +1,10 @@
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
@@ -10,7 +15,9 @@ const NotificationRules = () => {
     <Card>
       <CardHeader>
         <CardTitle>Notification Rules</CardTitle>
-        <CardDescription>Create custom rules for automated notifications</CardDescription>
+        <CardDescription>
+          Create custom rules for automated notifications
+        </CardDescription>
         <Button>
           <Bell className="w-4 h-4 mr-2" />
           Create New Rule
@@ -24,7 +31,8 @@ const NotificationRules = () => {
               <Switch defaultChecked />
             </div>
             <p className="text-sm text-gray-600 mb-2">
-              Send immediate notification when a bid is submitted for tenders with budget greater than $100,000
+              Send immediate notification when a bid is submitted for tenders
+              with budget greater than $100,000
             </p>
             <div className="flex items-center space-x-2 text-xs">
               <Badge variant="outline">Email</Badge>

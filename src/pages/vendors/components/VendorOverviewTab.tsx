@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -32,7 +31,9 @@ const VendorOverviewTab = ({ vendor }: VendorOverviewTabProps) => {
               <h4 className="font-medium mb-2">Specialties</h4>
               <div className="flex flex-wrap gap-2">
                 {vendor.specialties.map((specialty, index) => (
-                  <Badge key={index} variant="secondary">{specialty}</Badge>
+                  <Badge key={index} variant="secondary">
+                    {specialty}
+                  </Badge>
                 ))}
               </div>
             </div>
@@ -40,7 +41,9 @@ const VendorOverviewTab = ({ vendor }: VendorOverviewTabProps) => {
               <h4 className="font-medium mb-2">Service Areas</h4>
               <div className="flex flex-wrap gap-2">
                 {vendor.serviceAreas.map((area, index) => (
-                  <Badge key={index} variant="outline">{area}</Badge>
+                  <Badge key={index} variant="outline">
+                    {area}
+                  </Badge>
                 ))}
               </div>
             </div>
@@ -66,7 +69,10 @@ const VendorOverviewTab = ({ vendor }: VendorOverviewTabProps) => {
                 <span>Client Satisfaction</span>
                 <span>{vendor.clientSatisfaction}/5.0</span>
               </div>
-              <Progress value={(vendor.clientSatisfaction / 5) * 100} className="h-2" />
+              <Progress
+                value={(vendor.clientSatisfaction / 5) * 100}
+                className="h-2"
+              />
             </div>
             <div>
               <div className="flex justify-between text-sm mb-1">

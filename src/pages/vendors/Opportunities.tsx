@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BarChart2, Sparkles, Download, Activity, ArrowRight } from "lucide-react";
+import {
+  BarChart2,
+  Sparkles,
+  Download,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 const Opportunities = () => {
@@ -101,7 +113,9 @@ const Opportunities = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center text-blue-200">
                   [Recent Opportunities Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive opportunities dashboard</p>
+                <p className="mt-4 text-sm text-blue-200">
+                  Coming soon: Interactive opportunities dashboard
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -119,7 +133,9 @@ const Opportunities = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-green-200">
                   [Opportunity Trends Chart Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-green-200">Coming soon: Interactive opportunity trends charts</p>
+                <p className="mt-4 text-sm text-green-200">
+                  Coming soon: Interactive opportunity trends charts
+                </p>
               </div>
             </CardContent>
           </Card>

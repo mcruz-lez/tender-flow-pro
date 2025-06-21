@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -25,7 +31,9 @@ const Competition = () => {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold text-blue-400 mb-2">#2</div>
-            <p className="text-purple-200 text-sm">Your current market position</p>
+            <p className="text-purple-200 text-sm">
+              Your current market position
+            </p>
             <Button className="mt-4 glass-button" size="sm">
               <Download className="w-4 h-4 mr-2" />
               Export Report
@@ -92,7 +100,9 @@ const Competition = () => {
         <TabsContent value="factors">
           <Card className="glass-card border-blue-500/20 mt-4">
             <CardHeader>
-              <CardTitle className="text-white">Key Competitor Factors</CardTitle>
+              <CardTitle className="text-white">
+                Key Competitor Factors
+              </CardTitle>
               <CardDescription className="text-blue-200">
                 What drives your competitors' success
               </CardDescription>
@@ -120,7 +130,9 @@ const Competition = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-blue-500/20 to-green-500/20 rounded-lg flex items-center justify-center text-green-200">
                   [Competitor Analytics Chart Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-green-200">Coming soon: Interactive competitor analytics charts</p>
+                <p className="mt-4 text-sm text-green-200">
+                  Coming soon: Interactive competitor analytics charts
+                </p>
               </div>
             </CardContent>
           </Card>

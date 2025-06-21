@@ -1,28 +1,59 @@
 import PageTemplate from "@/components/PageTemplate";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart3, TrendingUp, DollarSign, Users, PieChart, Activity } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart as RechartsPieChart, Pie, Cell } from "recharts";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  BarChart3,
+  TrendingUp,
+  DollarSign,
+  Users,
+  PieChart,
+  Activity,
+} from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  PieChart as RechartsPieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 const AnalyticsDashboard = () => {
   const quickActions = [
     { label: "Custom Report", href: "/analytics/custom", icon: BarChart3 },
-    { label: "Export Data", href: "/analytics/export", icon: TrendingUp, variant: "outline" as const }
+    {
+      label: "Export Data",
+      href: "/analytics/export",
+      icon: TrendingUp,
+      variant: "outline" as const,
+    },
   ];
 
   const tenderData = [
-    { month: 'Jan', tenders: 12, bids: 48, awarded: 8 },
-    { month: 'Feb', tenders: 15, bids: 62, awarded: 11 },
-    { month: 'Mar', tenders: 18, bids: 71, awarded: 14 },
-    { month: 'Apr', tenders: 14, bids: 55, awarded: 10 },
-    { month: 'May', tenders: 20, bids: 85, awarded: 16 },
-    { month: 'Jun', tenders: 16, bids: 68, awarded: 12 }
+    { month: "Jan", tenders: 12, bids: 48, awarded: 8 },
+    { month: "Feb", tenders: 15, bids: 62, awarded: 11 },
+    { month: "Mar", tenders: 18, bids: 71, awarded: 14 },
+    { month: "Apr", tenders: 14, bids: 55, awarded: 10 },
+    { month: "May", tenders: 20, bids: 85, awarded: 16 },
+    { month: "Jun", tenders: 16, bids: 68, awarded: 12 },
   ];
 
   const categoryData = [
-    { name: 'Construction', value: 35, color: '#3b82f6' },
-    { name: 'Maintenance', value: 25, color: '#10b981' },
-    { name: 'Security', value: 20, color: '#f59e0b' },
-    { name: 'Cleaning', value: 20, color: '#8b5cf6' }
+    { name: "Construction", value: 35, color: "#3b82f6" },
+    { name: "Maintenance", value: 25, color: "#10b981" },
+    { name: "Security", value: 20, color: "#f59e0b" },
+    { name: "Cleaning", value: 20, color: "#8b5cf6" },
   ];
 
   return (
@@ -67,7 +98,9 @@ const AnalyticsDashboard = () => {
           <Card>
             <CardHeader>
               <CardTitle>Tender Activity Trends</CardTitle>
-              <CardDescription>Monthly tender and bid statistics</CardDescription>
+              <CardDescription>
+                Monthly tender and bid statistics
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -86,7 +119,9 @@ const AnalyticsDashboard = () => {
           <Card>
             <CardHeader>
               <CardTitle>Tender Categories</CardTitle>
-              <CardDescription>Distribution by service category</CardDescription>
+              <CardDescription>
+                Distribution by service category
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>

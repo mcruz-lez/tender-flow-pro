@@ -1,14 +1,13 @@
-
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
+import {
   Building,
   Clock,
   MessageSquare,
   Calendar,
   CheckCircle,
   Info,
-  MoreHorizontal
+  MoreHorizontal,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -32,32 +31,48 @@ interface NotificationItemProps {
 const NotificationItem = ({ notification }: NotificationItemProps) => {
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case "bid": return Building;
-      case "deadline": return Clock;
-      case "qa": return MessageSquare;
-      case "meeting": return Calendar;
-      case "document": return CheckCircle;
-      default: return Info;
+      case "bid":
+        return Building;
+      case "deadline":
+        return Clock;
+      case "qa":
+        return MessageSquare;
+      case "meeting":
+        return Calendar;
+      case "document":
+        return CheckCircle;
+      default:
+        return Info;
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "bid": return "bg-blue-100 text-blue-800";
-      case "deadline": return "bg-red-100 text-red-800";
-      case "qa": return "bg-yellow-100 text-yellow-800";
-      case "meeting": return "bg-purple-100 text-purple-800";
-      case "document": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "bid":
+        return "bg-blue-100 text-blue-800";
+      case "deadline":
+        return "bg-red-100 text-red-800";
+      case "qa":
+        return "bg-yellow-100 text-yellow-800";
+      case "meeting":
+        return "bg-purple-100 text-purple-800";
+      case "document":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "high": return "bg-red-500";
-      case "medium": return "bg-yellow-500";
-      case "low": return "bg-green-500";
-      default: return "bg-gray-500";
+      case "high":
+        return "bg-red-500";
+      case "medium":
+        return "bg-yellow-500";
+      case "low":
+        return "bg-green-500";
+      default:
+        return "bg-gray-500";
     }
   };
 
@@ -70,11 +85,15 @@ const NotificationItem = ({ notification }: NotificationItemProps) => {
   return (
     <div
       className={`flex items-start space-x-4 p-4 rounded-lg border ${
-        !notification.read ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200'
+        !notification.read
+          ? "bg-blue-50 border-blue-200"
+          : "bg-white border-gray-200"
       }`}
     >
       <div className="flex-shrink-0">
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${getTypeColor(notification.type)}`}>
+        <div
+          className={`w-10 h-10 rounded-full flex items-center justify-center ${getTypeColor(notification.type)}`}
+        >
           <TypeIcon className="w-5 h-5" />
         </div>
       </div>
@@ -82,10 +101,14 @@ const NotificationItem = ({ notification }: NotificationItemProps) => {
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-1">
-              <h4 className={`text-sm font-medium ${!notification.read ? 'font-semibold' : ''}`}>
+              <h4
+                className={`text-sm font-medium ${!notification.read ? "font-semibold" : ""}`}
+              >
                 {notification.title}
               </h4>
-              <div className={`w-2 h-2 rounded-full ${getPriorityColor(notification.priority)}`}></div>
+              <div
+                className={`w-2 h-2 rounded-full ${getPriorityColor(notification.priority)}`}
+              ></div>
               {!notification.read && (
                 <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
               )}
@@ -101,8 +124,8 @@ const NotificationItem = ({ notification }: NotificationItemProps) => {
           </div>
           <div className="flex items-center space-x-2">
             {!notification.read && (
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={() => markAsRead(notification.id)}
               >

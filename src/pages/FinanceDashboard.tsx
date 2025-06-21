@@ -21,7 +21,10 @@ const FinanceDashboard = () => {
             <li>Track financial KPIs</li>
             <li>Export financial reports</li>
           </ul>
-          <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold shadow-md rounded-lg transition-all animate-pulse">
+          <Button
+            asChild
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold shadow-md rounded-lg transition-all animate-pulse"
+          >
             <a href="/contracts">Go to Contracts</a>
           </Button>
         </CardContent>

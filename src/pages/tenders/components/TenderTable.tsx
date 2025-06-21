@@ -1,9 +1,15 @@
-
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Eye, Star } from "lucide-react";
 
 interface Tender {
@@ -43,7 +49,10 @@ const TenderTable = ({ tenders, getStatusColor }: TenderTableProps) => {
         </TableHeader>
         <TableBody>
           {tenders.map((tender) => (
-            <TableRow key={tender.id} className="border-white/10 hover:bg-white/5">
+            <TableRow
+              key={tender.id}
+              className="border-white/10 hover:bg-white/5"
+            >
               <TableCell>
                 <div>
                   <p className="font-medium text-white">{tender.title}</p>
@@ -56,18 +65,30 @@ const TenderTable = ({ tenders, getStatusColor }: TenderTableProps) => {
                   {tender.status}
                 </Badge>
               </TableCell>
-              <TableCell className="text-white font-medium">{tender.value}</TableCell>
+              <TableCell className="text-white font-medium">
+                {tender.value}
+              </TableCell>
               <TableCell className="text-white">{tender.bids}</TableCell>
               <TableCell className="text-white">{tender.deadline}</TableCell>
               <TableCell>
                 <div className="flex gap-2">
-                  <Button asChild size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="outline"
+                    className="border-white/20 text-white hover:bg-white/10"
+                  >
                     <Link to={`/tenders/tender/${tender.id}`}>
                       <Eye className="w-4 h-4" />
                     </Link>
                   </Button>
                   {tender.status === "Active" && tender.bids > 0 && (
-                    <Button asChild size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="outline"
+                      className="border-white/20 text-white hover:bg-white/10"
+                    >
                       <Link to={`/evaluation/panel/${tender.id}`}>
                         <Star className="w-4 h-4" />
                       </Link>

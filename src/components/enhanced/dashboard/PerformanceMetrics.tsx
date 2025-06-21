@@ -1,5 +1,10 @@
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Target, Users } from "lucide-react";
 
@@ -14,7 +19,7 @@ export const PerformanceMetrics = ({
   bidsPerTender,
   avgTenderBudget,
   vendorPrequalificationRate,
-  totalVendors
+  totalVendors,
 }: PerformanceMetricsProps) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -37,7 +42,9 @@ export const PerformanceMetrics = ({
           <div>
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium">Avg. Budget</span>
-              <span className="text-lg font-bold">${(avgTenderBudget / 1000).toFixed(0)}K</span>
+              <span className="text-lg font-bold">
+                ${(avgTenderBudget / 1000).toFixed(0)}K
+              </span>
             </div>
           </div>
         </CardContent>
@@ -49,13 +56,17 @@ export const PerformanceMetrics = ({
             <Users className="w-5 h-5 mr-2" />
             Vendor Metrics
           </CardTitle>
-          <CardDescription>Vendor prequalification and performance</CardDescription>
+          <CardDescription>
+            Vendor prequalification and performance
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium">Prequalification Rate</span>
-              <span className="text-lg font-bold">{vendorPrequalificationRate}%</span>
+              <span className="text-lg font-bold">
+                {vendorPrequalificationRate}%
+              </span>
             </div>
             <Progress value={vendorPrequalificationRate} className="h-2" />
           </div>

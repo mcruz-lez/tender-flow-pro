@@ -22,7 +22,7 @@ const SecurityCompliance = () => {
   };
 
   const handleRemove = (policy: string) => {
-    setPolicies(policies.filter(p => p !== policy));
+    setPolicies(policies.filter((p) => p !== policy));
   };
 
   return (
@@ -35,15 +35,22 @@ const SecurityCompliance = () => {
           className="flex-1 border rounded p-2"
           placeholder="Add new policy..."
           value={newPolicy}
-          onChange={e => setNewPolicy(e.target.value)}
+          onChange={(e) => setNewPolicy(e.target.value)}
         />
         <Button type="submit">Add</Button>
       </form>
       <ul className="space-y-2">
         {policies.map((policy, idx) => (
-          <li key={idx} className="flex justify-between items-center border rounded p-2 bg-gray-50">
+          <li
+            key={idx}
+            className="flex justify-between items-center border rounded p-2 bg-gray-50"
+          >
             <span>{policy}</span>
-            <Button size="sm" variant="destructive" onClick={() => handleRemove(policy)}>
+            <Button
+              size="sm"
+              variant="destructive"
+              onClick={() => handleRemove(policy)}
+            >
               Remove
             </Button>
           </li>

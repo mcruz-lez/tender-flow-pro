@@ -26,12 +26,18 @@ const Predictions = () => {
           className="flex-1 border rounded p-2"
           placeholder="Enter tender or scenario..."
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           required
         />
-        <Button type="submit" disabled={loading}>{loading ? "Predicting..." : "Predict"}</Button>
+        <Button type="submit" disabled={loading}>
+          {loading ? "Predicting..." : "Predict"}
+        </Button>
       </form>
-      {result && <div className="bg-green-50 border border-green-200 p-4 rounded">{result}</div>}
+      {result && (
+        <div className="bg-green-50 border border-green-200 p-4 rounded">
+          {result}
+        </div>
+      )}
     </PageTemplate>
   );
 };

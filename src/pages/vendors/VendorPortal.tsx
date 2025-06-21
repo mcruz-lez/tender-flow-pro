@@ -1,18 +1,49 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Building2, TrendingUp, DollarSign, Clock, Bell, FileText, 
-  MessageSquare, Calendar, Star, Award, Eye, Edit, Plus,
-  CheckCircle, AlertCircle, Users, Target
+import {
+  Building2,
+  TrendingUp,
+  DollarSign,
+  Clock,
+  Bell,
+  FileText,
+  MessageSquare,
+  Calendar,
+  Star,
+  Award,
+  Eye,
+  Edit,
+  Plus,
+  CheckCircle,
+  AlertCircle,
+  Users,
+  Target,
 } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 import { Link } from "react-router-dom";
 import PageTemplate from "@/components/PageTemplate";
-import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
+import { StripeCheckoutButton } from "@/components/StripeCheckoutButton";
 
 interface DashboardData {
   totalProjects: number;
@@ -54,22 +85,22 @@ const mockDashboardData: DashboardData = {
   totalRevenue: 2840000,
   avgRating: 4.8,
   responseTime: "2 hours",
-  profileCompletion: 92
+  profileCompletion: 92,
 };
 
 const revenueData = [
-  { month: 'Jan', revenue: 120000, projects: 8 },
-  { month: 'Feb', revenue: 150000, projects: 12 },
-  { month: 'Mar', revenue: 180000, projects: 15 },
-  { month: 'Apr', revenue: 145000, projects: 10 },
-  { month: 'May', revenue: 220000, projects: 18 },
-  { month: 'Jun', revenue: 190000, projects: 14 },
+  { month: "Jan", revenue: 120000, projects: 8 },
+  { month: "Feb", revenue: 150000, projects: 12 },
+  { month: "Mar", revenue: 180000, projects: 15 },
+  { month: "Apr", revenue: 145000, projects: 10 },
+  { month: "May", revenue: 220000, projects: 18 },
+  { month: "Jun", revenue: 190000, projects: 14 },
 ];
 
 const projectStatusData = [
-  { name: 'Completed', value: 82, color: '#10b981' },
-  { name: 'Active', value: 7, color: '#3b82f6' },
-  { name: 'On Hold', value: 2, color: '#f59e0b' },
+  { name: "Completed", value: 82, color: "#10b981" },
+  { name: "Active", value: 7, color: "#3b82f6" },
+  { name: "On Hold", value: 2, color: "#f59e0b" },
 ];
 
 const mockOpportunities: Opportunity[] = [
@@ -81,17 +112,17 @@ const mockOpportunities: Opportunity[] = [
     deadline: "2024-02-15",
     location: "Manhattan, NY",
     status: "Open",
-    match: 95
+    match: 95,
   },
   {
-    id: "2", 
+    id: "2",
     title: "Shopping Center HVAC Upgrade",
     category: "HVAC",
     budget: 280000,
     deadline: "2024-01-30",
-    location: "Brooklyn, NY", 
+    location: "Brooklyn, NY",
     status: "Closing Soon",
-    match: 88
+    match: 88,
   },
   {
     id: "3",
@@ -101,8 +132,8 @@ const mockOpportunities: Opportunity[] = [
     deadline: "2024-02-28",
     location: "Queens, NY",
     status: "Invited",
-    match: 92
-  }
+    match: 92,
+  },
 ];
 
 const mockProjects: Project[] = [
@@ -113,16 +144,16 @@ const mockProjects: Project[] = [
     value: 580000,
     status: "Active",
     progress: 65,
-    deadline: "2024-03-15"
+    deadline: "2024-03-15",
   },
   {
     id: "2",
     title: "Retail Store Buildout",
     client: "Fashion Brands LLC",
     value: 120000,
-    status: "Active", 
+    status: "Active",
     progress: 30,
-    deadline: "2024-02-28"
+    deadline: "2024-02-28",
   },
   {
     id: "3",
@@ -131,8 +162,8 @@ const mockProjects: Project[] = [
     value: 750000,
     status: "Completed",
     progress: 100,
-    deadline: "2023-12-20"
-  }
+    deadline: "2023-12-20",
+  },
 ];
 
 const VendorPortal = () => {
@@ -142,8 +173,18 @@ const VendorPortal = () => {
 
   const quickActions = [
     { label: "Submit New Bid", href: "/submit-bid", icon: Plus },
-    { label: "View Opportunities", href: "/opportunities", icon: Eye, variant: "outline" as const },
-    { label: "Update Profile", href: "/vendors/profile/1", icon: Edit, variant: "outline" as const }
+    {
+      label: "View Opportunities",
+      href: "/opportunities",
+      icon: Eye,
+      variant: "outline" as const,
+    },
+    {
+      label: "Update Profile",
+      href: "/vendors/profile/1",
+      icon: Edit,
+      variant: "outline" as const,
+    },
   ];
 
   return (
@@ -159,9 +200,15 @@ const VendorPortal = () => {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Projects</p>
-                  <p className="text-2xl font-bold">{dashboardData.totalProjects}</p>
-                  <p className="text-xs text-green-600">+{dashboardData.activeProjects} active</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Total Projects
+                  </p>
+                  <p className="text-2xl font-bold">
+                    {dashboardData.totalProjects}
+                  </p>
+                  <p className="text-xs text-green-600">
+                    +{dashboardData.activeProjects} active
+                  </p>
                 </div>
                 <Building2 className="w-8 h-8 text-blue-600" />
               </div>
@@ -172,8 +219,12 @@ const VendorPortal = () => {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-                  <p className="text-2xl font-bold">${(dashboardData.totalRevenue / 1000000).toFixed(1)}M</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Total Revenue
+                  </p>
+                  <p className="text-2xl font-bold">
+                    ${(dashboardData.totalRevenue / 1000000).toFixed(1)}M
+                  </p>
                   <p className="text-xs text-green-600">+12% this month</p>
                 </div>
                 <DollarSign className="w-8 h-8 text-green-600" />
@@ -185,9 +236,15 @@ const VendorPortal = () => {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Average Rating</p>
-                  <p className="text-2xl font-bold">{dashboardData.avgRating}</p>
-                  <p className="text-xs text-green-600">Excellent performance</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Average Rating
+                  </p>
+                  <p className="text-2xl font-bold">
+                    {dashboardData.avgRating}
+                  </p>
+                  <p className="text-xs text-green-600">
+                    Excellent performance
+                  </p>
                 </div>
                 <Star className="w-8 h-8 text-yellow-500" />
               </div>
@@ -198,8 +255,12 @@ const VendorPortal = () => {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Pending Bids</p>
-                  <p className="text-2xl font-bold">{dashboardData.pendingBids}</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Pending Bids
+                  </p>
+                  <p className="text-2xl font-bold">
+                    {dashboardData.pendingBids}
+                  </p>
                   <p className="text-xs text-blue-600">2 closing soon</p>
                 </div>
                 <Clock className="w-8 h-8 text-orange-500" />
@@ -216,9 +277,12 @@ const VendorPortal = () => {
                 <div className="flex items-center space-x-3">
                   <AlertCircle className="w-6 h-6 text-orange-600" />
                   <div>
-                    <h3 className="font-medium text-orange-900">Complete Your Profile</h3>
+                    <h3 className="font-medium text-orange-900">
+                      Complete Your Profile
+                    </h3>
                     <p className="text-sm text-orange-700">
-                      Your profile is {dashboardData.profileCompletion}% complete. Complete it to get more opportunities.
+                      Your profile is {dashboardData.profileCompletion}%
+                      complete. Complete it to get more opportunities.
                     </p>
                   </div>
                 </div>
@@ -226,7 +290,10 @@ const VendorPortal = () => {
                   <Link to="/vendors/profile/1">Complete Profile</Link>
                 </Button>
               </div>
-              <Progress value={dashboardData.profileCompletion} className="mt-3" />
+              <Progress
+                value={dashboardData.profileCompletion}
+                className="mt-3"
+              />
             </CardContent>
           </Card>
         )}
@@ -247,7 +314,9 @@ const VendorPortal = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Revenue Trend</CardTitle>
-                  <CardDescription>Monthly revenue over the last 6 months</CardDescription>
+                  <CardDescription>
+                    Monthly revenue over the last 6 months
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -255,13 +324,18 @@ const VendorPortal = () => {
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="month" />
                       <YAxis />
-                      <Tooltip formatter={(value) => [`$${Number(value).toLocaleString()}`, 'Revenue']} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="revenue" 
-                        stroke="#3b82f6" 
+                      <Tooltip
+                        formatter={(value) => [
+                          `$${Number(value).toLocaleString()}`,
+                          "Revenue",
+                        ]}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="revenue"
+                        stroke="#3b82f6"
                         strokeWidth={2}
-                        dot={{ fill: '#3b82f6' }}
+                        dot={{ fill: "#3b82f6" }}
                       />
                     </LineChart>
                   </ResponsiveContainer>
@@ -272,7 +346,9 @@ const VendorPortal = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Project Status Distribution</CardTitle>
-                  <CardDescription>Overview of all your projects</CardDescription>
+                  <CardDescription>
+                    Overview of all your projects
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -307,7 +383,9 @@ const VendorPortal = () => {
                     <CheckCircle className="w-5 h-5 text-green-600" />
                     <div className="flex-1">
                       <p className="font-medium">Project milestone completed</p>
-                      <p className="text-sm text-gray-600">Corporate Headquarters Renovation - Phase 2</p>
+                      <p className="text-sm text-gray-600">
+                        Corporate Headquarters Renovation - Phase 2
+                      </p>
                     </div>
                     <span className="text-sm text-gray-500">2 hours ago</span>
                   </div>
@@ -315,7 +393,9 @@ const VendorPortal = () => {
                     <Bell className="w-5 h-5 text-blue-600" />
                     <div className="flex-1">
                       <p className="font-medium">New opportunity match</p>
-                      <p className="text-sm text-gray-600">Office Building Renovation - 95% match</p>
+                      <p className="text-sm text-gray-600">
+                        Office Building Renovation - 95% match
+                      </p>
                     </div>
                     <span className="text-sm text-gray-500">1 day ago</span>
                   </div>
@@ -323,7 +403,9 @@ const VendorPortal = () => {
                     <MessageSquare className="w-5 h-5 text-purple-600" />
                     <div className="flex-1">
                       <p className="font-medium">New message from client</p>
-                      <p className="text-sm text-gray-600">TechCorp Inc. sent you a message</p>
+                      <p className="text-sm text-gray-600">
+                        TechCorp Inc. sent you a message
+                      </p>
                     </div>
                     <span className="text-sm text-gray-500">3 days ago</span>
                   </div>
@@ -339,21 +421,29 @@ const VendorPortal = () => {
                 <Link to="/opportunities">View All Opportunities</Link>
               </Button>
             </div>
-            
+
             <div className="grid gap-4">
               {opportunities.map((opportunity) => (
-                <Card key={opportunity.id} className="hover:shadow-md transition-shadow">
+                <Card
+                  key={opportunity.id}
+                  className="hover:shadow-md transition-shadow"
+                >
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <h4 className="font-medium text-lg">{opportunity.title}</h4>
+                        <h4 className="font-medium text-lg">
+                          {opportunity.title}
+                        </h4>
                         <p className="text-gray-600">{opportunity.location}</p>
                       </div>
                       <div className="text-right">
-                        <Badge 
+                        <Badge
                           variant={
-                            opportunity.status === "Closing Soon" ? "destructive" :
-                            opportunity.status === "Invited" ? "default" : "secondary"
+                            opportunity.status === "Closing Soon"
+                              ? "destructive"
+                              : opportunity.status === "Invited"
+                                ? "default"
+                                : "secondary"
                           }
                         >
                           {opportunity.status}
@@ -363,15 +453,25 @@ const VendorPortal = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="flex justify-between items-center">
                       <div className="flex space-x-4 text-sm">
-                        <span><strong>Budget:</strong> ${opportunity.budget.toLocaleString()}</span>
-                        <span><strong>Category:</strong> {opportunity.category}</span>
-                        <span><strong>Deadline:</strong> {new Date(opportunity.deadline).toLocaleDateString()}</span>
+                        <span>
+                          <strong>Budget:</strong> $
+                          {opportunity.budget.toLocaleString()}
+                        </span>
+                        <span>
+                          <strong>Category:</strong> {opportunity.category}
+                        </span>
+                        <span>
+                          <strong>Deadline:</strong>{" "}
+                          {new Date(opportunity.deadline).toLocaleDateString()}
+                        </span>
                       </div>
                       <div className="flex space-x-2">
-                        <Button variant="outline" size="sm">View Details</Button>
+                        <Button variant="outline" size="sm">
+                          View Details
+                        </Button>
                         <Button size="sm">Submit Bid</Button>
                       </div>
                     </div>
@@ -386,7 +486,7 @@ const VendorPortal = () => {
               <h3 className="text-lg font-medium">My Projects</h3>
               <Button variant="outline">Export Report</Button>
             </div>
-            
+
             <div className="grid gap-4">
               {projects.map((project) => (
                 <Card key={project.id}>
@@ -394,18 +494,23 @@ const VendorPortal = () => {
                     <div className="flex justify-between items-start mb-3">
                       <div>
                         <h4 className="font-medium text-lg">{project.title}</h4>
-                        <p className="text-gray-600">Client: {project.client}</p>
+                        <p className="text-gray-600">
+                          Client: {project.client}
+                        </p>
                       </div>
-                      <Badge 
+                      <Badge
                         variant={
-                          project.status === "Completed" ? "default" :
-                          project.status === "Active" ? "secondary" : "outline"
+                          project.status === "Completed"
+                            ? "default"
+                            : project.status === "Active"
+                              ? "secondary"
+                              : "outline"
                         }
                       >
                         {project.status}
                       </Badge>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Progress</span>
@@ -413,13 +518,21 @@ const VendorPortal = () => {
                       </div>
                       <Progress value={project.progress} />
                     </div>
-                    
+
                     <div className="flex justify-between items-center mt-3">
                       <div className="flex space-x-4 text-sm">
-                        <span><strong>Value:</strong> ${project.value.toLocaleString()}</span>
-                        <span><strong>Deadline:</strong> {new Date(project.deadline).toLocaleDateString()}</span>
+                        <span>
+                          <strong>Value:</strong> $
+                          {project.value.toLocaleString()}
+                        </span>
+                        <span>
+                          <strong>Deadline:</strong>{" "}
+                          {new Date(project.deadline).toLocaleDateString()}
+                        </span>
                       </div>
-                      <Button variant="outline" size="sm">View Details</Button>
+                      <Button variant="outline" size="sm">
+                        View Details
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -440,7 +553,9 @@ const VendorPortal = () => {
                 <CardContent className="p-4 text-center">
                   <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
                   <div className="text-2xl font-bold">4.8/5</div>
-                  <div className="text-sm text-gray-600">Client Satisfaction</div>
+                  <div className="text-sm text-gray-600">
+                    Client Satisfaction
+                  </div>
                 </CardContent>
               </Card>
               <Card>
@@ -455,14 +570,19 @@ const VendorPortal = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Performance Metrics</CardTitle>
-                <CardDescription>Your key performance indicators over time</CardDescription>
+                <CardDescription>
+                  Your key performance indicators over time
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8">
                   <TrendingUp className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Detailed Analytics</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    Detailed Analytics
+                  </h3>
                   <p className="text-gray-600">
-                    Comprehensive performance analytics and insights will be available here.
+                    Comprehensive performance analytics and insights will be
+                    available here.
                   </p>
                 </div>
               </CardContent>
@@ -472,14 +592,18 @@ const VendorPortal = () => {
           <TabsContent value="messages" className="space-y-4">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-medium">Messages & Notifications</h3>
-              <Button variant="outline" size="sm">Mark All Read</Button>
+              <Button variant="outline" size="sm">
+                Mark All Read
+              </Button>
             </div>
-            
+
             <Card>
               <CardContent className="p-4">
                 <div className="text-center py-8">
                   <MessageSquare className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Message Center</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    Message Center
+                  </h3>
                   <p className="text-gray-600 mb-4">
                     Stay connected with clients and manage all communications.
                   </p>
@@ -509,7 +633,7 @@ const VendorPortal = () => {
               currency="usd"
               description="Vendor Portal Subscription"
               type="vendor"
-              onSuccess={() => alert('Vendor payment successful!')}
+              onSuccess={() => alert("Vendor payment successful!")}
             />
           </CardContent>
         </Card>

@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export interface Property {
   id: string;
@@ -12,7 +12,7 @@ export interface Property {
   units_count?: number;
   year_built?: number;
   description?: string;
-  status: 'active' | 'inactive' | 'maintenance';
+  status: "active" | "inactive" | "maintenance";
   budget_annual?: number;
   manager_id?: string;
   created_at: string;
@@ -21,46 +21,48 @@ export interface Property {
 
 export const useProperties = () => {
   return useQuery<Property[]>({
-    queryKey: ['properties'],
+    queryKey: ["properties"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('properties')
-        .select('*')
-        .order('created_at', { ascending: false });
+        .from("properties")
+        .select("*")
+        .order("created_at", { ascending: false });
       if (error) {
-        console.error('Error fetching properties:', error);
+        console.error("Error fetching properties:", error);
         throw error;
       }
       return (data || []) as Property[];
-    }
+    },
   });
 };
 
 export const useCreateProperty = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
-    mutationFn: async (property: Omit<Property, 'id' | 'created_at' | 'updated_at'>) => {
+    mutationFn: async (
+      property: Omit<Property, "id" | "created_at" | "updated_at">,
+    ) => {
       const { data, error } = await supabase
-        .from('properties')
+        .from("properties")
         .insert([property])
         .select()
         .single();
-      
+
       if (error) {
-        console.error('Error creating property:', error);
+        console.error("Error creating property:", error);
         throw error;
       }
-      
+
       return data as Property;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['properties'] });
-      toast.success('Property created successfully!');
+      queryClient.invalidateQueries({ queryKey: ["properties"] });
+      toast.success("Property created successfully!");
     },
     onError: (error) => {
-      console.error('Failed to create property:', error);
-      toast.error('Failed to create property. Please try again.');
-    }
+      console.error("Failed to create property:", error);
+      toast.error("Failed to create property. Please try again.");
+    },
   });
 };

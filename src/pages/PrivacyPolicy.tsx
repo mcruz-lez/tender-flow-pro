@@ -1,10 +1,16 @@
 import PageTemplate from "@/components/PageTemplate";
 
 const PrivacyPolicy = () => (
-  <PageTemplate title="Privacy Policy" description="How we protect your data and privacy.">
+  <PageTemplate
+    title="Privacy Policy"
+    description="How we protect your data and privacy."
+  >
     <div className="prose max-w-2xl mx-auto">
       <h2>Introduction</h2>
-      <p>Your privacy is important to us. This policy explains how we collect, use, and protect your information.</p>
+      <p>
+        Your privacy is important to us. This policy explains how we collect,
+        use, and protect your information.
+      </p>
       <h3>Information We Collect</h3>
       <ul>
         <li>Account and profile information</li>
@@ -24,7 +30,16 @@ const PrivacyPolicy = () => (
         <li>Request data portability</li>
       </ul>
       <h3>Contact</h3>
-      <p>For privacy questions, email <a href="mailto:support@tendprocure.com" className="text-blue-600 underline">support@tendprocure.com</a>.</p>
+      <p>
+        For privacy questions, email{" "}
+        <a
+          href="mailto:support@tendprocure.com"
+          className="text-blue-600 underline"
+        >
+          support@tendprocure.com
+        </a>
+        .
+      </p>
     </div>
   </PageTemplate>
 );

@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BarChart2, Sparkles, Download, Activity, ArrowRight } from "lucide-react";
+import {
+  BarChart2,
+  Sparkles,
+  Download,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 const ServicePerformance = () => {
@@ -76,7 +88,9 @@ const ServicePerformance = () => {
                 <Link to="/properties/CostAnalysis">Cost Analysis</Link>
               </Button>
               <Button asChild variant="outline" className="glass-button">
-                <Link to="/properties/MaintenancePlanning">Maintenance Planning</Link>
+                <Link to="/properties/MaintenancePlanning">
+                  Maintenance Planning
+                </Link>
               </Button>
             </div>
           </CardContent>
@@ -91,7 +105,9 @@ const ServicePerformance = () => {
         <TabsContent value="service">
           <Card className="glass-card border-blue-500/20 mt-4">
             <CardHeader>
-              <CardTitle className="text-white">Recent Service Activity</CardTitle>
+              <CardTitle className="text-white">
+                Recent Service Activity
+              </CardTitle>
               <CardDescription className="text-blue-200">
                 View and track recent service activity
               </CardDescription>
@@ -101,7 +117,9 @@ const ServicePerformance = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center text-blue-200">
                   [Recent Service Activity Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive service dashboard</p>
+                <p className="mt-4 text-sm text-blue-200">
+                  Coming soon: Interactive service dashboard
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -119,7 +137,9 @@ const ServicePerformance = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-green-200">
                   [Service Trends Chart Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-green-200">Coming soon: Interactive service trends charts</p>
+                <p className="mt-4 text-sm text-green-200">
+                  Coming soon: Interactive service trends charts
+                </p>
               </div>
             </CardContent>
           </Card>

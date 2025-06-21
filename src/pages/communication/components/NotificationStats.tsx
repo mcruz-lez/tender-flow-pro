@@ -1,11 +1,5 @@
-
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Bell, 
-  AlertTriangle,
-  Info,
-  CheckCircle
-} from "lucide-react";
+import { Bell, AlertTriangle, Info, CheckCircle } from "lucide-react";
 
 interface NotificationStatsProps {
   stats: {

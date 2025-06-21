@@ -1,7 +1,12 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -29,14 +34,18 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     const { error } = await signIn(email, password);
-    
+
     if (error) {
-      if (error.message.includes('Invalid login credentials')) {
-        toast.error("Invalid email or password. Please check your credentials.");
-      } else if (error.message.includes('Email not confirmed')) {
-        toast.error("Please check your email and click the confirmation link before signing in.");
+      if (error.message.includes("Invalid login credentials")) {
+        toast.error(
+          "Invalid email or password. Please check your credentials.",
+        );
+      } else if (error.message.includes("Email not confirmed")) {
+        toast.error(
+          "Please check your email and click the confirmation link before signing in.",
+        );
       } else {
         toast.error(error.message || "An error occurred during sign in.");
       }
@@ -44,7 +53,7 @@ const Login = () => {
       toast.success("Login successful! Welcome to TendProcure.");
       navigate("/dashboard");
     }
-    
+
     setIsLoading(false);
   };
 
@@ -59,22 +68,29 @@ const Login = () => {
             </div>
             <div className="text-left">
               <h1 className="text-2xl font-bold text-gray-900">TendProcure</h1>
-              <p className="text-sm text-blue-600 font-medium">Property Tender Management</p>
+              <p className="text-sm text-blue-600 font-medium">
+                Property Tender Management
+              </p>
             </div>
           </Link>
         </div>
 
         <Card className="border-0 shadow-xl bg-white/60 backdrop-blur-sm">
           <CardHeader className="space-y-2 text-center">
-            <CardTitle className="text-2xl font-bold text-gray-900">Welcome Back</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-900">
+              Welcome Back
+            </CardTitle>
             <CardDescription className="text-gray-600">
-              Sign in to your TendProcure account to manage tenders and procurement processes.
+              Sign in to your TendProcure account to manage tenders and
+              procurement processes.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-gray-700 font-medium">Email Address</Label>
+                <Label htmlFor="email" className="text-gray-700 font-medium">
+                  Email Address
+                </Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                   <Input
@@ -91,8 +107,16 @@ const Login = () => {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
-                  <Link to="/password-reset" className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                  <Label
+                    htmlFor="password"
+                    className="text-gray-700 font-medium"
+                  >
+                    Password
+                  </Label>
+                  <Link
+                    to="/password-reset"
+                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  >
                     Forgot password?
                   </Link>
                 </div>
@@ -112,13 +136,17 @@ const Login = () => {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
                   </button>
                 </div>
               </div>
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium"
                 disabled={isLoading}
               >
@@ -131,15 +159,23 @@ const Login = () => {
             <div className="text-center space-y-4">
               <p className="text-gray-600">
                 Don't have an account?{" "}
-                <Link to="/register" className="text-blue-600 hover:text-blue-700 font-medium">
+                <Link
+                  to="/register"
+                  className="text-blue-600 hover:text-blue-700 font-medium"
+                >
                   Create account
                 </Link>
               </p>
-              
+
               <div className="text-xs text-gray-500 leading-relaxed">
                 By signing in, you agree to our{" "}
-                <a href="#" className="text-blue-600 hover:underline">Terms of Service</a> and{" "}
-                <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
+                <a href="#" className="text-blue-600 hover:underline">
+                  Terms of Service
+                </a>{" "}
+                and{" "}
+                <a href="#" className="text-blue-600 hover:underline">
+                  Privacy Policy
+                </a>
               </div>
             </div>
           </CardContent>
@@ -147,7 +183,13 @@ const Login = () => {
 
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-500">
-            Need help? <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">Contact Support</a>
+            Need help?{" "}
+            <a
+              href="#"
+              className="text-blue-600 hover:text-blue-700 font-medium"
+            >
+              Contact Support
+            </a>
           </p>
         </div>
       </div>

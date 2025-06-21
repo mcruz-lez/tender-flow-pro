@@ -1,17 +1,29 @@
-
 import { useState } from "react";
 import PageTemplate from "@/components/PageTemplate";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Users, 
-  Clock, 
-  CheckCircle, 
-  AlertTriangle, 
+import {
+  Users,
+  Clock,
+  CheckCircle,
+  AlertTriangle,
   TrendingUp,
   Award,
   FileText,
@@ -21,11 +33,22 @@ import {
   Search,
   MoreHorizontal,
   Eye,
-  Play
+  Play,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 const EvaluationDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,7 +57,12 @@ const EvaluationDashboard = () => {
   const quickActions = [
     { label: "Start Evaluation", href: "/evaluation/panel/new", icon: Play },
     { label: "Auto Score", href: "/evaluation/auto-score", icon: TrendingUp },
-    { label: "Bias Check", href: "/evaluation/bias-check", icon: AlertTriangle, variant: "outline" as const }
+    {
+      label: "Bias Check",
+      href: "/evaluation/bias-check",
+      icon: AlertTriangle,
+      variant: "outline" as const,
+    },
   ];
 
   const evaluationStats = {
@@ -43,7 +71,7 @@ const EvaluationDashboard = () => {
     inProgress: 6,
     completed: 10,
     avgScore: 78.5,
-    avgDuration: "3.2 days"
+    avgDuration: "3.2 days",
   };
 
   const pendingEvaluations = [
@@ -55,28 +83,28 @@ const EvaluationDashboard = () => {
       priority: "High",
       status: "Pending",
       evaluators: 3,
-      progress: 0
+      progress: 0,
     },
     {
-      id: "T002", 
+      id: "T002",
       title: "Security Services Contract",
       bids: 8,
       deadline: "2024-01-25",
       priority: "Medium",
       status: "In Progress",
       evaluators: 4,
-      progress: 45
+      progress: 45,
     },
     {
       id: "T003",
-      title: "Cleaning Services Contract", 
+      title: "Cleaning Services Contract",
       bids: 15,
       deadline: "2024-01-30",
       priority: "Low",
       status: "In Progress",
       evaluators: 2,
-      progress: 75
-    }
+      progress: 75,
+    },
   ];
 
   const recentlyCompleted = [
@@ -86,7 +114,7 @@ const EvaluationDashboard = () => {
       winner: "Green Spaces Ltd",
       score: 92,
       completedDate: "2024-01-15",
-      evaluators: 3
+      evaluators: 3,
     },
     {
       id: "T005",
@@ -94,38 +122,46 @@ const EvaluationDashboard = () => {
       winner: "Tech Solutions Inc",
       score: 88,
       completedDate: "2024-01-12",
-      evaluators: 4
-    }
+      evaluators: 4,
+    },
   ];
 
   const evaluationData = [
-    { month: 'Oct', completed: 12, average: 82 },
-    { month: 'Nov', completed: 15, average: 79 },
-    { month: 'Dec', completed: 18, average: 85 },
-    { month: 'Jan', completed: 10, average: 78 }
+    { month: "Oct", completed: 12, average: 82 },
+    { month: "Nov", completed: 15, average: 79 },
+    { month: "Dec", completed: 18, average: 85 },
+    { month: "Jan", completed: 10, average: 78 },
   ];
 
   const statusData = [
-    { name: 'Pending', value: 33, color: '#f59e0b' },
-    { name: 'In Progress', value: 25, color: '#3b82f6' },
-    { name: 'Completed', value: 42, color: '#10b981' }
+    { name: "Pending", value: 33, color: "#f59e0b" },
+    { name: "In Progress", value: 25, color: "#3b82f6" },
+    { name: "Completed", value: 42, color: "#10b981" },
   ];
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "High": return "bg-red-100 text-red-800";
-      case "Medium": return "bg-yellow-100 text-yellow-800";
-      case "Low": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "High":
+        return "bg-red-100 text-red-800";
+      case "Medium":
+        return "bg-yellow-100 text-yellow-800";
+      case "Low":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Pending": return "bg-yellow-100 text-yellow-800";
-      case "In Progress": return "bg-blue-100 text-blue-800";
-      case "Completed": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "In Progress":
+        return "bg-blue-100 text-blue-800";
+      case "Completed":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -141,28 +177,36 @@ const EvaluationDashboard = () => {
           <Card>
             <CardContent className="p-4 text-center">
               <FileText className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold">{evaluationStats.totalTenders}</div>
+              <div className="text-2xl font-bold">
+                {evaluationStats.totalTenders}
+              </div>
               <div className="text-sm text-gray-600">Total Tenders</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <Clock className="w-8 h-8 text-orange-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold">{evaluationStats.pendingEvaluation}</div>
+              <div className="text-2xl font-bold">
+                {evaluationStats.pendingEvaluation}
+              </div>
               <div className="text-sm text-gray-600">Pending Evaluation</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <Star className="w-8 h-8 text-yellow-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold">{evaluationStats.avgScore}</div>
+              <div className="text-2xl font-bold">
+                {evaluationStats.avgScore}
+              </div>
               <div className="text-sm text-gray-600">Avg Score</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <TrendingUp className="w-8 h-8 text-green-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold">{evaluationStats.avgDuration}</div>
+              <div className="text-2xl font-bold">
+                {evaluationStats.avgDuration}
+              </div>
               <div className="text-sm text-gray-600">Avg Duration</div>
             </CardContent>
           </Card>
@@ -183,8 +227,8 @@ const EvaluationDashboard = () => {
                 <CardTitle>Pending Evaluations</CardTitle>
                 <CardDescription>Tenders awaiting evaluation</CardDescription>
                 <div className="flex gap-2">
-                  <Input 
-                    placeholder="Search tenders..." 
+                  <Input
+                    placeholder="Search tenders..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="max-w-sm"
@@ -214,7 +258,9 @@ const EvaluationDashboard = () => {
                         <TableCell>
                           <div>
                             <div className="font-medium">{tender.title}</div>
-                            <div className="text-sm text-gray-500">{tender.id}</div>
+                            <div className="text-sm text-gray-500">
+                              {tender.id}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>{tender.bids} bids</TableCell>
@@ -231,7 +277,10 @@ const EvaluationDashboard = () => {
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            <Progress value={tender.progress} className="w-16" />
+                            <Progress
+                              value={tender.progress}
+                              className="w-16"
+                            />
                             <span className="text-sm">{tender.progress}%</span>
                           </div>
                         </TableCell>
@@ -260,7 +309,9 @@ const EvaluationDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Recently Completed</CardTitle>
-                <CardDescription>Successfully evaluated tenders</CardDescription>
+                <CardDescription>
+                  Successfully evaluated tenders
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -280,7 +331,9 @@ const EvaluationDashboard = () => {
                         <TableCell>
                           <div>
                             <div className="font-medium">{tender.title}</div>
-                            <div className="text-sm text-gray-500">{tender.id}</div>
+                            <div className="text-sm text-gray-500">
+                              {tender.id}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>{tender.winner}</TableCell>
@@ -311,7 +364,9 @@ const EvaluationDashboard = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Evaluation Trends</CardTitle>
-                  <CardDescription>Monthly evaluation performance</CardDescription>
+                  <CardDescription>
+                    Monthly evaluation performance
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -320,7 +375,11 @@ const EvaluationDashboard = () => {
                       <XAxis dataKey="month" />
                       <YAxis />
                       <Tooltip />
-                      <Bar dataKey="completed" fill="#3b82f6" name="Completed" />
+                      <Bar
+                        dataKey="completed"
+                        fill="#3b82f6"
+                        name="Completed"
+                      />
                       <Bar dataKey="average" fill="#10b981" name="Avg Score" />
                     </BarChart>
                   </ResponsiveContainer>
@@ -330,7 +389,9 @@ const EvaluationDashboard = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Evaluation Status</CardTitle>
-                  <CardDescription>Current evaluation distribution</CardDescription>
+                  <CardDescription>
+                    Current evaluation distribution
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>

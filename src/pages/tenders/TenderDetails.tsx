@@ -2,22 +2,35 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  ArrowLeft, 
-  Edit, 
-  Share2, 
-  Download, 
-  Users, 
-  MessageSquare, 
-  Clock, 
-  DollarSign, 
-  MapPin, 
+import {
+  ArrowLeft,
+  Edit,
+  Share2,
+  Download,
+  Users,
+  MessageSquare,
+  Clock,
+  DollarSign,
+  MapPin,
   Calendar,
   FileText,
   Award,
@@ -25,10 +38,10 @@ import {
   CheckCircle,
   Eye,
   Send,
-  Star
+  Star,
 } from "lucide-react";
 import { toast } from "sonner";
-import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
+import { StripeCheckoutButton } from "@/components/StripeCheckoutButton";
 
 const TenderDetails = () => {
   const { id } = useParams();
@@ -44,16 +57,26 @@ const TenderDetails = () => {
     publishDate: "2023-12-01",
     value: "$50,000",
     location: "Downtown Office Complex",
-    description: "Comprehensive HVAC maintenance services including preventive maintenance, emergency repairs, and system optimization for a 50,000 sq ft office complex.",
-    requirements: "Licensed HVAC technicians, 24/7 emergency response, preventive maintenance schedule, energy efficiency reporting.",
+    description:
+      "Comprehensive HVAC maintenance services including preventive maintenance, emergency repairs, and system optimization for a 50,000 sq ft office complex.",
+    requirements:
+      "Licensed HVAC technicians, 24/7 emergency response, preventive maintenance schedule, energy efficiency reporting.",
     bids: 12,
     views: 156,
     questions: 8,
     documents: [
-      { name: "Technical Specifications.pdf", size: "2.4 MB", uploaded: "2023-12-01" },
+      {
+        name: "Technical Specifications.pdf",
+        size: "2.4 MB",
+        uploaded: "2023-12-01",
+      },
       { name: "Site Plans.dwg", size: "1.8 MB", uploaded: "2023-12-01" },
-      { name: "Current System Manual.pdf", size: "5.2 MB", uploaded: "2023-12-02" }
-    ]
+      {
+        name: "Current System Manual.pdf",
+        size: "5.2 MB",
+        uploaded: "2023-12-02",
+      },
+    ],
   };
 
   const bids = [
@@ -64,16 +87,16 @@ const TenderDetails = () => {
       status: "Submitted",
       score: 85,
       submittedDate: "2023-12-15",
-      rating: 4.8
+      rating: 4.8,
     },
     {
-      id: "2", 
+      id: "2",
       vendor: "Professional HVAC Services",
       amount: "$52,000",
       status: "Under Review",
       score: 78,
       submittedDate: "2023-12-14",
-      rating: 4.6
+      rating: 4.6,
     },
     {
       id: "3",
@@ -82,8 +105,8 @@ const TenderDetails = () => {
       status: "Shortlisted",
       score: 92,
       submittedDate: "2023-12-13",
-      rating: 4.9
-    }
+      rating: 4.9,
+    },
   ];
 
   const qaMessages = [
@@ -91,35 +114,47 @@ const TenderDetails = () => {
       id: "1",
       vendor: "Climate Control Solutions",
       question: "What is the current age of the HVAC equipment?",
-      answer: "The main units were installed in 2018, with the last major service in 2022.",
-      date: "2023-12-10"
+      answer:
+        "The main units were installed in 2018, with the last major service in 2022.",
+      date: "2023-12-10",
     },
     {
       id: "2",
-      vendor: "Professional HVAC Services", 
+      vendor: "Professional HVAC Services",
       question: "Are there any specific energy efficiency targets?",
-      answer: "We aim to maintain current efficiency levels with 10% improvement targets.",
-      date: "2023-12-09"
-    }
+      answer:
+        "We aim to maintain current efficiency levels with 10% improvement targets.",
+      date: "2023-12-09",
+    },
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Active": return "bg-green-100 text-green-800 border-green-200";
-      case "Draft": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "Closed": return "bg-gray-100 text-gray-800 border-gray-200";
-      case "Awarded": return "bg-blue-100 text-blue-800 border-blue-200";
-      default: return "bg-gray-100 text-gray-800 border-gray-200";
+      case "Active":
+        return "bg-green-100 text-green-800 border-green-200";
+      case "Draft":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      case "Closed":
+        return "bg-gray-100 text-gray-800 border-gray-200";
+      case "Awarded":
+        return "bg-blue-100 text-blue-800 border-blue-200";
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
   const getBidStatusColor = (status: string) => {
     switch (status) {
-      case "Submitted": return "bg-blue-100 text-blue-800";
-      case "Under Review": return "bg-yellow-100 text-yellow-800";
-      case "Shortlisted": return "bg-green-100 text-green-800";
-      case "Rejected": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Submitted":
+        return "bg-blue-100 text-blue-800";
+      case "Under Review":
+        return "bg-yellow-100 text-yellow-800";
+      case "Shortlisted":
+        return "bg-green-100 text-green-800";
+      case "Rejected":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -131,13 +166,23 @@ const TenderDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <DashboardSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
-      
-      <div className={`transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
+      <DashboardSidebar
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+      />
+
+      <div
+        className={`transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-16"}`}
+      >
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center gap-4 mb-6">
-            <Button variant="ghost" size="sm" asChild className="text-white/70 hover:text-white hover:bg-white/10">
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="text-white/70 hover:text-white hover:bg-white/10"
+            >
               <Link to="/tenders">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Tenders
@@ -154,23 +199,37 @@ const TenderDetails = () => {
                     <Badge className={getStatusColor(tender.status)}>
                       {tender.status}
                     </Badge>
-                    <span className="text-sm text-white/60">ID: {tender.id}</span>
+                    <span className="text-sm text-white/60">
+                      ID: {tender.id}
+                    </span>
                   </div>
-                  <CardTitle className="text-2xl text-white">{tender.title}</CardTitle>
-                  <CardDescription className="text-white/70">{tender.category}</CardDescription>
+                  <CardTitle className="text-2xl text-white">
+                    {tender.title}
+                  </CardTitle>
+                  <CardDescription className="text-white/70">
+                    {tender.category}
+                  </CardDescription>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-white/20 text-white hover:bg-white/10"
+                  >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
-                  <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-white/20 text-white hover:bg-white/10"
+                  >
                     <Share2 className="w-4 h-4 mr-2" />
                     Share
                   </Button>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                 <div className="text-center p-3 bg-white/5 rounded-lg border border-white/10">
                   <DollarSign className="w-5 h-5 text-green-400 mx-auto mb-1" />
@@ -199,11 +258,36 @@ const TenderDetails = () => {
           {/* Main Content Tabs */}
           <Tabs defaultValue="overview" className="space-y-6">
             <TabsList className="bg-white/10 backdrop-blur-xl border-white/20">
-              <TabsTrigger value="overview" className="data-[state=active]:bg-white/20">Overview</TabsTrigger>
-              <TabsTrigger value="bids" className="data-[state=active]:bg-white/20">Bids ({tender.bids})</TabsTrigger>
-              <TabsTrigger value="qa" className="data-[state=active]:bg-white/20">Q&A ({tender.questions})</TabsTrigger>
-              <TabsTrigger value="documents" className="data-[state=active]:bg-white/20">Documents</TabsTrigger>
-              <TabsTrigger value="evaluation" className="data-[state=active]:bg-white/20">Evaluation</TabsTrigger>
+              <TabsTrigger
+                value="overview"
+                className="data-[state=active]:bg-white/20"
+              >
+                Overview
+              </TabsTrigger>
+              <TabsTrigger
+                value="bids"
+                className="data-[state=active]:bg-white/20"
+              >
+                Bids ({tender.bids})
+              </TabsTrigger>
+              <TabsTrigger
+                value="qa"
+                className="data-[state=active]:bg-white/20"
+              >
+                Q&A ({tender.questions})
+              </TabsTrigger>
+              <TabsTrigger
+                value="documents"
+                className="data-[state=active]:bg-white/20"
+              >
+                Documents
+              </TabsTrigger>
+              <TabsTrigger
+                value="evaluation"
+                className="data-[state=active]:bg-white/20"
+              >
+                Evaluation
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview">
@@ -214,16 +298,22 @@ const TenderDetails = () => {
                       <CardTitle className="text-white">Description</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-white/80 leading-relaxed">{tender.description}</p>
+                      <p className="text-white/80 leading-relaxed">
+                        {tender.description}
+                      </p>
                     </CardContent>
                   </Card>
 
                   <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
                     <CardHeader>
-                      <CardTitle className="text-white">Requirements & Specifications</CardTitle>
+                      <CardTitle className="text-white">
+                        Requirements & Specifications
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-white/80 leading-relaxed">{tender.requirements}</p>
+                      <p className="text-white/80 leading-relaxed">
+                        {tender.requirements}
+                      </p>
                     </CardContent>
                   </Card>
                 </div>
@@ -231,7 +321,9 @@ const TenderDetails = () => {
                 <div className="space-y-6">
                   <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
                     <CardHeader>
-                      <CardTitle className="text-white">Tender Details</CardTitle>
+                      <CardTitle className="text-white">
+                        Tender Details
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="flex justify-between">
@@ -251,16 +343,25 @@ const TenderDetails = () => {
 
                   <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
                     <CardHeader>
-                      <CardTitle className="text-white">Quick Actions</CardTitle>
+                      <CardTitle className="text-white">
+                        Quick Actions
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                      <Button asChild className="w-full justify-start bg-blue-600 hover:bg-blue-700">
+                      <Button
+                        asChild
+                        className="w-full justify-start bg-blue-600 hover:bg-blue-700"
+                      >
                         <Link to={`/evaluation/panel/${tender.id}`}>
                           <Award className="w-4 h-4 mr-2" />
                           Start Evaluation
                         </Link>
                       </Button>
-                      <Button asChild variant="outline" className="w-full justify-start border-white/20 text-white hover:bg-white/10">
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="w-full justify-start border-white/20 text-white hover:bg-white/10"
+                      >
                         <Link to="/vendors">
                           <Users className="w-4 h-4 mr-2" />
                           View Vendors
@@ -289,30 +390,47 @@ const TenderDetails = () => {
                         <TableHead className="text-white/80">Status</TableHead>
                         <TableHead className="text-white/80">Score</TableHead>
                         <TableHead className="text-white/80">Rating</TableHead>
-                        <TableHead className="text-white/80">Submitted</TableHead>
+                        <TableHead className="text-white/80">
+                          Submitted
+                        </TableHead>
                         <TableHead className="text-white/80">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {bids.map((bid) => (
-                        <TableRow key={bid.id} className="border-white/10 hover:bg-white/5">
-                          <TableCell className="text-white">{bid.vendor}</TableCell>
-                          <TableCell className="text-white font-medium">{bid.amount}</TableCell>
+                        <TableRow
+                          key={bid.id}
+                          className="border-white/10 hover:bg-white/5"
+                        >
+                          <TableCell className="text-white">
+                            {bid.vendor}
+                          </TableCell>
+                          <TableCell className="text-white font-medium">
+                            {bid.amount}
+                          </TableCell>
                           <TableCell>
                             <Badge className={getBidStatusColor(bid.status)}>
                               {bid.status}
                             </Badge>
                           </TableCell>
-                          <TableCell className="text-white">{bid.score}/100</TableCell>
+                          <TableCell className="text-white">
+                            {bid.score}/100
+                          </TableCell>
                           <TableCell>
                             <div className="flex items-center gap-1">
                               <Star className="w-4 h-4 text-yellow-400 fill-current" />
                               <span className="text-white">{bid.rating}</span>
                             </div>
                           </TableCell>
-                          <TableCell className="text-white/70">{bid.submittedDate}</TableCell>
+                          <TableCell className="text-white/70">
+                            {bid.submittedDate}
+                          </TableCell>
                           <TableCell>
-                            <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="border-white/20 text-white hover:bg-white/10"
+                            >
                               <Eye className="w-4 h-4 mr-2" />
                               Review
                             </Button>
@@ -329,7 +447,9 @@ const TenderDetails = () => {
               <div className="space-y-6">
                 <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
                   <CardHeader>
-                    <CardTitle className="text-white">Send Message to Bidders</CardTitle>
+                    <CardTitle className="text-white">
+                      Send Message to Bidders
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <Textarea
@@ -339,7 +459,10 @@ const TenderDetails = () => {
                       className="bg-white/5 border-white/20 text-white placeholder:text-white/50"
                       rows={3}
                     />
-                    <Button onClick={handleSendMessage} className="bg-blue-600 hover:bg-blue-700">
+                    <Button
+                      onClick={handleSendMessage}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
                       <Send className="w-4 h-4 mr-2" />
                       Send Message
                     </Button>
@@ -348,17 +471,28 @@ const TenderDetails = () => {
 
                 <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
                   <CardHeader>
-                    <CardTitle className="text-white">Questions & Answers</CardTitle>
+                    <CardTitle className="text-white">
+                      Questions & Answers
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {qaMessages.map((qa) => (
-                      <div key={qa.id} className="border border-white/10 rounded-lg p-4 space-y-3">
+                      <div
+                        key={qa.id}
+                        className="border border-white/10 rounded-lg p-4 space-y-3"
+                      >
                         <div className="flex justify-between items-start">
-                          <span className="font-medium text-white">{qa.vendor}</span>
-                          <span className="text-sm text-white/60">{qa.date}</span>
+                          <span className="font-medium text-white">
+                            {qa.vendor}
+                          </span>
+                          <span className="text-sm text-white/60">
+                            {qa.date}
+                          </span>
                         </div>
                         <div className="bg-white/5 rounded-lg p-3">
-                          <p className="text-sm text-white/80 mb-2">Q: {qa.question}</p>
+                          <p className="text-sm text-white/80 mb-2">
+                            Q: {qa.question}
+                          </p>
                           <p className="text-sm text-white">A: {qa.answer}</p>
                         </div>
                       </div>
@@ -376,15 +510,24 @@ const TenderDetails = () => {
                 <CardContent>
                   <div className="space-y-3">
                     {tender.documents.map((doc, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10"
+                      >
                         <div className="flex items-center gap-3">
                           <FileText className="w-5 h-5 text-blue-400" />
                           <div>
                             <p className="font-medium text-white">{doc.name}</p>
-                            <p className="text-sm text-white/60">{doc.size} • Uploaded {doc.uploaded}</p>
+                            <p className="text-sm text-white/60">
+                              {doc.size} • Uploaded {doc.uploaded}
+                            </p>
                           </div>
                         </div>
-                        <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-white/20 text-white hover:bg-white/10"
+                        >
                           <Download className="w-4 h-4 mr-2" />
                           Download
                         </Button>
@@ -398,7 +541,9 @@ const TenderDetails = () => {
             <TabsContent value="evaluation">
               <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
                 <CardHeader>
-                  <CardTitle className="text-white">Evaluation Status</CardTitle>
+                  <CardTitle className="text-white">
+                    Evaluation Status
+                  </CardTitle>
                   <CardDescription className="text-white/70">
                     Track the evaluation progress for all submitted bids
                   </CardDescription>
@@ -422,8 +567,11 @@ const TenderDetails = () => {
                         <p className="text-xl font-bold text-white">1</p>
                       </div>
                     </div>
-                    
-                    <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+
+                    <Button
+                      asChild
+                      className="w-full bg-blue-600 hover:bg-blue-700"
+                    >
                       <Link to={`/evaluation/panel/${tender.id}`}>
                         <Award className="w-4 h-4 mr-2" />
                         Start Evaluation Process
@@ -452,7 +600,7 @@ const TenderDetails = () => {
                 currency="usd"
                 description={`Tender Fee for ${tender.title}`}
                 type="tender"
-                onSuccess={() => toast.success('Payment successful!')}
+                onSuccess={() => toast.success("Payment successful!")}
               />
             </CardContent>
           </Card>

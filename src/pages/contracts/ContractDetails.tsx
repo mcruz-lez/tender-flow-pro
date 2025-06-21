@@ -1,7 +1,7 @@
 import PageTemplate from "@/components/PageTemplate";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
+import { StripeCheckoutButton } from "@/components/StripeCheckoutButton";
 
 // --- PROFESSIONAL ENHANCEMENT START ---
 // Apply animated glassmorphism, vibrant gradients, 3D shadows, animated CTAs, badge systems, responsive layouts, and accessibility to contract details
@@ -33,9 +33,7 @@ const ContractDetails = () => {
           <input
             className="border rounded p-2 w-full mb-2"
             value={form.name}
-            onChange={(e) =>
-              setForm({ ...form, name: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
         ) : (
           <div className="mb-2">{contract.name}</div>
@@ -45,9 +43,7 @@ const ContractDetails = () => {
           <input
             className="border rounded p-2 w-full mb-2"
             value={form.vendor}
-            onChange={(e) =>
-              setForm({ ...form, vendor: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, vendor: e.target.value })}
           />
         ) : (
           <div className="mb-2">{contract.vendor}</div>
@@ -73,7 +69,7 @@ const ContractDetails = () => {
           currency="usd"
           description="Contract Security Deposit (10%)"
           type="contract"
-          onSuccess={() => alert('Contract payment successful!')}
+          onSuccess={() => alert("Contract payment successful!")}
         />
       </div>
       {editing ? (

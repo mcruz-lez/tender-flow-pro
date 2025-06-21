@@ -1,12 +1,35 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter, Star, MapPin, Phone, Mail, Eye, UserPlus, Building2, List } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Search,
+  Filter,
+  Star,
+  MapPin,
+  Phone,
+  Mail,
+  Eye,
+  UserPlus,
+  Building2,
+  List,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import PageTemplate from "@/components/PageTemplate";
 
@@ -48,7 +71,7 @@ const mockVendors: Vendor[] = [
     completedProjects: 89,
     averageValue: 125000,
     responseTime: "2 hours",
-    registrationDate: "2023-01-15"
+    registrationDate: "2023-01-15",
   },
   {
     id: "2",
@@ -67,7 +90,7 @@ const mockVendors: Vendor[] = [
     completedProjects: 234,
     averageValue: 15000,
     responseTime: "1 hour",
-    registrationDate: "2022-08-22"
+    registrationDate: "2022-08-22",
   },
   {
     id: "3",
@@ -86,8 +109,8 @@ const mockVendors: Vendor[] = [
     completedProjects: 67,
     averageValue: 45000,
     responseTime: "30 minutes",
-    registrationDate: "2023-03-10"
-  }
+    registrationDate: "2023-03-10",
+  },
 ];
 
 // Animated glassmorphism and gradient helpers
@@ -107,16 +130,28 @@ const VendorDirectory = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [viewMode, setViewMode] = useState("grid");
 
-  const filteredVendors = vendors.filter(vendor => {
-    const matchesSearch = vendor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         vendor.specialties.some(specialty => specialty.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = categoryFilter === "all" || vendor.category === categoryFilter;
-    const matchesStatus = statusFilter === "all" || vendor.status === statusFilter;
-    
+  const filteredVendors = vendors.filter((vendor) => {
+    const matchesSearch =
+      vendor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.specialties.some((specialty) =>
+        specialty.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+    const matchesCategory =
+      categoryFilter === "all" || vendor.category === categoryFilter;
+    const matchesStatus =
+      statusFilter === "all" || vendor.status === statusFilter;
+
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  const categories = ["Construction", "Cleaning", "Security", "HVAC", "Plumbing", "Electrical"];
+  const categories = [
+    "Construction",
+    "Cleaning",
+    "Security",
+    "HVAC",
+    "Plumbing",
+    "Electrical",
+  ];
 
   return (
     <PageTemplate
@@ -129,7 +164,7 @@ const VendorDirectory = () => {
             <Input
               placeholder="Search vendors or specialties..."
               value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full md:w-64 rounded-full px-4 py-2 border-0 shadow focus:ring-2 focus:ring-blue-400"
             />
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
@@ -139,7 +174,9 @@ const VendorDirectory = () => {
               <SelectContent>
                 <SelectItem value="all">All Categories</SelectItem>
                 {categories.map((cat) => (
-                  <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                  <SelectItem key={cat} value={cat}>
+                    {cat}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -156,10 +193,18 @@ const VendorDirectory = () => {
             </Select>
           </div>
           <div className="flex gap-2">
-            <Button className={glassButton} onClick={() => setViewMode('grid')} variant={viewMode === 'grid' ? 'default' : 'outline'}>
+            <Button
+              className={glassButton}
+              onClick={() => setViewMode("grid")}
+              variant={viewMode === "grid" ? "default" : "outline"}
+            >
               <Eye className="w-4 h-4 mr-1" /> Grid
             </Button>
-            <Button className={glassButton} onClick={() => setViewMode('list')} variant={viewMode === 'list' ? 'default' : 'outline'}>
+            <Button
+              className={glassButton}
+              onClick={() => setViewMode("list")}
+              variant={viewMode === "list" ? "default" : "outline"}
+            >
               <List className="w-4 h-4 mr-1" /> List
             </Button>
             <Button asChild className={glassButton}>
@@ -169,30 +214,43 @@ const VendorDirectory = () => {
             </Button>
           </div>
         </div>
-        <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-4'} mb-8`}>
+        <div
+          className={`grid ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" : "grid-cols-1 gap-4"} mb-8`}
+        >
           {filteredVendors.length === 0 ? (
             <div className="col-span-full text-center text-lg text-gray-500 dark:text-gray-300 py-12">
               No vendors found.
             </div>
           ) : (
             filteredVendors.map((vendor) => (
-              <Card key={vendor.id} className={`${glassCard} group hover:shadow-blue-400/30`}>
+              <Card
+                key={vendor.id}
+                className={`${glassCard} group hover:shadow-blue-400/30`}
+              >
                 <CardHeader className="pb-4">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center space-x-3">
                       <Avatar className="w-12 h-12">
                         <AvatarImage src={vendor.avatar} alt={vendor.name} />
-                        <AvatarFallback><Building2 className="w-6 h-6" /></AvatarFallback>
+                        <AvatarFallback>
+                          <Building2 className="w-6 h-6" />
+                        </AvatarFallback>
                       </Avatar>
                       <div>
-                        <CardTitle className="text-lg text-slate-900 dark:text-white font-bold">{vendor.name}</CardTitle>
+                        <CardTitle className="text-lg text-slate-900 dark:text-white font-bold">
+                          {vendor.name}
+                        </CardTitle>
                         <CardDescription className="flex items-center text-blue-700 dark:text-blue-200">
                           <MapPin className="w-4 h-4 mr-1" />
                           {vendor.location}
                         </CardDescription>
                       </div>
                     </div>
-                    <Badge className={`px-3 py-1 text-xs font-bold rounded-full ${badgePulse} ${vendor.status === 'Active' ? 'bg-green-100 text-green-700' : vendor.status === 'Inactive' ? 'bg-gray-100 text-gray-700' : 'bg-yellow-100 text-yellow-700'}`}>{vendor.status}</Badge>
+                    <Badge
+                      className={`px-3 py-1 text-xs font-bold rounded-full ${badgePulse} ${vendor.status === "Active" ? "bg-green-100 text-green-700" : vendor.status === "Inactive" ? "bg-gray-100 text-gray-700" : "bg-yellow-100 text-yellow-700"}`}
+                    >
+                      {vendor.status}
+                    </Badge>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -202,37 +260,55 @@ const VendorDirectory = () => {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`w-4 h-4 ${i < Math.floor(vendor.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
+                            className={`w-4 h-4 ${i < Math.floor(vendor.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
                           />
                         ))}
                         <span className="text-sm text-gray-600 dark:text-gray-300 ml-2">
                           {vendor.rating} ({vendor.reviews} reviews)
                         </span>
                       </div>
-                      <Badge variant="outline" className="text-xs font-semibold border-blue-300/40 dark:border-blue-600/40 text-blue-700 dark:text-blue-200 bg-blue-50 dark:bg-blue-900/20">{vendor.category}</Badge>
+                      <Badge
+                        variant="outline"
+                        className="text-xs font-semibold border-blue-300/40 dark:border-blue-600/40 text-blue-700 dark:text-blue-200 bg-blue-50 dark:bg-blue-900/20"
+                      >
+                        {vendor.category}
+                      </Badge>
                     </div>
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
-                        <span className="font-medium">Projects:</span> {vendor.completedProjects}
+                        <span className="font-medium">Projects:</span>{" "}
+                        {vendor.completedProjects}
                       </div>
                       <div>
-                        <span className="font-medium">Avg Value:</span> ${vendor.averageValue.toLocaleString()}
+                        <span className="font-medium">Avg Value:</span> $
+                        {vendor.averageValue.toLocaleString()}
                       </div>
                       <div>
-                        <span className="font-medium">Response:</span> {vendor.responseTime}
+                        <span className="font-medium">Response:</span>{" "}
+                        {vendor.responseTime}
                       </div>
                       <div>
-                        <span className="font-medium">Since:</span> {new Date(vendor.registrationDate).getFullYear()}
+                        <span className="font-medium">Since:</span>{" "}
+                        {new Date(vendor.registrationDate).getFullYear()}
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-1">
-                      {vendor.specialties.slice(0, 3).map((specialty, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-200">
-                          {specialty}
-                        </Badge>
-                      ))}
+                      {vendor.specialties
+                        .slice(0, 3)
+                        .map((specialty, index) => (
+                          <Badge
+                            key={index}
+                            variant="secondary"
+                            className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-200"
+                          >
+                            {specialty}
+                          </Badge>
+                        ))}
                       {vendor.specialties.length > 3 && (
-                        <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-200">
+                        <Badge
+                          variant="secondary"
+                          className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-200"
+                        >
                           +{vendor.specialties.length - 3} more
                         </Badge>
                       )}

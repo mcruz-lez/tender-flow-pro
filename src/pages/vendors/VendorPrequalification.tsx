@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BarChart2, Sparkles, Download, Activity, ArrowRight } from "lucide-react";
+import {
+  BarChart2,
+  Sparkles,
+  Download,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 const VendorPrequalification = () => {
@@ -91,7 +103,9 @@ const VendorPrequalification = () => {
         <TabsContent value="prequalification">
           <Card className="glass-card border-blue-500/20 mt-4">
             <CardHeader>
-              <CardTitle className="text-white">Recent Prequalifications</CardTitle>
+              <CardTitle className="text-white">
+                Recent Prequalifications
+              </CardTitle>
               <CardDescription className="text-blue-200">
                 View and track recent prequalification activity
               </CardDescription>
@@ -101,7 +115,9 @@ const VendorPrequalification = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center text-blue-200">
                   [Recent Prequalifications Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive prequalification dashboard</p>
+                <p className="mt-4 text-sm text-blue-200">
+                  Coming soon: Interactive prequalification dashboard
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -109,7 +125,9 @@ const VendorPrequalification = () => {
         <TabsContent value="trends">
           <Card className="glass-card border-green-500/20 mt-4">
             <CardHeader>
-              <CardTitle className="text-white">Prequalification Trends</CardTitle>
+              <CardTitle className="text-white">
+                Prequalification Trends
+              </CardTitle>
               <CardDescription className="text-green-200">
                 Track prequalification trends over time
               </CardDescription>
@@ -119,7 +137,9 @@ const VendorPrequalification = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-green-200">
                   [Prequalification Trends Chart Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-green-200">Coming soon: Interactive prequalification trends charts</p>
+                <p className="mt-4 text-sm text-green-200">
+                  Coming soon: Interactive prequalification trends charts
+                </p>
               </div>
             </CardContent>
           </Card>

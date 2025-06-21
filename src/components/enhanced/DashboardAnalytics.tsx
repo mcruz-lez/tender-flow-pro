@@ -19,27 +19,46 @@ export const DashboardAnalytics = () => {
 
   // Calculate KPIs with explicit number casting
   const totalTenders = Number(tenders?.length || 0);
-  const activeTenders = Number(tenders?.filter(t => t.status === 'active').length || 0);
+  const activeTenders = Number(
+    tenders?.filter((t) => t.status === "active").length || 0,
+  );
   const totalVendors = Number(vendors?.length || 0);
-  const approvedVendors = Number(vendors?.filter(v => v.prequalification_status === 'approved').length || 0);
+  const approvedVendors = Number(
+    vendors?.filter((v) => v.prequalification_status === "approved").length ||
+      0,
+  );
   const totalBids = Number(bids?.length || 0);
   const totalContracts = Number(contracts?.length || 0);
-  const activeContracts = Number(contracts?.filter(c => c.status === 'active').length || 0);
+  const activeContracts = Number(
+    contracts?.filter((c) => c.status === "active").length || 0,
+  );
 
   // Calculate financial metrics with proper type checking
-  const totalContractValue = Number(contracts?.reduce((sum, contract) => {
-    const value = typeof contract.contract_value === 'number' ? contract.contract_value : 0;
-    return sum + value;
-  }, 0) || 0);
+  const totalContractValue = Number(
+    contracts?.reduce((sum, contract) => {
+      const value =
+        typeof contract.contract_value === "number"
+          ? contract.contract_value
+          : 0;
+      return sum + value;
+    }, 0) || 0,
+  );
 
-  const tendersWithBudgets = tenders?.filter(t => t.budget_max && typeof t.budget_max === 'number') || [];
-  const avgTenderBudget = Number(tendersWithBudgets.length > 0 
-    ? tendersWithBudgets.reduce((sum, t) => sum + (t.budget_max || 0), 0) / tendersWithBudgets.length 
-    : 0);
+  const tendersWithBudgets =
+    tenders?.filter((t) => t.budget_max && typeof t.budget_max === "number") ||
+    [];
+  const avgTenderBudget = Number(
+    tendersWithBudgets.length > 0
+      ? tendersWithBudgets.reduce((sum, t) => sum + (t.budget_max || 0), 0) /
+          tendersWithBudgets.length
+      : 0,
+  );
 
   // Calculate performance metrics with explicit number operations
-  const bidsPerTender = totalTenders > 0 ? (totalBids / totalTenders).toFixed(1) : '0';
-  const vendorPrequalificationRate = totalVendors > 0 ? Math.round((approvedVendors / totalVendors) * 100) : 0;
+  const bidsPerTender =
+    totalTenders > 0 ? (totalBids / totalTenders).toFixed(1) : "0";
+  const vendorPrequalificationRate =
+    totalVendors > 0 ? Math.round((approvedVendors / totalVendors) * 100) : 0;
 
   return (
     <div className="space-y-6">
@@ -62,12 +81,8 @@ export const DashboardAnalytics = () => {
           vendorPrequalificationRate={vendorPrequalificationRate}
           totalVendors={totalVendors}
         />
-        
-        <AlertsCard
-          tenders={tenders}
-          bids={bids}
-          contracts={contracts}
-        />
+
+        <AlertsCard tenders={tenders} bids={bids} contracts={contracts} />
       </div>
     </div>
   );

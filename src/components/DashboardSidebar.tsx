@@ -26,7 +26,7 @@ import {
   Brain,
   Bot,
   Search,
-  Zap
+  Zap,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -51,9 +51,13 @@ interface NavigationItem {
 
 const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
   const location = useLocation();
-  const [expandedSections, setExpandedSections] = useState<string[]>(['main']);
+  const [expandedSections, setExpandedSections] = useState<string[]>(["main"]);
 
-  const navigationItems: { section: string; title: string; items: NavigationItem[] }[] = [
+  const navigationItems: {
+    section: string;
+    title: string;
+    items: NavigationItem[];
+  }[] = [
     {
       section: "main",
       title: "Main",
@@ -68,8 +72,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Contractor", href: "/contractor-dashboard" },
             { label: "Vendor", href: "/vendor-dashboard" },
             { label: "Finance", href: "/finance-dashboard" },
-            { label: "Admin", href: "/admin-dashboard" }
-          ]
+            { label: "Admin", href: "/admin-dashboard" },
+          ],
         },
         {
           icon: Home,
@@ -80,10 +84,10 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Service Categories", href: "/properties/services" },
             { label: "Maintenance", href: "/properties/maintenance" },
             { label: "Cost Analysis", href: "/properties/cost-analysis" },
-            { label: "Performance", href: "/properties/service-performance" }
-          ]
-        }
-      ]
+            { label: "Performance", href: "/properties/service-performance" },
+          ],
+        },
+      ],
     },
     {
       section: "procurement",
@@ -99,8 +103,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Categories", href: "/tenders/categories" },
             { label: "Templates", href: "/tenders/templates" },
             { label: "AI Create", href: "/tenders/ai-create", icon: Brain },
-            { label: "Risk Analysis", href: "/tenders/risk-analysis" }
-          ]
+            { label: "Risk Analysis", href: "/tenders/risk-analysis" },
+          ],
         },
         {
           icon: Briefcase,
@@ -112,8 +116,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Bid Library", href: "/bids/library" },
             { label: "AI Assistant", href: "/bids/ai-bid", icon: Bot },
             { label: "Win Score", href: "/bids/win-score" },
-            { label: "Optimize", href: "/bids/optimize" }
-          ]
+            { label: "Optimize", href: "/bids/optimize" },
+          ],
         },
         {
           icon: Award,
@@ -124,8 +128,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Awards", href: "/evaluation/awards" },
             { label: "Workflows", href: "/evaluation/workflows" },
             { label: "Auto Score", href: "/evaluation/auto-score", icon: Zap },
-            { label: "Bias Check", href: "/evaluation/bias-check" }
-          ]
+            { label: "Bias Check", href: "/evaluation/bias-check" },
+          ],
         },
         {
           icon: FileCheck,
@@ -136,10 +140,10 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Performance", href: "/contracts/performance" },
             { label: "Renewals", href: "/contracts/renewals" },
             { label: "Value Analysis", href: "/contracts/value-analysis" },
-            { label: "Risk Monitor", href: "/contracts/risk-monitor" }
-          ]
-        }
-      ]
+            { label: "Risk Monitor", href: "/contracts/risk-monitor" },
+          ],
+        },
+      ],
     },
     {
       section: "management",
@@ -154,8 +158,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Registration", href: "/vendors/register" },
             { label: "Prequalification", href: "/vendors/prequalification" },
             { label: "Analytics", href: "/vendors/analytics" },
-            { label: "Portal", href: "/vendor-portal" }
-          ]
+            { label: "Portal", href: "/vendor-portal" },
+          ],
         },
         {
           icon: MessageSquare,
@@ -166,8 +170,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Q&A Management", href: "/communication/qa" },
             { label: "Announcements", href: "/communication/announcements" },
             { label: "Collaboration", href: "/communication/collaborate" },
-            { label: "Notifications", href: "/communication/notifications" }
-          ]
+            { label: "Notifications", href: "/communication/notifications" },
+          ],
         },
         {
           icon: FolderOpen,
@@ -178,10 +182,10 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Version Control", href: "/documents/versions" },
             { label: "Secure Sharing", href: "/documents/sharing" },
             { label: "AI Extract", href: "/documents/extract", icon: Brain },
-            { label: "Classify", href: "/documents/classify" }
-          ]
-        }
-      ]
+            { label: "Classify", href: "/documents/classify" },
+          ],
+        },
+      ],
     },
     {
       section: "insights",
@@ -196,8 +200,12 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Tender Analytics", href: "/analytics/tender-analytics" },
             { label: "Vendor Analytics", href: "/analytics/vendor-analytics" },
             { label: "Financial Reports", href: "/analytics/financial" },
-            { label: "Predictions", href: "/analytics/predictions", icon: Brain }
-          ]
+            {
+              label: "Predictions",
+              href: "/analytics/predictions",
+              icon: Brain,
+            },
+          ],
         },
         {
           icon: TrendingUp,
@@ -207,10 +215,10 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
           children: [
             { label: "Custom Reports", href: "/analytics/custom" },
             { label: "Compliance", href: "/analytics/compliance" },
-            { label: "Market Intel", href: "/analytics/market-intel" }
-          ]
-        }
-      ]
+            { label: "Market Intel", href: "/analytics/market-intel" },
+          ],
+        },
+      ],
     },
     {
       section: "system",
@@ -225,8 +233,21 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Users", href: "/admin/users" },
             { label: "Organizations", href: "/admin/organizations" },
             { label: "Security", href: "/admin/security" },
-            { label: "Configuration", href: "/admin/config" }
-          ]
+            { label: "Configuration", href: "/admin/config" },
+            { label: "Audit Logs", href: "/admin/audit-logs" },
+          ],
+        },
+        {
+          icon: MessageSquare,
+          label: "Messaging",
+          href: "/communication/messaging",
+          badge: null,
+        },
+        {
+          icon: FolderOpen,
+          label: "Document Management",
+          href: "/documents/document-management",
+          badge: null,
         },
         {
           icon: HelpCircle,
@@ -237,18 +258,18 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             { label: "Training", href: "/help/training" },
             { label: "Support", href: "/help/support" },
             { label: "Forums", href: "/help/forums" },
-            { label: "Feature Requests", href: "/help/feature-requests" }
-          ]
-        }
-      ]
-    }
+            { label: "Feature Requests", href: "/help/feature-requests" },
+          ],
+        },
+      ],
+    },
   ];
 
   const toggleSection = (section: string) => {
-    setExpandedSections(prev => 
-      prev.includes(section) 
-        ? prev.filter(s => s !== section)
-        : [...prev, section]
+    setExpandedSections((prev) =>
+      prev.includes(section)
+        ? prev.filter((s) => s !== section)
+        : [...prev, section],
     );
   };
 
@@ -256,25 +277,31 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
 
   const toggleItem = (itemLabel: string) => {
     if (!isOpen) return;
-    setExpandedItems(prev => 
-      prev.includes(itemLabel) 
-        ? prev.filter(item => item !== itemLabel)
-        : [...prev, itemLabel]
+    setExpandedItems((prev) =>
+      prev.includes(itemLabel)
+        ? prev.filter((item) => item !== itemLabel)
+        : [...prev, itemLabel],
     );
   };
 
   const isActiveRoute = (href: string) => {
-    return location.pathname === href || location.pathname.startsWith(href + '/');
+    return (
+      location.pathname === href || location.pathname.startsWith(href + "/")
+    );
   };
 
   const hasActiveChild = (item: NavigationItem) => {
-    return item.children?.some((child: NavigationChild) => isActiveRoute(child.href));
+    return item.children?.some((child: NavigationChild) =>
+      isActiveRoute(child.href),
+    );
   };
 
   return (
-    <div className={`fixed left-0 top-0 h-full bg-white border-r border-gray-200 transition-all duration-300 z-40 ${
-      isOpen ? 'w-64' : 'w-16'
-    }`}>
+    <div
+      className={`fixed left-0 top-0 h-full bg-white border-r border-gray-200 transition-all duration-300 z-40 ${
+        isOpen ? "w-64" : "w-16"
+      }`}
+    >
       {/* Header */}
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
@@ -285,7 +312,9 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
               </div>
               <div>
                 <h1 className="text-lg font-bold text-gray-900">TendProcure</h1>
-                <p className="text-xs text-blue-600 font-medium">Property Tender Platform</p>
+                <p className="text-xs text-blue-600 font-medium">
+                  Property Tender Platform
+                </p>
               </div>
             </Link>
           )}
@@ -336,31 +365,33 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                 </h3>
               </div>
             )}
-            
+
             <div className="space-y-1">
               {section.items.map((item) => (
                 <div key={item.href}>
                   <div
                     className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors relative group cursor-pointer ${
                       isActiveRoute(item.href) || hasActiveChild(item)
-                        ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                        ? "bg-blue-50 text-blue-700 border-r-2 border-blue-600"
+                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                     }`}
                     onClick={() => item.children && toggleItem(item.label)}
                   >
                     <Link to={item.href} className="flex items-center flex-1">
-                      <item.icon className={`flex-shrink-0 ${isOpen ? 'w-5 h-5 mr-3' : 'w-5 h-5'}`} />
-                      
+                      <item.icon
+                        className={`flex-shrink-0 ${isOpen ? "w-5 h-5 mr-3" : "w-5 h-5"}`}
+                      />
+
                       {isOpen && (
                         <>
                           <span className="flex-1">{item.label}</span>
                           {item.badge && (
-                            <Badge 
-                              variant="secondary" 
+                            <Badge
+                              variant="secondary"
                               className={`text-xs ml-2 ${
                                 isActiveRoute(item.href) || hasActiveChild(item)
-                                  ? 'bg-blue-100 text-blue-700' 
-                                  : 'bg-gray-100 text-gray-600'
+                                  ? "bg-blue-100 text-blue-700"
+                                  : "bg-gray-100 text-gray-600"
                               }`}
                             >
                               {item.badge}
@@ -369,7 +400,7 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                         </>
                       )}
                     </Link>
-                    
+
                     {isOpen && item.children && (
                       <div className="ml-2">
                         {expandedItems.includes(item.label) ? (
@@ -379,7 +410,7 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                         )}
                       </div>
                     )}
-                    
+
                     {/* Tooltip for collapsed state */}
                     {!isOpen && (
                       <div className="absolute left-16 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
@@ -392,31 +423,35 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Submenu */}
-                  {isOpen && item.children && expandedItems.includes(item.label) && (
-                    <div className="ml-8 mt-1 space-y-1">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          to={child.href}
-                          className={`flex items-center px-3 py-1.5 rounded-md text-sm transition-colors ${
-                            isActiveRoute(child.href)
-                              ? 'bg-blue-50 text-blue-700 font-medium'
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                          }`}
-                        >
-                          {child.icon && <child.icon className="w-4 h-4 mr-2" />}
-                          <span>{child.label}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  {isOpen &&
+                    item.children &&
+                    expandedItems.includes(item.label) && (
+                      <div className="ml-8 mt-1 space-y-1">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            to={child.href}
+                            className={`flex items-center px-3 py-1.5 rounded-md text-sm transition-colors ${
+                              isActiveRoute(child.href)
+                                ? "bg-blue-50 text-blue-700 font-medium"
+                                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                            }`}
+                          >
+                            {child.icon && (
+                              <child.icon className="w-4 h-4 mr-2" />
+                            )}
+                            <span>{child.label}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                 </div>
               ))}
             </div>
-            
-            {section.section !== 'system' && <Separator className="my-4" />}
+
+            {section.section !== "system" && <Separator className="my-4" />}
           </div>
         ))}
       </nav>
@@ -430,13 +465,17 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                 <span className="text-xs font-semibold text-white">JD</span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">John Doe</p>
-                <p className="text-xs text-gray-500 truncate">Property Manager</p>
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  John Doe
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  Property Manager
+                </p>
               </div>
             </div>
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="w-full justify-start text-gray-600 hover:text-red-600 hover:bg-red-50"
             >
               <LogOut className="w-4 h-4 mr-2" />
@@ -448,7 +487,11 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             <div className="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center">
               <span className="text-xs font-semibold text-white">JD</span>
             </div>
-            <Button variant="ghost" size="sm" className="w-8 h-8 p-0 hover:bg-red-50 hover:text-red-600">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-8 h-8 p-0 hover:bg-red-50 hover:text-red-600"
+            >
               <LogOut className="w-4 h-4" />
             </Button>
           </div>

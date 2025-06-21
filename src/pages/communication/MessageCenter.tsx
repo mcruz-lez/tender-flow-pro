@@ -1,6 +1,12 @@
 import { useState } from "react";
 import PageTemplate from "@/components/PageTemplate";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,11 +14,11 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Send, 
-  Search, 
-  Filter, 
-  Paperclip, 
+import {
+  Send,
+  Search,
+  Filter,
+  Paperclip,
   MoreHorizontal,
   User,
   Building,
@@ -21,10 +27,17 @@ import {
   Star,
   Archive,
   Trash2,
-  Reply
+  Reply,
 } from "lucide-react";
 import { toast } from "sonner";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { Lightbulb } from "lucide-react";
 
 const MessageCenter = () => {
@@ -35,20 +48,26 @@ const MessageCenter = () => {
   const quickActions = [
     { label: "New Message", href: "#", icon: Send },
     { label: "Compose Email", href: "/communication/email-sync", icon: Send },
-    { label: "Broadcast", href: "/communication/announcements", icon: Send, variant: "outline" as const }
+    {
+      label: "Broadcast",
+      href: "/communication/announcements",
+      icon: Send,
+      variant: "outline" as const,
+    },
   ];
 
   const conversations = [
     {
       id: "1",
       participant: "Elite Construction Co.",
-      lastMessage: "Thank you for the clarification on the HVAC specifications...",
+      lastMessage:
+        "Thank you for the clarification on the HVAC specifications...",
       timestamp: "2 min ago",
       unread: true,
       priority: "High",
       avatar: "EC",
       type: "vendor",
-      tender: "HVAC Maintenance Contract"
+      tender: "HVAC Maintenance Contract",
     },
     {
       id: "2",
@@ -59,7 +78,7 @@ const MessageCenter = () => {
       priority: "Medium",
       avatar: "JS",
       type: "internal",
-      tender: "Security Services"
+      tender: "Security Services",
     },
     {
       id: "3",
@@ -70,42 +89,45 @@ const MessageCenter = () => {
       priority: "Low",
       avatar: "PS",
       type: "vendor",
-      tender: "Cleaning Services Contract"
-    }
+      tender: "Cleaning Services Contract",
+    },
   ];
 
   const messages = [
     {
       id: "1",
       sender: "Elite Construction Co.",
-      content: "Thank you for the clarification on the HVAC specifications. We have reviewed the technical requirements and have a few additional questions regarding the maintenance schedule.",
+      content:
+        "Thank you for the clarification on the HVAC specifications. We have reviewed the technical requirements and have a few additional questions regarding the maintenance schedule.",
       timestamp: "2024-01-19 14:30",
       isOwn: false,
-      attachments: ["HVAC_Questions.pdf"]
+      attachments: ["HVAC_Questions.pdf"],
     },
     {
-      id: "2", 
+      id: "2",
       sender: "You",
-      content: "Thank you for your response. Please feel free to ask any questions you may have. We want to ensure all bidders have the same level of information.",
+      content:
+        "Thank you for your response. Please feel free to ask any questions you may have. We want to ensure all bidders have the same level of information.",
       timestamp: "2024-01-19 14:15",
       isOwn: true,
-      attachments: []
+      attachments: [],
     },
     {
       id: "3",
       sender: "Elite Construction Co.",
-      content: "We need clarification on the emergency response time requirements mentioned in section 3.2 of the tender document.",
-      timestamp: "2024-01-19 13:45", 
+      content:
+        "We need clarification on the emergency response time requirements mentioned in section 3.2 of the tender document.",
+      timestamp: "2024-01-19 13:45",
       isOwn: false,
-      attachments: []
-    }
+      attachments: [],
+    },
   ];
 
   const stats = {
     unread: 12,
     total: 45,
     archived: 23,
-    starred: 8
+    starred: 8,
   };
 
   const messageStats = [
@@ -130,10 +152,14 @@ const MessageCenter = () => {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "High": return "bg-red-100 text-red-800";
-      case "Medium": return "bg-yellow-100 text-yellow-800";
-      case "Low": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "High":
+        return "bg-red-100 text-red-800";
+      case "Medium":
+        return "bg-yellow-100 text-yellow-800";
+      case "Low":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -147,9 +173,10 @@ const MessageCenter = () => {
     setNewMessage("");
   };
 
-  const filteredConversations = conversations.filter(conv =>
-    conv.participant.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    conv.tender.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredConversations = conversations.filter(
+    (conv) =>
+      conv.participant.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      conv.tender.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -163,25 +190,33 @@ const MessageCenter = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">{stats.unread}</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {stats.unread}
+              </div>
               <div className="text-sm text-gray-600">Unread Messages</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">{stats.total}</div>
+              <div className="text-2xl font-bold text-green-600">
+                {stats.total}
+              </div>
               <div className="text-sm text-gray-600">Total Conversations</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-purple-600">{stats.starred}</div>
+              <div className="text-2xl font-bold text-purple-600">
+                {stats.starred}
+              </div>
               <div className="text-sm text-gray-600">Starred</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-gray-600">{stats.archived}</div>
+              <div className="text-2xl font-bold text-gray-600">
+                {stats.archived}
+              </div>
               <div className="text-sm text-gray-600">Archived</div>
             </CardContent>
           </Card>
@@ -223,33 +258,52 @@ const MessageCenter = () => {
                         <div
                           key={conversation.id}
                           className={`p-4 border-b cursor-pointer hover:bg-gray-50 transition-colors ${
-                            selectedConversation === conversation.id ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
+                            selectedConversation === conversation.id
+                              ? "bg-blue-50 border-l-4 border-l-blue-500"
+                              : ""
                           }`}
-                          onClick={() => setSelectedConversation(conversation.id)}
+                          onClick={() =>
+                            setSelectedConversation(conversation.id)
+                          }
                         >
                           <div className="flex items-start space-x-3">
                             <Avatar className="w-10 h-10">
-                              <AvatarFallback>{conversation.avatar}</AvatarFallback>
+                              <AvatarFallback>
+                                {conversation.avatar}
+                              </AvatarFallback>
                             </Avatar>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between mb-1">
                                 <div className="flex items-center space-x-2">
                                   <TypeIcon className="w-4 h-4 text-gray-500" />
-                                  <span className="font-medium truncate">{conversation.participant}</span>
+                                  <span className="font-medium truncate">
+                                    {conversation.participant}
+                                  </span>
                                 </div>
                                 {conversation.unread && (
                                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                                 )}
                               </div>
                               <div className="flex items-center space-x-2 mb-2">
-                                <Badge className={getPriorityColor(conversation.priority)} variant="outline">
+                                <Badge
+                                  className={getPriorityColor(
+                                    conversation.priority,
+                                  )}
+                                  variant="outline"
+                                >
                                   {conversation.priority}
                                 </Badge>
-                                <span className="text-xs text-gray-500">{conversation.tender}</span>
+                                <span className="text-xs text-gray-500">
+                                  {conversation.tender}
+                                </span>
                               </div>
-                              <p className="text-sm text-gray-600 truncate">{conversation.lastMessage}</p>
+                              <p className="text-sm text-gray-600 truncate">
+                                {conversation.lastMessage}
+                              </p>
                               <div className="flex items-center justify-between mt-2">
-                                <span className="text-xs text-gray-500">{conversation.timestamp}</span>
+                                <span className="text-xs text-gray-500">
+                                  {conversation.timestamp}
+                                </span>
                                 <div className="flex items-center space-x-1">
                                   <Button variant="ghost" size="sm">
                                     <Star className="w-3 h-3" />
@@ -274,7 +328,9 @@ const MessageCenter = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <CardTitle>Elite Construction Co.</CardTitle>
-                      <CardDescription>HVAC Maintenance Contract Discussion</CardDescription>
+                      <CardDescription>
+                        HVAC Maintenance Contract Discussion
+                      </CardDescription>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Button variant="outline" size="sm">
@@ -290,17 +346,29 @@ const MessageCenter = () => {
                 <CardContent>
                   <div className="space-y-4 mb-6 max-h-96 overflow-y-auto">
                     {messages.map((message) => (
-                      <div key={message.id} className={`flex ${message.isOwn ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[70%] ${message.isOwn ? 'bg-blue-500 text-white' : 'bg-gray-100'} rounded-lg p-3`}>
+                      <div
+                        key={message.id}
+                        className={`flex ${message.isOwn ? "justify-end" : "justify-start"}`}
+                      >
+                        <div
+                          className={`max-w-[70%] ${message.isOwn ? "bg-blue-500 text-white" : "bg-gray-100"} rounded-lg p-3`}
+                        >
                           <div className="flex items-center justify-between mb-2">
-                            <span className="font-medium text-sm">{message.sender}</span>
-                            <span className="text-xs opacity-70">{message.timestamp}</span>
+                            <span className="font-medium text-sm">
+                              {message.sender}
+                            </span>
+                            <span className="text-xs opacity-70">
+                              {message.timestamp}
+                            </span>
                           </div>
                           <p className="text-sm">{message.content}</p>
                           {message.attachments.length > 0 && (
                             <div className="mt-2 space-y-1">
                               {message.attachments.map((attachment, index) => (
-                                <div key={index} className="flex items-center space-x-2 text-xs">
+                                <div
+                                  key={index}
+                                  className="flex items-center space-x-2 text-xs"
+                                >
                                   <Paperclip className="w-3 h-3" />
                                   <span>{attachment}</span>
                                 </div>
@@ -362,7 +430,9 @@ const MessageCenter = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Starred Messages</CardTitle>
-                <CardDescription>Important messages you've starred</CardDescription>
+                <CardDescription>
+                  Important messages you've starred
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8 text-gray-500">
@@ -377,7 +447,9 @@ const MessageCenter = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Archived Messages</CardTitle>
-                <CardDescription>Archived conversations and messages</CardDescription>
+                <CardDescription>
+                  Archived conversations and messages
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8 text-gray-500">
@@ -392,43 +464,66 @@ const MessageCenter = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Conversations</CardTitle>
-                <CardDescription>All your conversations in one place</CardDescription>
+                <CardDescription>
+                  All your conversations in one place
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   {messageStats.map((item, idx) => (
                     <Card key={idx} className="text-center">
-                      <CardHeader><CardTitle>{item.label}</CardTitle></CardHeader>
-                      <CardContent className="text-2xl font-bold">{item.value}</CardContent>
+                      <CardHeader>
+                        <CardTitle>{item.label}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-2xl font-bold">
+                        {item.value}
+                      </CardContent>
                     </Card>
                   ))}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <Card>
-                    <CardHeader><CardTitle>Message Activity Trend</CardTitle></CardHeader>
+                    <CardHeader>
+                      <CardTitle>Message Activity Trend</CardTitle>
+                    </CardHeader>
                     <CardContent>
                       <ResponsiveContainer width="100%" height={200}>
                         <BarChart data={activityData}>
                           <XAxis dataKey="day" />
                           <YAxis />
                           <Tooltip />
-                          <Bar dataKey="messages" fill="#3b82f6" name="Messages" />
+                          <Bar
+                            dataKey="messages"
+                            fill="#3b82f6"
+                            name="Messages"
+                          />
                         </BarChart>
                       </ResponsiveContainer>
                     </CardContent>
                   </Card>
                   <Card>
-                    <CardHeader><CardTitle>AI Insights</CardTitle></CardHeader>
+                    <CardHeader>
+                      <CardTitle>AI Insights</CardTitle>
+                    </CardHeader>
                     <CardContent>
                       <ul className="list-disc list-inside space-y-2 text-gray-700">
-                        {aiInsights.map((insight, idx) => <li key={idx}><Lightbulb className="inline w-4 h-4 mr-1 text-yellow-500" />{insight}</li>)}
+                        {aiInsights.map((insight, idx) => (
+                          <li key={idx}>
+                            <Lightbulb className="inline w-4 h-4 mr-1 text-yellow-500" />
+                            {insight}
+                          </li>
+                        ))}
                       </ul>
                     </CardContent>
                   </Card>
                 </div>
                 <div className="flex justify-end gap-2">
-                  <Button asChild size="sm" variant="outline"><a href="/vendors">Vendor Profiles</a></Button>
-                  <Button asChild size="sm" variant="outline"><a href="/docs/communication">Docs</a></Button>
+                  <Button asChild size="sm" variant="outline">
+                    <a href="/vendors">Vendor Profiles</a>
+                  </Button>
+                  <Button asChild size="sm" variant="outline">
+                    <a href="/docs/communication">Docs</a>
+                  </Button>
                 </div>
               </CardContent>
             </Card>

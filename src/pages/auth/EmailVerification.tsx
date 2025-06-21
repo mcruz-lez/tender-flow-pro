@@ -1,7 +1,12 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Building2, Mail, CheckCircle2, RefreshCw } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -12,10 +17,10 @@ const EmailVerification = () => {
 
   const handleResendEmail = async () => {
     setIsLoading(true);
-    
+
     // Simulate resend process
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     toast.success("Verification email sent!");
     setIsLoading(false);
   };
@@ -31,7 +36,9 @@ const EmailVerification = () => {
             </div>
             <div className="text-left">
               <h1 className="text-2xl font-bold text-gray-900">TendProcure</h1>
-              <p className="text-sm text-blue-600 font-medium">Property Tender Management</p>
+              <p className="text-sm text-blue-600 font-medium">
+                Property Tender Management
+              </p>
             </div>
           </Link>
         </div>
@@ -49,16 +56,14 @@ const EmailVerification = () => {
               {isVerified ? "Email Verified!" : "Verify Your Email"}
             </CardTitle>
             <CardDescription className="text-gray-600">
-              {isVerified ? (
-                "Your email has been successfully verified. You can now access your account."
-              ) : (
-                "We've sent a verification link to your email address. Please check your inbox and click the link to verify your account."
-              )}
+              {isVerified
+                ? "Your email has been successfully verified. You can now access your account."
+                : "We've sent a verification link to your email address. Please check your inbox and click the link to verify your account."}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {isVerified ? (
-              <Button 
+              <Button
                 asChild
                 className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium"
               >
@@ -66,7 +71,7 @@ const EmailVerification = () => {
               </Button>
             ) : (
               <div className="space-y-4">
-                <Button 
+                <Button
                   onClick={handleResendEmail}
                   variant="outline"
                   className="w-full h-12 border-gray-200 hover:bg-gray-50"
@@ -79,10 +84,10 @@ const EmailVerification = () => {
                   )}
                   {isLoading ? "Sending..." : "Resend Verification Email"}
                 </Button>
-                
+
                 <div className="text-center">
-                  <Link 
-                    to="/login" 
+                  <Link
+                    to="/login"
                     className="text-blue-600 hover:text-blue-700 font-medium"
                   >
                     Back to Sign In

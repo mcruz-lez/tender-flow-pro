@@ -1,5 +1,10 @@
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AlertTriangle, Clock, FileText, Building } from "lucide-react";
 import { Tender } from "@/hooks/useTenders";
@@ -13,23 +18,30 @@ interface AlertsCardProps {
 }
 
 export const AlertsCard = ({ tenders, bids, contracts }: AlertsCardProps) => {
-  const tendersClosingSoon = tenders?.filter(t => {
-    if (!t.submission_deadline) return false;
-    const deadline = new Date(t.submission_deadline);
-    const now = new Date();
-    const daysLeft = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-    return daysLeft <= 7 && daysLeft > 0;
-  }).length || 0;
+  const tendersClosingSoon =
+    tenders?.filter((t) => {
+      if (!t.submission_deadline) return false;
+      const deadline = new Date(t.submission_deadline);
+      const now = new Date();
+      const daysLeft = Math.ceil(
+        (deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24),
+      );
+      return daysLeft <= 7 && daysLeft > 0;
+    }).length || 0;
 
-  const pendingEvaluations = bids?.filter(b => b.status === 'submitted').length || 0;
+  const pendingEvaluations =
+    bids?.filter((b) => b.status === "submitted").length || 0;
 
-  const contractRenewals = contracts?.filter(c => {
-    if (!c.end_date) return false;
-    const endDate = new Date(c.end_date);
-    const now = new Date();
-    const daysLeft = Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-    return daysLeft <= 30 && daysLeft > 0;
-  }).length || 0;
+  const contractRenewals =
+    contracts?.filter((c) => {
+      if (!c.end_date) return false;
+      const endDate = new Date(c.end_date);
+      const now = new Date();
+      const daysLeft = Math.ceil(
+        (endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24),
+      );
+      return daysLeft <= 30 && daysLeft > 0;
+    }).length || 0;
 
   return (
     <Card>
@@ -50,7 +62,7 @@ export const AlertsCard = ({ tenders, bids, contracts }: AlertsCardProps) => {
             {tendersClosingSoon}
           </Badge>
         </div>
-        
+
         <div className="flex items-center justify-between p-2 bg-blue-50 rounded-lg">
           <div className="flex items-center">
             <FileText className="w-4 h-4 text-blue-600 mr-2" />
@@ -60,7 +72,7 @@ export const AlertsCard = ({ tenders, bids, contracts }: AlertsCardProps) => {
             {pendingEvaluations}
           </Badge>
         </div>
-        
+
         <div className="flex items-center justify-between p-2 bg-green-50 rounded-lg">
           <div className="flex items-center">
             <Building className="w-4 h-4 text-green-600 mr-2" />

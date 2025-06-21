@@ -1,4 +1,3 @@
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
@@ -11,12 +10,12 @@ interface NotificationFiltersProps {
   markAllAsRead: () => void;
 }
 
-const NotificationFilters = ({ 
-  searchTerm, 
-  setSearchTerm, 
-  selectedFilter, 
-  setSelectedFilter, 
-  markAllAsRead 
+const NotificationFilters = ({
+  searchTerm,
+  setSearchTerm,
+  selectedFilter,
+  setSelectedFilter,
+  markAllAsRead,
 }: NotificationFiltersProps) => {
   return (
     <div className="flex gap-2 flex-wrap">
@@ -26,22 +25,22 @@ const NotificationFilters = ({
         onChange={(e) => setSearchTerm(e.target.value)}
         className="max-w-sm"
       />
-      <Button 
-        variant={selectedFilter === "all" ? "default" : "outline"} 
+      <Button
+        variant={selectedFilter === "all" ? "default" : "outline"}
         size="sm"
         onClick={() => setSelectedFilter("all")}
       >
         All
       </Button>
-      <Button 
-        variant={selectedFilter === "unread" ? "default" : "outline"} 
+      <Button
+        variant={selectedFilter === "unread" ? "default" : "outline"}
         size="sm"
         onClick={() => setSelectedFilter("unread")}
       >
         Unread
       </Button>
-      <Button 
-        variant={selectedFilter === "high" ? "default" : "outline"} 
+      <Button
+        variant={selectedFilter === "high" ? "default" : "outline"}
         size="sm"
         onClick={() => setSelectedFilter("high")}
       >

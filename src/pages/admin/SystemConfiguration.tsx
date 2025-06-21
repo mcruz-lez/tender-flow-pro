@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 const initialSettings = {
   notifications: true,
   autoBackup: false,
-  darkMode: false
+  darkMode: false,
 };
 
 const SystemConfiguration = () => {
@@ -30,7 +30,11 @@ const SystemConfiguration = () => {
         {Object.entries(settings).map(([key, value]) => (
           <div key={key} className="flex items-center gap-4">
             <span className="capitalize">{key}</span>
-            <input type="checkbox" checked={value} onChange={() => handleToggle(key as keyof typeof settings)} />
+            <input
+              type="checkbox"
+              checked={value}
+              onChange={() => handleToggle(key as keyof typeof settings)}
+            />
           </div>
         ))}
       </div>

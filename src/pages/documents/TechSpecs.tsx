@@ -1,4 +1,3 @@
-
 import PageTemplate from "@/components/PageTemplate";
 
 const TechSpecs = () => {

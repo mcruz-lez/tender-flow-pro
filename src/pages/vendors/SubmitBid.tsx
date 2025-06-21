@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BarChart2, Sparkles, Download, Activity, ArrowRight } from "lucide-react";
+import {
+  BarChart2,
+  Sparkles,
+  Download,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 // Animated glassmorphism and gradient helpers
@@ -22,7 +34,9 @@ const SubmitBid = () => {
       <div className={`min-h-screen ${animatedGradient} transition-colors p-6`}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
           {/* Bid Analytics */}
-          <Card className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80`}>
+          <Card
+            className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <BarChart2 className="w-5 h-5 mr-2 text-blue-400 animate-bounce" />
@@ -34,7 +48,9 @@ const SubmitBid = () => {
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-bold text-blue-400 mb-2">12</div>
-              <p className="text-purple-200 text-sm">Bids Submitted This Month</p>
+              <p className="text-purple-200 text-sm">
+                Bids Submitted This Month
+              </p>
               <Button className={`${glassButton} mt-4 w-full`} size="sm">
                 <Download className="w-4 h-4 mr-2" />
                 Export Analytics
@@ -42,7 +58,9 @@ const SubmitBid = () => {
             </CardContent>
           </Card>
           {/* AI Insights */}
-          <Card className={`${glassCard} border-purple-500/20 bg-gradient-to-br from-purple-900/80 via-indigo-800/80 to-blue-900/80`}>
+          <Card
+            className={`${glassCard} border-purple-500/20 bg-gradient-to-br from-purple-900/80 via-indigo-800/80 to-blue-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <Sparkles className="w-5 h-5 mr-2 text-yellow-400 animate-spin-slow" />
@@ -66,7 +84,9 @@ const SubmitBid = () => {
             </CardContent>
           </Card>
           {/* Quick Deep Links */}
-          <Card className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80`}>
+          <Card
+            className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <Activity className="w-5 h-5 mr-2 text-green-400 animate-bounce" />
@@ -93,12 +113,16 @@ const SubmitBid = () => {
         </div>
         {/* Tabs for Bids and Trends */}
         <Tabs defaultValue="bids" className="mb-10">
-          <TabsList className={`${glassCard} border-blue-500/20 bg-gradient-to-r from-blue-900/80 via-purple-800/80 to-indigo-900/80`}>
+          <TabsList
+            className={`${glassCard} border-blue-500/20 bg-gradient-to-r from-blue-900/80 via-purple-800/80 to-indigo-900/80`}
+          >
             <TabsTrigger value="bids">Bids</TabsTrigger>
             <TabsTrigger value="trends">Trends</TabsTrigger>
           </TabsList>
           <TabsContent value="bids">
-            <Card className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80 mt-4`}>
+            <Card
+              className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80 mt-4`}
+            >
               <CardHeader>
                 <CardTitle className="text-white">Bids</CardTitle>
                 <CardDescription className="text-blue-200">
@@ -110,13 +134,17 @@ const SubmitBid = () => {
                   <div className="w-full h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center text-blue-200">
                     [Bids Chart Placeholder]
                   </div>
-                  <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive bids charts</p>
+                  <p className="mt-4 text-sm text-blue-200">
+                    Coming soon: Interactive bids charts
+                  </p>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="trends">
-            <Card className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80 mt-4`}>
+            <Card
+              className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80 mt-4`}
+            >
               <CardHeader>
                 <CardTitle className="text-white">Bid Trends</CardTitle>
                 <CardDescription className="text-green-200">
@@ -128,7 +156,9 @@ const SubmitBid = () => {
                   <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-green-200">
                     [Bid Trends Chart Placeholder]
                   </div>
-                  <p className="mt-4 text-sm text-green-200">Coming soon: Interactive bid trends charts</p>
+                  <p className="mt-4 text-sm text-green-200">
+                    Coming soon: Interactive bid trends charts
+                  </p>
                 </div>
               </CardContent>
             </Card>

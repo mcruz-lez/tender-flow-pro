@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BarChart2, Sparkles, Download, Activity, ArrowRight } from "lucide-react";
+import {
+  BarChart2,
+  Sparkles,
+  Download,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 const AIBid = () => {
@@ -124,7 +136,9 @@ const AIBid = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-blue-200">
                   [AI Analytics Chart Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive AI analytics charts</p>
+                <p className="mt-4 text-sm text-blue-200">
+                  Coming soon: Interactive AI analytics charts
+                </p>
               </div>
             </CardContent>
           </Card>

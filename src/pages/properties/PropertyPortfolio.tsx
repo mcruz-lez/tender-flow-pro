@@ -1,15 +1,58 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Building2, MapPin, DollarSign, Calendar, Search, Filter, Plus, Eye, Edit, BarChart3, Wrench, TrendingUp, AlertTriangle } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Building2,
+  MapPin,
+  DollarSign,
+  Calendar,
+  Search,
+  Filter,
+  Plus,
+  Eye,
+  Edit,
+  BarChart3,
+  Wrench,
+  TrendingUp,
+  AlertTriangle,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import Breadcrumb from "@/components/Breadcrumb";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 interface Property {
   id: string;
@@ -46,7 +89,8 @@ const PropertyPortfolio = () => {
       activeTenders: 3,
       maintenanceScore: 85,
       monthlyRevenue: 48000,
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+      image:
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
     },
     {
       id: "2",
@@ -60,7 +104,8 @@ const PropertyPortfolio = () => {
       activeTenders: 5,
       maintenanceScore: 72,
       monthlyRevenue: 72000,
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop"
+      image:
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop",
     },
     {
       id: "3",
@@ -74,7 +119,8 @@ const PropertyPortfolio = () => {
       activeTenders: 2,
       maintenanceScore: 92,
       monthlyRevenue: 95000,
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop"
+      image:
+        "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop",
     },
     {
       id: "4",
@@ -88,7 +134,8 @@ const PropertyPortfolio = () => {
       activeTenders: 1,
       maintenanceScore: 88,
       monthlyRevenue: 58000,
-      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+      image:
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
     },
     {
       id: "5",
@@ -102,24 +149,33 @@ const PropertyPortfolio = () => {
       activeTenders: 7,
       maintenanceScore: 65,
       monthlyRevenue: 0,
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop"
-    }
+      image:
+        "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop",
+    },
   ];
 
-  const filteredProperties = properties.filter(property => {
-    const matchesSearch = property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         property.address.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === "all" || property.status.toLowerCase() === statusFilter;
-    const matchesType = typeFilter === "all" || property.type.toLowerCase().replace(" ", "") === typeFilter;
+  const filteredProperties = properties.filter((property) => {
+    const matchesSearch =
+      property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      property.address.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || property.status.toLowerCase() === statusFilter;
+    const matchesType =
+      typeFilter === "all" ||
+      property.type.toLowerCase().replace(" ", "") === typeFilter;
     return matchesSearch && matchesStatus && matchesType;
   });
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Active": return "bg-green-500/20 text-green-300 border-green-400/20";
-      case "Maintenance": return "bg-yellow-500/20 text-yellow-300 border-yellow-400/20";
-      case "Vacant": return "bg-red-500/20 text-red-300 border-red-400/20";
-      default: return "bg-gray-500/20 text-gray-300 border-gray-400/20";
+      case "Active":
+        return "bg-green-500/20 text-green-300 border-green-400/20";
+      case "Maintenance":
+        return "bg-yellow-500/20 text-yellow-300 border-yellow-400/20";
+      case "Vacant":
+        return "bg-red-500/20 text-red-300 border-red-400/20";
+      default:
+        return "bg-gray-500/20 text-gray-300 border-gray-400/20";
     }
   };
 
@@ -130,20 +186,44 @@ const PropertyPortfolio = () => {
   };
 
   const totalValue = properties.reduce((sum, prop) => sum + prop.value, 0);
-  const totalRevenue = properties.reduce((sum, prop) => sum + prop.monthlyRevenue, 0);
-  const avgMaintenanceScore = Math.round(properties.reduce((sum, prop) => sum + prop.maintenanceScore, 0) / properties.length);
+  const totalRevenue = properties.reduce(
+    (sum, prop) => sum + prop.monthlyRevenue,
+    0,
+  );
+  const avgMaintenanceScore = Math.round(
+    properties.reduce((sum, prop) => sum + prop.maintenanceScore, 0) /
+      properties.length,
+  );
 
   const portfolioSummary = [
     { label: "Total Properties", value: properties.length },
-    { label: "Total Value", value: `$${properties.reduce((a, p) => a + p.value, 0).toLocaleString()}` },
+    {
+      label: "Total Value",
+      value: `$${properties.reduce((a, p) => a + p.value, 0).toLocaleString()}`,
+    },
     { label: "Avg. Occupancy", value: "91%" },
-    { label: "Monthly Revenue", value: `$${properties.reduce((a, p) => a + p.monthlyRevenue, 0).toLocaleString()}` },
+    {
+      label: "Monthly Revenue",
+      value: `$${properties.reduce((a, p) => a + p.monthlyRevenue, 0).toLocaleString()}`,
+    },
   ];
 
   const typeData = [
-    { name: "Commercial", value: properties.filter(p => p.type === "Commercial").length, color: "#3b82f6" },
-    { name: "Residential", value: properties.filter(p => p.type === "Residential").length, color: "#10b981" },
-    { name: "Mixed Use", value: properties.filter(p => p.type === "Mixed Use").length, color: "#f59e0b" },
+    {
+      name: "Commercial",
+      value: properties.filter((p) => p.type === "Commercial").length,
+      color: "#3b82f6",
+    },
+    {
+      name: "Residential",
+      value: properties.filter((p) => p.type === "Residential").length,
+      color: "#10b981",
+    },
+    {
+      name: "Mixed Use",
+      value: properties.filter((p) => p.type === "Mixed Use").length,
+      color: "#f59e0b",
+    },
   ];
 
   const aiInsights = [
@@ -154,26 +234,44 @@ const PropertyPortfolio = () => {
 
   return (
     <div className="flex">
-      <DashboardSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen((v) => !v)} />
+      <DashboardSidebar
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarOpen((v) => !v)}
+      />
       <main className="flex-1 p-6">
         <Breadcrumb />
         <h1 className="text-3xl font-bold mb-2">Property Portfolio</h1>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           {portfolioSummary.map((item, idx) => (
             <Card key={idx} className="text-center">
-              <CardHeader><CardTitle>{item.label}</CardTitle></CardHeader>
-              <CardContent className="text-2xl font-bold">{item.value}</CardContent>
+              <CardHeader>
+                <CardTitle>{item.label}</CardTitle>
+              </CardHeader>
+              <CardContent className="text-2xl font-bold">
+                {item.value}
+              </CardContent>
             </Card>
           ))}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <Card>
-            <CardHeader><CardTitle>Property Types</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>Property Types</CardTitle>
+            </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={200}>
                 <PieChart>
-                  <Pie data={typeData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60}>
-                    {typeData.map((entry, idx) => <Cell key={idx} fill={entry.color} />)}
+                  <Pie
+                    data={typeData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={60}
+                  >
+                    {typeData.map((entry, idx) => (
+                      <Cell key={idx} fill={entry.color} />
+                    ))}
                   </Pie>
                   <Tooltip />
                 </PieChart>
@@ -181,10 +279,17 @@ const PropertyPortfolio = () => {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader><CardTitle>Monthly Revenue Trend</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>Monthly Revenue Trend</CardTitle>
+            </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={properties.map(p => ({ name: p.name, revenue: p.monthlyRevenue }))}>
+                <BarChart
+                  data={properties.map((p) => ({
+                    name: p.name,
+                    revenue: p.monthlyRevenue,
+                  }))}
+                >
                   <XAxis dataKey="name" hide />
                   <YAxis />
                   <Tooltip />
@@ -195,18 +300,28 @@ const PropertyPortfolio = () => {
           </Card>
         </div>
         <Card className="mb-8">
-          <CardHeader><CardTitle>AI Insights</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>AI Insights</CardTitle>
+          </CardHeader>
           <CardContent>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
-              {aiInsights.map((insight, idx) => <li key={idx}>{insight}</li>)}
+              {aiInsights.map((insight, idx) => (
+                <li key={idx}>{insight}</li>
+              ))}
             </ul>
           </CardContent>
         </Card>
         <div className="flex justify-between items-center mb-4">
           <div className="flex gap-2">
-            <Input placeholder="Search properties..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+            <Input
+              placeholder="Search properties..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger><SelectValue placeholder="Status" /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Statuses</SelectItem>
                 <SelectItem value="Active">Active</SelectItem>
@@ -215,7 +330,9 @@ const PropertyPortfolio = () => {
               </SelectContent>
             </Select>
             <Select value={typeFilter} onValueChange={setTypeFilter}>
-              <SelectTrigger><SelectValue placeholder="Type" /></SelectTrigger>
+              <SelectTrigger>
+                <SelectValue placeholder="Type" />
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="Commercial">Commercial</SelectItem>
@@ -224,43 +341,93 @@ const PropertyPortfolio = () => {
               </SelectContent>
             </Select>
           </div>
-          <Button asChild variant="outline"><Link to="/properties/create"><Plus className="mr-2" />Add Property</Link></Button>
+          <Button asChild variant="outline">
+            <Link to="/properties/create">
+              <Plus className="mr-2" />
+              Add Property
+            </Link>
+          </Button>
         </div>
         <div className="mb-8 flex gap-2">
-          <Button variant={viewMode === "grid" ? "default" : "outline"} onClick={() => setViewMode("grid")}>Grid</Button>
-          <Button variant={viewMode === "table" ? "default" : "outline"} onClick={() => setViewMode("table")}>Table</Button>
+          <Button
+            variant={viewMode === "grid" ? "default" : "outline"}
+            onClick={() => setViewMode("grid")}
+          >
+            Grid
+          </Button>
+          <Button
+            variant={viewMode === "table" ? "default" : "outline"}
+            onClick={() => setViewMode("table")}
+          >
+            Table
+          </Button>
         </div>
         {viewMode === "grid" ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {properties.filter(p => (statusFilter === "all" || p.status === statusFilter) && (typeFilter === "all" || p.type === typeFilter) && p.name.toLowerCase().includes(searchTerm.toLowerCase())).map(property => (
-              <Card key={property.id} className="relative">
-                <img src={property.image} alt={property.name} className="w-full h-32 object-cover rounded-t" />
-                <CardHeader>
-                  <CardTitle>{property.name}</CardTitle>
-                  <CardDescription>{property.address}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2 mb-2">
-                    <Badge>{property.type}</Badge>
-                    <Badge variant="secondary">{property.status}</Badge>
-                    <Badge variant="outline">${property.value.toLocaleString()}</Badge>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-500 mb-2">
-                    <span><Building2 className="inline w-4 h-4 mr-1" />{property.units} units</span>
-                    <span><Calendar className="inline w-4 h-4 mr-1" />Last Inspection: {property.lastInspection}</span>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-500 mb-2">
-                    <span><BarChart3 className="inline w-4 h-4 mr-1" />Score: {property.maintenanceScore}</span>
-                    <span><DollarSign className="inline w-4 h-4 mr-1" />${property.monthlyRevenue.toLocaleString()}/mo</span>
-                  </div>
-                  <div className="flex gap-2 mt-2">
-                    <Button asChild size="sm" variant="secondary"><Link to={`/properties/${property.id}`}>Details</Link></Button>
-                    <Button asChild size="sm" variant="outline"><Link to={`/tenders?property=${property.id}`}>Tenders</Link></Button>
-                    <Button asChild size="sm" variant="outline"><Link to={`/maintenance?property=${property.id}`}>Maintenance</Link></Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            {properties
+              .filter(
+                (p) =>
+                  (statusFilter === "all" || p.status === statusFilter) &&
+                  (typeFilter === "all" || p.type === typeFilter) &&
+                  p.name.toLowerCase().includes(searchTerm.toLowerCase()),
+              )
+              .map((property) => (
+                <Card key={property.id} className="relative">
+                  <img
+                    src={property.image}
+                    alt={property.name}
+                    className="w-full h-32 object-cover rounded-t"
+                  />
+                  <CardHeader>
+                    <CardTitle>{property.name}</CardTitle>
+                    <CardDescription>{property.address}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      <Badge>{property.type}</Badge>
+                      <Badge variant="secondary">{property.status}</Badge>
+                      <Badge variant="outline">
+                        ${property.value.toLocaleString()}
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500 mb-2">
+                      <span>
+                        <Building2 className="inline w-4 h-4 mr-1" />
+                        {property.units} units
+                      </span>
+                      <span>
+                        <Calendar className="inline w-4 h-4 mr-1" />
+                        Last Inspection: {property.lastInspection}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500 mb-2">
+                      <span>
+                        <BarChart3 className="inline w-4 h-4 mr-1" />
+                        Score: {property.maintenanceScore}
+                      </span>
+                      <span>
+                        <DollarSign className="inline w-4 h-4 mr-1" />$
+                        {property.monthlyRevenue.toLocaleString()}/mo
+                      </span>
+                    </div>
+                    <div className="flex gap-2 mt-2">
+                      <Button asChild size="sm" variant="secondary">
+                        <Link to={`/properties/${property.id}`}>Details</Link>
+                      </Button>
+                      <Button asChild size="sm" variant="outline">
+                        <Link to={`/tenders?property=${property.id}`}>
+                          Tenders
+                        </Link>
+                      </Button>
+                      <Button asChild size="sm" variant="outline">
+                        <Link to={`/maintenance?property=${property.id}`}>
+                          Maintenance
+                        </Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
           </div>
         ) : (
           <Table>
@@ -276,21 +443,40 @@ const PropertyPortfolio = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {properties.filter(p => (statusFilter === "all" || p.status === statusFilter) && (typeFilter === "all" || p.type === typeFilter) && p.name.toLowerCase().includes(searchTerm.toLowerCase())).map(property => (
-                <TableRow key={property.id}>
-                  <TableCell>{property.name}</TableCell>
-                  <TableCell>{property.type}</TableCell>
-                  <TableCell>{property.status}</TableCell>
-                  <TableCell>${property.value.toLocaleString()}</TableCell>
-                  <TableCell>{property.units}</TableCell>
-                  <TableCell>${property.monthlyRevenue.toLocaleString()}</TableCell>
-                  <TableCell>
-                    <Button asChild size="sm" variant="secondary"><Link to={`/properties/${property.id}`}>Details</Link></Button>
-                    <Button asChild size="sm" variant="outline"><Link to={`/tenders?property=${property.id}`}>Tenders</Link></Button>
-                    <Button asChild size="sm" variant="outline"><Link to={`/maintenance?property=${property.id}`}>Maintenance</Link></Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {properties
+                .filter(
+                  (p) =>
+                    (statusFilter === "all" || p.status === statusFilter) &&
+                    (typeFilter === "all" || p.type === typeFilter) &&
+                    p.name.toLowerCase().includes(searchTerm.toLowerCase()),
+                )
+                .map((property) => (
+                  <TableRow key={property.id}>
+                    <TableCell>{property.name}</TableCell>
+                    <TableCell>{property.type}</TableCell>
+                    <TableCell>{property.status}</TableCell>
+                    <TableCell>${property.value.toLocaleString()}</TableCell>
+                    <TableCell>{property.units}</TableCell>
+                    <TableCell>
+                      ${property.monthlyRevenue.toLocaleString()}
+                    </TableCell>
+                    <TableCell>
+                      <Button asChild size="sm" variant="secondary">
+                        <Link to={`/properties/${property.id}`}>Details</Link>
+                      </Button>
+                      <Button asChild size="sm" variant="outline">
+                        <Link to={`/tenders?property=${property.id}`}>
+                          Tenders
+                        </Link>
+                      </Button>
+                      <Button asChild size="sm" variant="outline">
+                        <Link to={`/maintenance?property=${property.id}`}>
+                          Maintenance
+                        </Link>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         )}

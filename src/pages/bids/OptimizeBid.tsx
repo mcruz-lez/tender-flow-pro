@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Sparkles, Download, BarChart2, Activity, ArrowRight } from "lucide-react";
+import {
+  Sparkles,
+  Download,
+  BarChart2,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 const OptimizeBid = () => {
@@ -25,7 +37,9 @@ const OptimizeBid = () => {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold text-green-400 mb-2">92%</div>
-            <p className="text-purple-200 text-sm">Optimization score based on AI analysis</p>
+            <p className="text-purple-200 text-sm">
+              Optimization score based on AI analysis
+            </p>
             <Button className="mt-4 glass-button" size="sm">
               <Download className="w-4 h-4 mr-2" />
               Export Report
@@ -46,7 +60,9 @@ const OptimizeBid = () => {
           <CardContent>
             <ul className="space-y-2 text-blue-200 text-sm">
               <li>• Adjusted pricing for HVAC Maintenance (1h ago)</li>
-              <li>• Improved technical proposal for Security Services (2d ago)</li>
+              <li>
+                • Improved technical proposal for Security Services (2d ago)
+              </li>
               <li>• Added certifications for Landscaping (4d ago)</li>
             </ul>
             <Button asChild className="mt-4 glass-button" size="sm">
@@ -86,13 +102,17 @@ const OptimizeBid = () => {
       {/* Tabs for Optimization Suggestions and Analytics */}
       <Tabs defaultValue="suggestions" className="mb-8">
         <TabsList className="glass-card border-green-500/20">
-          <TabsTrigger value="suggestions">Optimization Suggestions</TabsTrigger>
+          <TabsTrigger value="suggestions">
+            Optimization Suggestions
+          </TabsTrigger>
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
         <TabsContent value="suggestions">
           <Card className="glass-card border-green-500/20 mt-4">
             <CardHeader>
-              <CardTitle className="text-white">AI Optimization Suggestions</CardTitle>
+              <CardTitle className="text-white">
+                AI Optimization Suggestions
+              </CardTitle>
               <CardDescription className="text-green-200">
                 Personalized tips to optimize your bid
               </CardDescription>
@@ -110,7 +130,9 @@ const OptimizeBid = () => {
         <TabsContent value="analytics">
           <Card className="glass-card border-blue-500/20 mt-4">
             <CardHeader>
-              <CardTitle className="text-white">Optimization Analytics</CardTitle>
+              <CardTitle className="text-white">
+                Optimization Analytics
+              </CardTitle>
               <CardDescription className="text-blue-200">
                 Visualize your optimization trends
               </CardDescription>
@@ -120,7 +142,9 @@ const OptimizeBid = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-blue-200">
                   [Optimization Analytics Chart Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive optimization analytics charts</p>
+                <p className="mt-4 text-sm text-blue-200">
+                  Coming soon: Interactive optimization analytics charts
+                </p>
               </div>
             </CardContent>
           </Card>

@@ -1,4 +1,3 @@
-
 export interface Tender {
   id: string;
   title: string;
@@ -27,10 +26,10 @@ export const mockTenders: Tender[] = [
     views: 156,
     location: "Downtown Office Complex",
     priority: "High",
-    evaluationScore: 85
+    evaluationScore: 85,
   },
   {
-    id: "2", 
+    id: "2",
     title: "Security Services for Commercial Buildings",
     category: "Security Services",
     status: "Draft",
@@ -41,7 +40,7 @@ export const mockTenders: Tender[] = [
     views: 45,
     location: "Business District",
     priority: "Medium",
-    evaluationScore: null
+    evaluationScore: null,
   },
   {
     id: "3",
@@ -55,7 +54,7 @@ export const mockTenders: Tender[] = [
     views: 234,
     location: "Corporate Campus",
     priority: "Low",
-    evaluationScore: 92
+    evaluationScore: 92,
   },
   {
     id: "4",
@@ -69,12 +68,12 @@ export const mockTenders: Tender[] = [
     views: 189,
     location: "Industrial Complex",
     priority: "High",
-    evaluationScore: 78
+    evaluationScore: 78,
   },
   {
     id: "5",
     title: "Cleaning Services Contract",
-    category: "Cleaning Services", 
+    category: "Cleaning Services",
     status: "Active",
     deadline: "2024-02-01",
     publishDate: "2023-12-10",
@@ -83,7 +82,7 @@ export const mockTenders: Tender[] = [
     views: 167,
     location: "Office Building",
     priority: "Medium",
-    evaluationScore: null
+    evaluationScore: null,
   },
   {
     id: "6",
@@ -97,26 +96,36 @@ export const mockTenders: Tender[] = [
     views: 123,
     location: "Tech Hub",
     priority: "High",
-    evaluationScore: 94
-  }
+    evaluationScore: 94,
+  },
 ];
 
 export const getStatusColor = (status: string) => {
   switch (status) {
-    case "Active": return "bg-green-100 text-green-800 border-green-200";
-    case "Draft": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-    case "Closed": return "bg-gray-100 text-gray-800 border-gray-200";
-    case "Evaluation": return "bg-blue-100 text-blue-800 border-blue-200";
-    case "Awarded": return "bg-purple-100 text-purple-800 border-purple-200";
-    default: return "bg-gray-100 text-gray-800 border-gray-200";
+    case "Active":
+      return "bg-green-100 text-green-800 border-green-200";
+    case "Draft":
+      return "bg-yellow-100 text-yellow-800 border-yellow-200";
+    case "Closed":
+      return "bg-gray-100 text-gray-800 border-gray-200";
+    case "Evaluation":
+      return "bg-blue-100 text-blue-800 border-blue-200";
+    case "Awarded":
+      return "bg-purple-100 text-purple-800 border-purple-200";
+    default:
+      return "bg-gray-100 text-gray-800 border-gray-200";
   }
 };
 
 export const getPriorityColor = (priority: string) => {
   switch (priority) {
-    case "High": return "bg-red-100 text-red-800";
-    case "Medium": return "bg-yellow-100 text-yellow-800";
-    case "Low": return "bg-green-100 text-green-800";
-    default: return "bg-gray-100 text-gray-800";
+    case "High":
+      return "bg-red-100 text-red-800";
+    case "Medium":
+      return "bg-yellow-100 text-yellow-800";
+    case "Low":
+      return "bg-green-100 text-green-800";
+    default:
+      return "bg-gray-100 text-gray-800";
   }
 };

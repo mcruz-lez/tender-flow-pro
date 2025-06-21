@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -56,13 +55,28 @@ const mockVendor: VendorData = {
   website: "https://eliteconstruction.com",
   avatar: "/placeholder.svg",
   status: "Active",
-  description: "Elite Construction Co. is a leading construction company specializing in commercial and residential projects. With over 15 years of experience, we deliver high-quality construction services with a focus on sustainability and innovation.",
+  description:
+    "Elite Construction Co. is a leading construction company specializing in commercial and residential projects. With over 15 years of experience, we deliver high-quality construction services with a focus on sustainability and innovation.",
   yearEstablished: 2008,
   employeeCount: "51-100",
-  certifications: ["ISO 9001", "OSHA Certified", "LEED Certified", "Licensed Contractor"],
-  specialties: ["Commercial Construction", "Renovation", "Green Building", "Project Management"],
+  certifications: [
+    "ISO 9001",
+    "OSHA Certified",
+    "LEED Certified",
+    "Licensed Contractor",
+  ],
+  specialties: [
+    "Commercial Construction",
+    "Renovation",
+    "Green Building",
+    "Project Management",
+  ],
   serviceAreas: ["New York, NY", "Brooklyn, NY", "Queens, NY", "Manhattan, NY"],
-  insuranceTypes: ["General Liability", "Workers Compensation", "Professional Liability"],
+  insuranceTypes: [
+    "General Liability",
+    "Workers Compensation",
+    "Professional Liability",
+  ],
   completedProjects: 89,
   activeProjects: 7,
   averageValue: 125000,
@@ -71,7 +85,7 @@ const mockVendor: VendorData = {
   onTimeDelivery: 95,
   clientSatisfaction: 4.8,
   registrationDate: "2023-01-15",
-  lastActive: "2024-01-15"
+  lastActive: "2024-01-15",
 };
 
 const VendorProfile = () => {
@@ -80,8 +94,18 @@ const VendorProfile = () => {
 
   const quickActions = [
     { label: "Contact Vendor", href: "#", icon: MessageSquare },
-    { label: "View Projects", href: "#", icon: Eye, variant: "outline" as const },
-    { label: "Request Quote", href: "#", icon: FileText, variant: "outline" as const }
+    {
+      label: "View Projects",
+      href: "#",
+      icon: Eye,
+      variant: "outline" as const,
+    },
+    {
+      label: "Request Quote",
+      href: "#",
+      icon: FileText,
+      variant: "outline" as const,
+    },
   ];
 
   return (

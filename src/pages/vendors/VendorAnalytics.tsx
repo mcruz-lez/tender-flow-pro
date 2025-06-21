@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BarChart2, Sparkles, Download, Activity, ArrowRight } from "lucide-react";
+import {
+  BarChart2,
+  Sparkles,
+  Download,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 // Animated glassmorphism and gradient helpers
@@ -24,7 +36,9 @@ const VendorAnalytics = () => {
       <div className={`min-h-screen ${animatedGradient} transition-colors p-6`}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
           {/* Analytics */}
-          <Card className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80`}>
+          <Card
+            className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <BarChart2 className="w-5 h-5 mr-2 text-blue-400 animate-bounce" />
@@ -44,7 +58,9 @@ const VendorAnalytics = () => {
             </CardContent>
           </Card>
           {/* AI Insights */}
-          <Card className={`${glassCard} border-purple-500/20 bg-gradient-to-br from-purple-900/80 via-indigo-800/80 to-blue-900/80`}>
+          <Card
+            className={`${glassCard} border-purple-500/20 bg-gradient-to-br from-purple-900/80 via-indigo-800/80 to-blue-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <Sparkles className="w-5 h-5 mr-2 text-yellow-400 animate-spin-slow" />
@@ -56,7 +72,9 @@ const VendorAnalytics = () => {
             </CardHeader>
             <CardContent>
               <ul className="space-y-2 text-purple-200">
-                <li>• Prioritize high-performing vendors for critical projects</li>
+                <li>
+                  • Prioritize high-performing vendors for critical projects
+                </li>
                 <li>• Monitor response times for service improvement</li>
                 <li>• Track certification expirations</li>
                 <li>• Analyze feedback trends</li>
@@ -68,7 +86,9 @@ const VendorAnalytics = () => {
             </CardContent>
           </Card>
           {/* Quick Deep Links */}
-          <Card className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80`}>
+          <Card
+            className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <Activity className="w-5 h-5 mr-2 text-green-400 animate-bounce" />
@@ -87,7 +107,9 @@ const VendorAnalytics = () => {
                   <Link to="/vendors/Feedback">Feedback</Link>
                 </Button>
                 <Button asChild variant="outline" className={glassButton}>
-                  <Link to="/vendors/VendorPrequalification">Prequalification</Link>
+                  <Link to="/vendors/VendorPrequalification">
+                    Prequalification
+                  </Link>
                 </Button>
               </div>
             </CardContent>
@@ -95,12 +117,16 @@ const VendorAnalytics = () => {
         </div>
         {/* Tabs for Analytics and Trends */}
         <Tabs defaultValue="analytics" className="mb-10">
-          <TabsList className={`${glassCard} border-blue-500/20 bg-gradient-to-r from-blue-900/80 via-purple-800/80 to-indigo-900/80`}>
+          <TabsList
+            className={`${glassCard} border-blue-500/20 bg-gradient-to-r from-blue-900/80 via-purple-800/80 to-indigo-900/80`}
+          >
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="trends">Trends</TabsTrigger>
           </TabsList>
           <TabsContent value="analytics">
-            <Card className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80 mt-4`}>
+            <Card
+              className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80 mt-4`}
+            >
               <CardHeader>
                 <CardTitle className="text-white">Vendor Analytics</CardTitle>
                 <CardDescription className="text-blue-200">
@@ -112,13 +138,17 @@ const VendorAnalytics = () => {
                   <div className="w-full h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center text-blue-200">
                     [Vendor Analytics Chart Placeholder]
                   </div>
-                  <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive vendor analytics charts</p>
+                  <p className="mt-4 text-sm text-blue-200">
+                    Coming soon: Interactive vendor analytics charts
+                  </p>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="trends">
-            <Card className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80 mt-4`}>
+            <Card
+              className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80 mt-4`}
+            >
               <CardHeader>
                 <CardTitle className="text-white">Performance Trends</CardTitle>
                 <CardDescription className="text-green-200">
@@ -130,7 +160,9 @@ const VendorAnalytics = () => {
                   <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-green-200">
                     [Performance Trends Chart Placeholder]
                   </div>
-                  <p className="mt-4 text-sm text-green-200">Coming soon: Interactive performance trends charts</p>
+                  <p className="mt-4 text-sm text-green-200">
+                    Coming soon: Interactive performance trends charts
+                  </p>
                 </div>
               </CardContent>
             </Card>

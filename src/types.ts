@@ -17,7 +17,7 @@ export interface Bid {
   description?: string;
   total_amount: number;
   submission_date?: string;
-  status: 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected';
+  status: "draft" | "submitted" | "under_review" | "accepted" | "rejected";
   documents?: unknown;
   evaluation_score?: number;
   notes?: string;
@@ -36,7 +36,7 @@ export interface Contract {
   contract_value: number;
   start_date: string;
   end_date: string;
-  status: 'draft' | 'active' | 'completed' | 'terminated' | 'expired';
+  status: "draft" | "active" | "completed" | "terminated" | "expired";
   terms?: unknown;
   performance_metrics?: unknown;
   documents?: unknown;

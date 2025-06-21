@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -25,7 +31,9 @@ const WinScore = () => {
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-bold text-green-400 mb-2">78%</div>
-            <p className="text-purple-200 text-sm">Based on similar past bids and current market data</p>
+            <p className="text-purple-200 text-sm">
+              Based on similar past bids and current market data
+            </p>
             <Button className="mt-4 glass-button" size="sm">
               <Download className="w-4 h-4 mr-2" />
               Export Report
@@ -120,7 +128,9 @@ const WinScore = () => {
                 <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-blue-200">
                   [Win Analytics Chart Placeholder]
                 </div>
-                <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive win analytics charts</p>
+                <p className="mt-4 text-sm text-blue-200">
+                  Coming soon: Interactive win analytics charts
+                </p>
               </div>
             </CardContent>
           </Card>

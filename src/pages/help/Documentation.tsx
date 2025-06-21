@@ -21,7 +21,9 @@ const Documentation = () => {
               <CardTitle>{doc.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <a href={doc.link} className="text-blue-600 underline">View {doc.title}</a>
+              <a href={doc.link} className="text-blue-600 underline">
+                View {doc.title}
+              </a>
             </CardContent>
           </Card>
         ))}

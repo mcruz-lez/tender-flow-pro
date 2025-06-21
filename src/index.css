@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -105,89 +104,106 @@
   .perspective-1000 {
     perspective: 1000px;
   }
-  
+
   .perspective-2000 {
     perspective: 2000px;
   }
-  
+
   .transform-gpu {
     transform-style: preserve-3d;
     will-change: transform;
   }
-  
+
   .translate-z-50 {
     transform: translateZ(50px);
   }
-  
+
   .translate-z-minus-50 {
     transform: translateZ(-50px);
   }
-  
+
   /* Glassmorphism utilities */
   .glass {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
-  
+
   .glass-dark {
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   /* Liquid glass button effect */
   .liquid-glass {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05)
+    );
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
   }
-  
+
   .liquid-glass::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.5s;
   }
-  
+
   .liquid-glass:hover::before {
     left: 100%;
   }
-  
+
   /* Smooth scroll animations */
   .scroll-animate {
     animation: scrollFade 0.6s ease-out forwards;
     opacity: 0;
     transform: translateY(30px);
   }
-  
+
   @keyframes scrollFade {
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  
+
   /* Frosted glass card effect */
   .frosted-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05)
+    );
     backdrop-filter: blur(30px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
   }
-  
+
   .frosted-card:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.08)
+    );
     transform: translateY(-5px);
     box-shadow: 0 35px 70px rgba(0, 0, 0, 0.3);
   }
-  
+
   /* Gradient text animation */
   .gradient-text-animate {
     background: linear-gradient(270deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6);
@@ -197,29 +213,42 @@
     -webkit-text-fill-color: transparent;
     animation: gradientShift 4s ease infinite;
   }
-  
+
   @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
-  
+
   /* Floating animation for 3D elements */
   .float-animation {
     animation: float 6s ease-in-out infinite;
   }
-  
+
   @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-10px) rotate(2deg); }
-    66% { transform: translateY(5px) rotate(-1deg); }
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-10px) rotate(2deg);
+    }
+    66% {
+      transform: translateY(5px) rotate(-1deg);
+    }
   }
-  
+
   /* Pulse glow effect */
   .pulse-glow {
     animation: pulseGlow 2s ease-in-out infinite alternate;
   }
-  
+
   @keyframes pulseGlow {
     from {
       box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
@@ -254,6 +283,9 @@
 }
 
 /* Remove transition for transform and opacity for better performance */
-.transform, .opacity {
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+.transform,
+.opacity {
+  transition:
+    transform 0.3s ease-out,
+    opacity 0.3s ease-out;
 }

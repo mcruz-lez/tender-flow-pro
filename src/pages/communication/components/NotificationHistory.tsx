@@ -1,5 +1,10 @@
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Clock } from "lucide-react";
 
 const NotificationHistory = () => {
@@ -7,7 +12,9 @@ const NotificationHistory = () => {
     <Card>
       <CardHeader>
         <CardTitle>Notification History</CardTitle>
-        <CardDescription>View all past notifications and delivery status</CardDescription>
+        <CardDescription>
+          View all past notifications and delivery status
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="text-center py-8 text-gray-500">

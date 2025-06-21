@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,7 +10,12 @@ interface TenderFiltersProps {
   setViewMode: (mode: string) => void;
 }
 
-const TenderFilters = ({ searchTerm, setSearchTerm, viewMode, setViewMode }: TenderFiltersProps) => {
+const TenderFilters = ({
+  searchTerm,
+  setSearchTerm,
+  viewMode,
+  setViewMode,
+}: TenderFiltersProps) => {
   return (
     <Card className="mb-6 bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
       <CardContent className="p-4">
@@ -26,7 +30,11 @@ const TenderFilters = ({ searchTerm, setSearchTerm, viewMode, setViewMode }: Ten
             />
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-white/20 text-white hover:bg-white/10"
+            >
               <Filter className="w-4 h-4 mr-2" />
               Filter
             </Button>

@@ -1,8 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { BarChart2, Sparkles, Download, Activity, ArrowRight } from "lucide-react";
+import {
+  BarChart2,
+  Sparkles,
+  Download,
+  Activity,
+  ArrowRight,
+} from "lucide-react";
 import PageTemplate from "@/components/PageTemplate";
 
 const animatedGradient =
@@ -21,7 +33,9 @@ const Feedback = () => {
       <div className={`min-h-screen ${animatedGradient} transition-colors p-6`}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
           {/* Feedback Analytics */}
-          <Card className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80`}>
+          <Card
+            className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <BarChart2 className="w-5 h-5 mr-2 text-blue-400 animate-bounce" />
@@ -41,7 +55,9 @@ const Feedback = () => {
             </CardContent>
           </Card>
           {/* AI Insights */}
-          <Card className={`${glassCard} border-purple-500/20 bg-gradient-to-br from-purple-900/80 via-indigo-800/80 to-blue-900/80`}>
+          <Card
+            className={`${glassCard} border-purple-500/20 bg-gradient-to-br from-purple-900/80 via-indigo-800/80 to-blue-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <Sparkles className="w-5 h-5 mr-2 text-yellow-400 animate-spin-slow" />
@@ -65,7 +81,9 @@ const Feedback = () => {
             </CardContent>
           </Card>
           {/* Quick Deep Links */}
-          <Card className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80`}>
+          <Card
+            className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80`}
+          >
             <CardHeader>
               <CardTitle className="flex items-center text-white">
                 <Activity className="w-5 h-5 mr-2 text-green-400 animate-bounce" />
@@ -92,12 +110,16 @@ const Feedback = () => {
         </div>
         {/* Tabs for Feedback and Trends */}
         <Tabs defaultValue="feedback" className="mb-10">
-          <TabsList className={`${glassCard} border-blue-500/20 bg-gradient-to-r from-blue-900/80 via-purple-800/80 to-indigo-900/80`}>
+          <TabsList
+            className={`${glassCard} border-blue-500/20 bg-gradient-to-r from-blue-900/80 via-purple-800/80 to-indigo-900/80`}
+          >
             <TabsTrigger value="feedback">Feedback</TabsTrigger>
             <TabsTrigger value="trends">Trends</TabsTrigger>
           </TabsList>
           <TabsContent value="feedback">
-            <Card className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80 mt-4`}>
+            <Card
+              className={`${glassCard} border-blue-500/20 bg-gradient-to-br from-blue-900/80 via-blue-800/80 to-indigo-900/80 mt-4`}
+            >
               <CardHeader>
                 <CardTitle className="text-white">Feedback</CardTitle>
                 <CardDescription className="text-blue-200">
@@ -109,13 +131,17 @@ const Feedback = () => {
                   <div className="w-full h-40 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center text-blue-200">
                     [Feedback Chart Placeholder]
                   </div>
-                  <p className="mt-4 text-sm text-blue-200">Coming soon: Interactive feedback charts</p>
+                  <p className="mt-4 text-sm text-blue-200">
+                    Coming soon: Interactive feedback charts
+                  </p>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="trends">
-            <Card className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80 mt-4`}>
+            <Card
+              className={`${glassCard} border-green-500/20 bg-gradient-to-br from-green-900/80 via-emerald-800/80 to-blue-900/80 mt-4`}
+            >
               <CardHeader>
                 <CardTitle className="text-white">Feedback Trends</CardTitle>
                 <CardDescription className="text-green-200">
@@ -127,7 +153,9 @@ const Feedback = () => {
                   <div className="w-full h-40 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg flex items-center justify-center text-green-200">
                     [Feedback Trends Chart Placeholder]
                   </div>
-                  <p className="mt-4 text-sm text-green-200">Coming soon: Interactive feedback trends charts</p>
+                  <p className="mt-4 text-sm text-green-200">
+                    Coming soon: Interactive feedback trends charts
+                  </p>
                 </div>
               </CardContent>
             </Card>

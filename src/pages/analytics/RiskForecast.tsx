@@ -31,12 +31,18 @@ const RiskForecast = () => {
           className="flex-1 border rounded p-2"
           placeholder="Enter tender or scenario..."
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           required
         />
-        <Button type="submit" disabled={loading}>{loading ? "Analyzing..." : "Analyze"}</Button>
+        <Button type="submit" disabled={loading}>
+          {loading ? "Analyzing..." : "Analyze"}
+        </Button>
       </form>
-      {result && <div className="bg-yellow-50 border border-yellow-200 p-4 rounded">{result}</div>}
+      {result && (
+        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded">
+          {result}
+        </div>
+      )}
     </PageTemplate>
   );
 };

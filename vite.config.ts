@@ -27,4 +27,3 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 3000, // Further increase chunk size warning limit
   },
 }));
-

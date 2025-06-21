@@ -1,13 +1,25 @@
-
 import { useState } from "react";
 import PageTemplate from "@/components/PageTemplate";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
   Brain,
   Play,
   Settings,
@@ -17,7 +29,7 @@ import {
   BarChart3,
   Zap,
   Target,
-  Shield
+  Shield,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -27,34 +39,40 @@ const AutoScore = () => {
 
   const quickActions = [
     { label: "Configure AI", href: "#", icon: Settings },
-    { label: "View Analytics", href: "/analytics", icon: BarChart3, variant: "outline" as const }
+    {
+      label: "View Analytics",
+      href: "/analytics",
+      icon: BarChart3,
+      variant: "outline" as const,
+    },
   ];
 
   const aiModels = [
     {
       id: "comprehensive",
       name: "Comprehensive Analyzer",
-      description: "Full document analysis with technical and financial scoring",
+      description:
+        "Full document analysis with technical and financial scoring",
       accuracy: 94,
       speed: "2-3 minutes",
-      status: "active"
+      status: "active",
     },
     {
       id: "financial",
-      name: "Financial Evaluator", 
+      name: "Financial Evaluator",
       description: "Focused on cost analysis and financial viability",
       accuracy: 97,
       speed: "1 minute",
-      status: "active"
+      status: "active",
     },
     {
       id: "technical",
       name: "Technical Assessor",
       description: "Technical capability and experience evaluation",
       accuracy: 91,
-      speed: "3-4 minutes", 
-      status: "active"
-    }
+      speed: "3-4 minutes",
+      status: "active",
+    },
   ];
 
   const pendingTenders = [
@@ -64,24 +82,24 @@ const AutoScore = () => {
       bids: 12,
       deadline: "2024-01-20",
       status: "Pending",
-      complexity: "Medium"
+      complexity: "Medium",
     },
     {
       id: "T002",
-      title: "Security Services Contract", 
+      title: "Security Services Contract",
       bids: 8,
       deadline: "2024-01-25",
       status: "Pending",
-      complexity: "High"
+      complexity: "High",
     },
     {
       id: "T003",
       title: "Cleaning Services Contract",
-      bids: 15, 
+      bids: 15,
       deadline: "2024-01-30",
       status: "Ready",
-      complexity: "Low"
-    }
+      complexity: "Low",
+    },
   ];
 
   const recentScores = [
@@ -91,16 +109,16 @@ const AutoScore = () => {
       completedAt: "2024-01-15",
       accuracy: 96,
       bidsScored: 9,
-      topBid: "Green Spaces Ltd (92/100)"
+      topBid: "Green Spaces Ltd (92/100)",
     },
     {
-      id: "T005", 
+      id: "T005",
       title: "IT Support Contract",
       completedAt: "2024-01-12",
       accuracy: 89,
       bidsScored: 6,
-      topBid: "Tech Solutions Inc (88/100)"
-    }
+      topBid: "Tech Solutions Inc (88/100)",
+    },
   ];
 
   const scoringCriteria = [
@@ -108,16 +126,16 @@ const AutoScore = () => {
     { name: "Price Competitiveness", weight: 25, aiConfidence: 98 },
     { name: "Experience & Track Record", weight: 20, aiConfidence: 87 },
     { name: "Resource Availability", weight: 15, aiConfidence: 82 },
-    { name: "Compliance & Certifications", weight: 10, aiConfidence: 96 }
+    { name: "Compliance & Certifications", weight: 10, aiConfidence: 96 },
   ];
 
   const handleStartScoring = async (tenderId: string) => {
     setIsScoring(true);
     setScoringProgress(0);
-    
+
     // Simulate AI scoring progress
     const interval = setInterval(() => {
-      setScoringProgress(prev => {
+      setScoringProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsScoring(false);
@@ -131,10 +149,14 @@ const AutoScore = () => {
 
   const getComplexityColor = (complexity: string) => {
     switch (complexity) {
-      case "Low": return "bg-green-100 text-green-800";
-      case "Medium": return "bg-yellow-100 text-yellow-800"; 
-      case "High": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Low":
+        return "bg-green-100 text-green-800";
+      case "Medium":
+        return "bg-yellow-100 text-yellow-800";
+      case "High":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -152,12 +174,20 @@ const AutoScore = () => {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Brain className="w-5 h-5 text-purple-600" />
-                  <Badge className={model.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+                  <Badge
+                    className={
+                      model.status === "active"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-gray-100 text-gray-800"
+                    }
+                  >
                     {model.status}
                   </Badge>
                 </div>
                 <h3 className="font-medium mb-1">{model.name}</h3>
-                <p className="text-sm text-gray-600 mb-3">{model.description}</p>
+                <p className="text-sm text-gray-600 mb-3">
+                  {model.description}
+                </p>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Accuracy:</span>
@@ -195,7 +225,9 @@ const AutoScore = () => {
                   <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
                     <div className="flex items-center gap-3 mb-2">
                       <Zap className="w-5 h-5 text-blue-600 animate-pulse" />
-                      <span className="font-medium">AI Scoring in Progress...</span>
+                      <span className="font-medium">
+                        AI Scoring in Progress...
+                      </span>
                     </div>
                     <Progress value={scoringProgress} className="mb-2" />
                     <p className="text-sm text-blue-700">
@@ -221,24 +253,34 @@ const AutoScore = () => {
                         <TableCell>
                           <div>
                             <div className="font-medium">{tender.title}</div>
-                            <div className="text-sm text-gray-500">{tender.id}</div>
+                            <div className="text-sm text-gray-500">
+                              {tender.id}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>{tender.bids} bids</TableCell>
                         <TableCell>{tender.deadline}</TableCell>
                         <TableCell>
-                          <Badge className={getComplexityColor(tender.complexity)}>
+                          <Badge
+                            className={getComplexityColor(tender.complexity)}
+                          >
                             {tender.complexity}
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <Badge variant={tender.status === "Ready" ? "default" : "secondary"}>
+                          <Badge
+                            variant={
+                              tender.status === "Ready"
+                                ? "default"
+                                : "secondary"
+                            }
+                          >
                             {tender.status}
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             onClick={() => handleStartScoring(tender.id)}
                             disabled={isScoring}
                           >
@@ -265,16 +307,28 @@ const AutoScore = () => {
               <CardContent>
                 <div className="space-y-4">
                   {scoringCriteria.map((criteria, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <h4 className="font-medium">{criteria.name}</h4>
-                          <Badge variant="outline">Weight: {criteria.weight}%</Badge>
+                          <Badge variant="outline">
+                            Weight: {criteria.weight}%
+                          </Badge>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm text-gray-600">AI Confidence:</span>
-                          <Progress value={criteria.aiConfidence} className="w-24" />
-                          <span className="text-sm font-medium">{criteria.aiConfidence}%</span>
+                          <span className="text-sm text-gray-600">
+                            AI Confidence:
+                          </span>
+                          <Progress
+                            value={criteria.aiConfidence}
+                            className="w-24"
+                          />
+                          <span className="text-sm font-medium">
+                            {criteria.aiConfidence}%
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
@@ -308,7 +362,9 @@ const AutoScore = () => {
                       <div className="flex justify-between items-start mb-3">
                         <div>
                           <h4 className="font-medium">{result.title}</h4>
-                          <p className="text-sm text-gray-500">Completed: {result.completedAt}</p>
+                          <p className="text-sm text-gray-500">
+                            Completed: {result.completedAt}
+                          </p>
                         </div>
                         <Badge className="bg-green-100 text-green-800">
                           <CheckCircle className="w-3 h-3 mr-1" />
@@ -318,15 +374,23 @@ const AutoScore = () => {
                       <div className="grid grid-cols-3 gap-4">
                         <div className="text-center p-2 bg-gray-50 rounded">
                           <div className="text-sm text-gray-600">Accuracy</div>
-                          <div className="font-semibold">{result.accuracy}%</div>
+                          <div className="font-semibold">
+                            {result.accuracy}%
+                          </div>
                         </div>
                         <div className="text-center p-2 bg-gray-50 rounded">
-                          <div className="text-sm text-gray-600">Bids Scored</div>
-                          <div className="font-semibold">{result.bidsScored}</div>
+                          <div className="text-sm text-gray-600">
+                            Bids Scored
+                          </div>
+                          <div className="font-semibold">
+                            {result.bidsScored}
+                          </div>
                         </div>
                         <div className="text-center p-2 bg-gray-50 rounded">
                           <div className="text-sm text-gray-600">Top Bid</div>
-                          <div className="font-semibold text-xs">{result.topBid}</div>
+                          <div className="font-semibold text-xs">
+                            {result.topBid}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -349,27 +413,42 @@ const AutoScore = () => {
                   <div className="space-y-4">
                     <h4 className="font-medium">Model Selection</h4>
                     {aiModels.map((model) => (
-                      <div key={model.id} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div
+                        key={model.id}
+                        className="flex items-center justify-between p-3 border rounded-lg"
+                      >
                         <div>
                           <div className="font-medium">{model.name}</div>
-                          <div className="text-sm text-gray-600">Accuracy: {model.accuracy}%</div>
+                          <div className="text-sm text-gray-600">
+                            Accuracy: {model.accuracy}%
+                          </div>
                         </div>
-                        <Badge className={model.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+                        <Badge
+                          className={
+                            model.status === "active"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-gray-100 text-gray-800"
+                          }
+                        >
                           {model.status}
                         </Badge>
                       </div>
                     ))}
                   </div>
-                  
+
                   <div className="space-y-4">
                     <h4 className="font-medium">Scoring Thresholds</h4>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm">Minimum Score for Consideration:</span>
+                        <span className="text-sm">
+                          Minimum Score for Consideration:
+                        </span>
                         <span className="font-medium">60/100</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm">Auto-Shortlist Threshold:</span>
+                        <span className="text-sm">
+                          Auto-Shortlist Threshold:
+                        </span>
                         <span className="font-medium">85/100</span>
                       </div>
                       <div className="flex justify-between items-center">
