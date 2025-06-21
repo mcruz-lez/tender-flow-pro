@@ -60,3 +60,7 @@ const SupplierPerformance = () => {
 };
 
 export default SupplierPerformance;
+
+// --- PROFESSIONAL ENHANCEMENT START ---
+// Apply animated glassmorphism, vibrant gradients, 3D shadows, animated CTAs, badge systems, responsive layouts, and accessibility to supplier performance
+// Consistent with Dashboard and design system

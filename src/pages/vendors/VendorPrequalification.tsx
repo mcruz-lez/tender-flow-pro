@@ -125,6 +125,9 @@ const VendorPrequalification = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      {/* Next: Professionally enhance VendorPrequalification.tsx with vibrant, animated, accessible, and consistent design system */}
+      {/* This includes animated gradients, glassmorphism, badge pulse, animated CTAs, responsive layouts, and accessibility improvements */}
+      {/* All enhancements will follow the same design system as Dashboard */}
     </PageTemplate>
   );
 };

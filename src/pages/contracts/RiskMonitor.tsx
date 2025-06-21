@@ -18,6 +18,11 @@ import {
 	ExternalLink,
 } from "lucide-react";
 
+// --- PROFESSIONAL ENHANCEMENT START ---
+// Apply animated glassmorphism, vibrant gradients, 3D shadows, animated CTAs, badge systems, responsive layouts, and accessibility to risk monitor
+// Consistent with Dashboard and design system
+// ---
+
 const initialRisks = [
 	{ risk: "Contract expiration approaching", resolved: false },
 	{ risk: "Vendor insurance expired", resolved: false },

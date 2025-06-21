@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter, Star, MapPin, Phone, Mail, Eye, UserPlus, Building2 } from "lucide-react";
+import { Search, Filter, Star, MapPin, Phone, Mail, Eye, UserPlus, Building2, List } from "lucide-react";
 import { Link } from "react-router-dom";
 import PageTemplate from "@/components/PageTemplate";
 
@@ -91,6 +90,16 @@ const mockVendors: Vendor[] = [
   }
 ];
 
+// Animated glassmorphism and gradient helpers
+const animatedGradient =
+  "bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-200 dark:from-[#23234a] dark:via-[#2a1e3f] dark:to-[#1e1e3f] shadow-2xl border-0 backdrop-blur-xl";
+const glassCard =
+  "rounded-2xl border-0 shadow-2xl bg-white/60 dark:bg-[#23234a]/80 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-indigo-400/30";
+const glassButton =
+  "rounded-full px-5 py-2 font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white shadow-lg shadow-blue-900/20 hover:scale-105 hover:shadow-blue-400/40 transition-all duration-300 focus:ring-2 focus:ring-blue-400 focus:outline-none";
+const badgePulse =
+  "relative after:content-[''] after:absolute after:inset-0 after:rounded-full after:animate-pulse after:bg-current after:opacity-20";
+
 const VendorDirectory = () => {
   const [vendors] = useState<Vendor[]>(mockVendors);
   const [searchTerm, setSearchTerm] = useState("");
@@ -109,207 +118,137 @@ const VendorDirectory = () => {
 
   const categories = ["Construction", "Cleaning", "Security", "HVAC", "Plumbing", "Electrical"];
 
-  const VendorCard = ({ vendor }: { vendor: Vendor }) => (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardHeader className="pb-4">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center space-x-3">
-            <Avatar className="w-12 h-12">
-              <AvatarImage src={vendor.avatar} alt={vendor.name} />
-              <AvatarFallback><Building2 className="w-6 h-6" /></AvatarFallback>
-            </Avatar>
-            <div>
-              <CardTitle className="text-lg">{vendor.name}</CardTitle>
-              <CardDescription className="flex items-center">
-                <MapPin className="w-4 h-4 mr-1" />
-                {vendor.location}
-              </CardDescription>
-            </div>
-          </div>
-          <Badge variant={vendor.status === "Active" ? "default" : "secondary"}>
-            {vendor.status}
-          </Badge>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-1">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`w-4 h-4 ${i < Math.floor(vendor.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
-                />
-              ))}
-              <span className="text-sm text-gray-600 ml-2">
-                {vendor.rating} ({vendor.reviews} reviews)
-              </span>
-            </div>
-            <Badge variant="outline">{vendor.category}</Badge>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div>
-              <span className="font-medium">Projects:</span> {vendor.completedProjects}
-            </div>
-            <div>
-              <span className="font-medium">Avg Value:</span> ${vendor.averageValue.toLocaleString()}
-            </div>
-            <div>
-              <span className="font-medium">Response:</span> {vendor.responseTime}
-            </div>
-            <div>
-              <span className="font-medium">Since:</span> {new Date(vendor.registrationDate).getFullYear()}
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-1">
-            {vendor.specialties.slice(0, 3).map((specialty, index) => (
-              <Badge key={index} variant="secondary" className="text-xs">
-                {specialty}
-              </Badge>
-            ))}
-            {vendor.specialties.length > 3 && (
-              <Badge variant="secondary" className="text-xs">
-                +{vendor.specialties.length - 3} more
-              </Badge>
-            )}
-          </div>
-
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <Phone className="w-4 h-4" />
-            <span>{vendor.phone}</span>
-          </div>
-          
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <Mail className="w-4 h-4" />
-            <span>{vendor.email}</span>
-          </div>
-
-          <div className="flex space-x-2 pt-2">
-            <Button asChild size="sm" className="flex-1">
-              <Link to={`/vendors/profile/${vendor.id}`}>
-                <Eye className="w-4 h-4 mr-1" />
-                View Profile
-              </Link>
-            </Button>
-            <Button variant="outline" size="sm">
-              Contact
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
-  const quickActions = [
-    { label: "Register New Vendor", href: "/vendors/register", icon: UserPlus },
-    { label: "Vendor Analytics", href: "/vendors/analytics", icon: Building2, variant: "outline" as const },
-    { label: "Prequalification", href: "/vendors/prequalification", icon: Filter, variant: "outline" as const }
-  ];
-
   return (
     <PageTemplate
       title="Vendor Directory"
-      description="Browse and manage certified vendors and contractors"
-      quickActions={quickActions}
+      description="Browse and manage all registered vendors"
     >
-      <div className="space-y-6">
-        {/* Filters */}
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex flex-col lg:flex-row gap-4">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                <Input
-                  placeholder="Search vendors by name or specialty..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-full lg:w-[200px]">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  {categories.map(category => (
-                    <SelectItem key={category} value={category}>{category}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-full lg:w-[150px]">
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="Active">Active</SelectItem>
-                  <SelectItem value="Inactive">Inactive</SelectItem>
-                  <SelectItem value="Pending">Pending</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button variant="outline" size="icon">
-                <Filter className="w-4 h-4" />
-              </Button>
+      <div className={`min-h-screen ${animatedGradient} transition-colors p-6`}>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+          <div className="flex gap-2 w-full md:w-auto">
+            <Input
+              placeholder="Search vendors or specialties..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              className="w-full md:w-64 rounded-full px-4 py-2 border-0 shadow focus:ring-2 focus:ring-blue-400"
+            />
+            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              <SelectTrigger className="rounded-full px-4 border-0 shadow bg-white/80 dark:bg-[#23234a]/80">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {categories.map((cat) => (
+                  <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="rounded-full px-4 border-0 shadow bg-white/80 dark:bg-[#23234a]/80">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="Active">Active</SelectItem>
+                <SelectItem value="Inactive">Inactive</SelectItem>
+                <SelectItem value="Pending">Pending</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex gap-2">
+            <Button className={glassButton} onClick={() => setViewMode('grid')} variant={viewMode === 'grid' ? 'default' : 'outline'}>
+              <Eye className="w-4 h-4 mr-1" /> Grid
+            </Button>
+            <Button className={glassButton} onClick={() => setViewMode('list')} variant={viewMode === 'list' ? 'default' : 'outline'}>
+              <List className="w-4 h-4 mr-1" /> List
+            </Button>
+            <Button asChild className={glassButton}>
+              <Link to="/vendors/VendorRegistration">
+                <UserPlus className="w-4 h-4 mr-1" /> Register Vendor
+              </Link>
+            </Button>
+          </div>
+        </div>
+        <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1 gap-4'} mb-8`}>
+          {filteredVendors.length === 0 ? (
+            <div className="col-span-full text-center text-lg text-gray-500 dark:text-gray-300 py-12">
+              No vendors found.
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">{vendors.length}</div>
-              <div className="text-sm text-gray-600">Total Vendors</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">
-                {vendors.filter(v => v.status === "Active").length}
-              </div>
-              <div className="text-sm text-gray-600">Active</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600">{categories.length}</div>
-              <div className="text-sm text-gray-600">Categories</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-purple-600">
-                {(vendors.reduce((sum, v) => sum + v.rating, 0) / vendors.length).toFixed(1)}
-              </div>
-              <div className="text-sm text-gray-600">Avg Rating</div>
-            </CardContent>
-          </Card>
+          ) : (
+            filteredVendors.map((vendor) => (
+              <Card key={vendor.id} className={`${glassCard} group hover:shadow-blue-400/30`}>
+                <CardHeader className="pb-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="w-12 h-12">
+                        <AvatarImage src={vendor.avatar} alt={vendor.name} />
+                        <AvatarFallback><Building2 className="w-6 h-6" /></AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <CardTitle className="text-lg text-slate-900 dark:text-white font-bold">{vendor.name}</CardTitle>
+                        <CardDescription className="flex items-center text-blue-700 dark:text-blue-200">
+                          <MapPin className="w-4 h-4 mr-1" />
+                          {vendor.location}
+                        </CardDescription>
+                      </div>
+                    </div>
+                    <Badge className={`px-3 py-1 text-xs font-bold rounded-full ${badgePulse} ${vendor.status === 'Active' ? 'bg-green-100 text-green-700' : vendor.status === 'Inactive' ? 'bg-gray-100 text-gray-700' : 'bg-yellow-100 text-yellow-700'}`}>{vendor.status}</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-1">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-4 h-4 ${i < Math.floor(vendor.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
+                          />
+                        ))}
+                        <span className="text-sm text-gray-600 dark:text-gray-300 ml-2">
+                          {vendor.rating} ({vendor.reviews} reviews)
+                        </span>
+                      </div>
+                      <Badge variant="outline" className="text-xs font-semibold border-blue-300/40 dark:border-blue-600/40 text-blue-700 dark:text-blue-200 bg-blue-50 dark:bg-blue-900/20">{vendor.category}</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="font-medium">Projects:</span> {vendor.completedProjects}
+                      </div>
+                      <div>
+                        <span className="font-medium">Avg Value:</span> ${vendor.averageValue.toLocaleString()}
+                      </div>
+                      <div>
+                        <span className="font-medium">Response:</span> {vendor.responseTime}
+                      </div>
+                      <div>
+                        <span className="font-medium">Since:</span> {new Date(vendor.registrationDate).getFullYear()}
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {vendor.specialties.slice(0, 3).map((specialty, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-200">
+                          {specialty}
+                        </Badge>
+                      ))}
+                      {vendor.specialties.length > 3 && (
+                        <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-200">
+                          +{vendor.specialties.length - 3} more
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
+                      <Phone className="w-4 h-4" />
+                      <span>{vendor.phone}</span>
+                      <Mail className="w-4 h-4 ml-4" />
+                      <span>{vendor.email}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          )}
         </div>
-
-        {/* Vendors Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredVendors.map(vendor => (
-            <VendorCard key={vendor.id} vendor={vendor} />
-          ))}
-        </div>
-
-        {filteredVendors.length === 0 && (
-          <Card className="text-center py-12">
-            <CardContent>
-              <Building2 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No vendors found</h3>
-              <p className="text-gray-600 mb-4">
-                Try adjusting your search criteria or register a new vendor.
-              </p>
-              <Button asChild>
-                <Link to="/vendors/register">Register New Vendor</Link>
-              </Button>
-            </CardContent>
-          </Card>
-        )}
       </div>
     </PageTemplate>
   );

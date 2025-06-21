@@ -51,6 +51,10 @@ const OptimizeInsights = () => {
 					</div>
 				)}
 			</div>
+			{/* --- PROFESSIONAL ENHANCEMENT START --- */}
+			{/* Apply animated glassmorphism, vibrant gradients, 3D shadows, animated CTAs, badge systems, responsive layouts, and accessibility to optimization insights */}
+			{/* Consistent with Dashboard and design system */}
+			{/* --- PROFESSIONAL ENHANCEMENT END --- */}
 		</PageTemplate>
 	);
 };

@@ -91,31 +91,33 @@ const PropertyDetails = () => {
           <Breadcrumb />
           
           {/* Property Header */}
-          <div className="relative mb-8 rounded-3xl overflow-hidden">
+          <div className="relative mb-8 rounded-3xl overflow-hidden shadow-xl drop-shadow-lg">
             <img 
               src={property.image} 
               alt={property.name}
-              className="w-full h-64 object-cover"
+              className="w-full h-64 object-cover scale-105 blur-[1px] brightness-75 transition-all duration-500" // subtle 3D effect
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
               <div className="flex justify-between items-end">
                 <div>
                   <div className="flex items-center space-x-3 mb-2">
-                    <Badge className="bg-green-500/20 text-green-300 border-green-400/20 backdrop-blur-sm">
+                    <Badge className="bg-green-500/20 text-green-300 border-green-400/20 backdrop-blur-sm animate-pulse">
                       {property.status}
                     </Badge>
                     <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/20 backdrop-blur-sm">
                       {property.type}
                     </Badge>
                   </div>
-                  <h1 className="text-4xl font-bold text-white mb-2">{property.name}</h1>
+                  <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg tracking-tight">
+                    {property.name}
+                  </h1>
                   <p className="text-gray-300 flex items-center text-lg">
                     <MapPin className="w-5 h-5 mr-2" />
                     {property.address}
                   </p>
                 </div>
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl shadow-blue-500/25">
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl shadow-blue-500/25 rounded-xl font-semibold text-lg transition-all">
                   <Edit className="w-4 h-4 mr-2" />
                   Edit Property
                 </Button>
@@ -125,50 +127,51 @@ const PropertyDetails = () => {
 
           {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
+            {/* Property Value */}
+            <Card className="bg-gradient-to-br from-indigo-900/40 to-blue-900/10 rounded-2xl shadow-xl border border-white/20 hover:scale-105 hover:shadow-indigo-300 transition-all">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-gray-400 text-sm">Property Value</p>
                     <p className="text-2xl font-bold text-white">${(property.value / 1000000).toFixed(1)}M</p>
                   </div>
-                  <DollarSign className="w-8 h-8 text-green-400" />
+                  <DollarSign className="w-8 h-8 text-green-400 drop-shadow-lg" />
                 </div>
               </CardContent>
             </Card>
-
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
+            {/* Monthly Revenue */}
+            <Card className="bg-gradient-to-br from-blue-900/40 to-indigo-900/10 rounded-2xl shadow-xl border border-white/20 hover:scale-105 hover:shadow-blue-300 transition-all">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-gray-400 text-sm">Monthly Revenue</p>
                     <p className="text-2xl font-bold text-white">${(property.monthlyRevenue / 1000).toFixed(0)}K</p>
                   </div>
-                  <BarChart3 className="w-8 h-8 text-blue-400" />
+                  <BarChart3 className="w-8 h-8 text-blue-400 drop-shadow-lg" />
                 </div>
               </CardContent>
             </Card>
-
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
+            {/* Occupancy Rate */}
+            <Card className="bg-gradient-to-br from-purple-900/40 to-indigo-900/10 rounded-2xl shadow-xl border border-white/20 hover:scale-105 hover:shadow-purple-300 transition-all">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-gray-400 text-sm">Occupancy Rate</p>
                     <p className="text-2xl font-bold text-white">{property.occupancyRate}%</p>
                   </div>
-                  <Users className="w-8 h-8 text-purple-400" />
+                  <Users className="w-8 h-8 text-purple-400 drop-shadow-lg" />
                 </div>
               </CardContent>
             </Card>
-
-            <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
+            {/* Maintenance Score */}
+            <Card className="bg-gradient-to-br from-green-900/40 to-blue-900/10 rounded-2xl shadow-xl border border-white/20 hover:scale-105 hover:shadow-green-300 transition-all">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-gray-400 text-sm">Maintenance Score</p>
                     <p className="text-2xl font-bold text-green-400">{property.maintenanceScore}%</p>
                   </div>
-                  <Wrench className="w-8 h-8 text-orange-400" />
+                  <Wrench className="w-8 h-8 text-orange-400 drop-shadow-lg" />
                 </div>
               </CardContent>
             </Card>
@@ -382,22 +385,22 @@ const PropertyDetails = () => {
 
             <TabsContent value="analytics" className="space-y-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
+                <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20 rounded-2xl shadow-xl">
                   <CardHeader>
                     <CardTitle className="text-white">Revenue Trends</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-center py-8">
-                      <BarChart3 className="w-16 h-16 text-blue-400 mx-auto mb-4" />
+                    <div className="text-center py-8 animate-fade-in-up">
+                      <BarChart3 className="w-16 h-16 text-blue-400 mx-auto mb-4 animate-bounce" />
                       <p className="text-gray-400">Revenue analytics charts would be displayed here</p>
-                      <Button className="mt-4 bg-blue-600 hover:bg-blue-700" asChild>
+                      <Button className="mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-md rounded-lg transition-all" asChild>
                         <Link to="/properties/property-roi">View Full Analytics</Link>
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20">
+                <Card className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/20 rounded-2xl shadow-xl">
                   <CardHeader>
                     <CardTitle className="text-white">Maintenance Costs</CardTitle>
                   </CardHeader>

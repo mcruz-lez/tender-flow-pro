@@ -1,4 +1,3 @@
-
 import { useTenders } from "@/hooks/useTenders";
 import { useVendors } from "@/hooks/useVendors";
 import { useProperties } from "@/hooks/useProperties";
@@ -7,6 +6,9 @@ import { useContracts } from "@/hooks/useContracts";
 import { KPICards } from "./dashboard/KPICards";
 import { PerformanceMetrics } from "./dashboard/PerformanceMetrics";
 import { AlertsCard } from "./dashboard/AlertsCard";
+
+const animatedGradient =
+  "bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-200 dark:from-[#23234a] dark:via-[#2a1e3f] dark:to-[#1e1e3f] shadow-2xl border-0 backdrop-blur-xl";
 
 export const DashboardAnalytics = () => {
   const { data: tenders } = useTenders();

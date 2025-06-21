@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,13 @@ import { useProperties, useCreateProperty } from "@/hooks/useProperties";
 import { useTenders } from "@/hooks/useTenders";
 import { PropertyCard } from "./PropertyCard";
 import { toast } from "sonner";
+
+const animatedGradient =
+  "bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-200 dark:from-[#23234a] dark:via-[#2a1e3f] dark:to-[#1e1e3f] shadow-2xl border-0 backdrop-blur-xl";
+const glassCard =
+  "rounded-2xl border-0 shadow-2xl bg-white/60 dark:bg-[#23234a]/80 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-indigo-400/30";
+const badgePulse =
+  "relative after:content-[''] after:absolute after:inset-0 after:rounded-full after:animate-pulse after:bg-current after:opacity-20";
 
 export const PropertyManagement = () => {
   const { data: properties, isLoading } = useProperties();
@@ -70,7 +76,7 @@ export const PropertyManagement = () => {
     <div className="space-y-6">
       {/* Analytics Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+        <Card className={glassCard}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -83,7 +89,7 @@ export const PropertyManagement = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className={glassCard}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -96,7 +102,7 @@ export const PropertyManagement = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className={glassCard}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -109,7 +115,7 @@ export const PropertyManagement = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className={glassCard}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -150,7 +156,7 @@ export const PropertyManagement = () => {
           </div>
         </div>
         
-        <Button>
+        <Button className={animatedGradient}>
           <Plus className="w-4 h-4 mr-2" />
           Add Property
         </Button>
@@ -168,7 +174,7 @@ export const PropertyManagement = () => {
                 : 'Get started by adding your first property'
               }
             </p>
-            <Button>
+            <Button className={animatedGradient}>
               <Plus className="w-4 h-4 mr-2" />
               Add Property
             </Button>
@@ -202,7 +208,7 @@ export const PropertyManagement = () => {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Maintenance Requests</span>
-                <Badge variant="outline" className="text-orange-600">
+                <Badge variant="outline" className={`text-orange-600 ${badgePulse}`}>
                   <AlertCircle className="w-3 h-3 mr-1" />
                   12 Open
                 </Badge>

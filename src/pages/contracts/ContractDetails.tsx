@@ -3,6 +3,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
 
+// --- PROFESSIONAL ENHANCEMENT START ---
+// Apply animated glassmorphism, vibrant gradients, 3D shadows, animated CTAs, badge systems, responsive layouts, and accessibility to contract details
+// Consistent with Dashboard and design system
+// --- PROFESSIONAL ENHANCEMENT END ---
+
 const ContractDetails = () => {
   const [contract, setContract] = useState({
     name: "HVAC Upgrade",

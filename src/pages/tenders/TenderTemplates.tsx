@@ -213,19 +213,24 @@ const TenderTemplates = () => {
                 <h2 className="text-xl font-semibold text-white mb-4">Featured Templates</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredTemplates.filter(t => t.featured).map((template) => (
-                    <Card key={template.id} className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 transform hover:-translate-y-1">
+                    <Card
+                      key={template.id}
+                      className={`bg-gradient-to-br from-[#1e1e3f] to-[#3c1d60] text-white p-6 rounded-2xl shadow-xl transition-all hover:scale-105 hover:shadow-indigo-300 border border-slate-200/40 group ${template.featured ? 'ring-2 ring-purple-400/40' : ''}`}
+                    >
                       <CardHeader className="pb-3">
                         <div className="flex justify-between items-start mb-2">
-                          <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0">
-                            Featured
-                          </Badge>
+                          {template.featured ? (
+                            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 animate-pulse">Featured</Badge>
+                          ) : (
+                            <Badge variant="outline" className="border-white/20 text-white">{categories.find(c => c.id === template.category)?.name}</Badge>
+                          )}
                           <div className="flex items-center gap-1">
                             <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                            <span className="text-sm text-white">{template.rating}</span>
+                            <span className="text-sm text-white font-semibold">{template.rating}</span>
                           </div>
                         </div>
-                        <CardTitle className="text-lg text-white">{template.name}</CardTitle>
-                        <CardDescription className="text-white/70">{template.description}</CardDescription>
+                        <CardTitle className="text-xl font-semibold tracking-tight line-clamp-2 group-hover:text-indigo-200 transition-colors">{template.name}</CardTitle>
+                        <CardDescription className="text-white/70 line-clamp-2">{template.description}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="grid grid-cols-2 gap-2 text-sm">
@@ -238,37 +243,33 @@ const TenderTemplates = () => {
                             <p className="text-white font-medium">{template.duration}</p>
                           </div>
                         </div>
-                        
                         <div className="flex justify-between items-center">
-                          <Badge className={getComplexityColor(template.complexity)}>
-                            {template.complexity}
-                          </Badge>
+                          <Badge className={`text-xs font-semibold ${getComplexityColor(template.complexity)} inline-flex items-center gap-2`}>{template.complexity}</Badge>
                           <div className="flex items-center gap-1 text-white/60">
                             <Users className="w-4 h-4" />
                             <span className="text-sm">{template.usage} uses</span>
                           </div>
                         </div>
-
                         <div className="flex gap-2 pt-2">
-                          <Button 
-                            size="sm" 
-                            className="flex-1 bg-blue-600 hover:bg-blue-700"
+                          <Button
+                            size="sm"
+                            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold shadow-md rounded-lg transition-all animate-pulse group-hover:scale-105 group-hover:shadow-indigo-300"
                             onClick={() => handleUseTemplate(template.id, template.name)}
                           >
                             Use Template
                           </Button>
-                          <Button 
-                            size="sm" 
-                            variant="outline" 
-                            className="border-white/20 text-white hover:bg-white/10"
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-white/20 text-white hover:bg-white/10 transition-all"
                             onClick={() => handlePreviewTemplate(template.id)}
                           >
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button 
-                            size="sm" 
-                            variant="outline" 
-                            className="border-white/20 text-white hover:bg-white/10"
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-white/20 text-white hover:bg-white/10 transition-all"
                           >
                             <Copy className="w-4 h-4" />
                           </Button>
@@ -284,7 +285,10 @@ const TenderTemplates = () => {
                 <h2 className="text-xl font-semibold text-white mb-4">All Templates</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredTemplates.filter(t => !t.featured).map((template) => (
-                    <Card key={template.id} className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-1">
+                    <Card
+                      key={template.id}
+                      className={`bg-gradient-to-br from-[#1e1e3f] to-[#3c1d60] text-white p-6 rounded-2xl shadow-xl transition-all hover:scale-105 hover:shadow-indigo-300 border border-slate-200/40 group ${template.featured ? 'ring-2 ring-purple-400/40' : ''}`}
+                    >
                       <CardHeader className="pb-3">
                         <div className="flex justify-between items-start mb-2">
                           <Badge variant="outline" className="border-white/20 text-white">

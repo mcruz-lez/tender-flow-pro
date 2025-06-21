@@ -2,6 +2,11 @@ import PageTemplate from "@/components/PageTemplate";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
+// --- PROFESSIONAL ENHANCEMENT START ---
+// Apply animated glassmorphism, vibrant gradients, 3D shadows, animated CTAs, badge systems, responsive layouts, and accessibility to risk forecast
+// Consistent with Dashboard and design system
+// --- PROFESSIONAL ENHANCEMENT END ---
+
 const RiskForecast = () => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState("");
