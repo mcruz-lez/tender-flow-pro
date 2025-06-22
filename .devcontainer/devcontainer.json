@@ -1,0 +1,20 @@
+{
+  "name": "Vite App Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "postCreateCommand": "bash scripts/post-create.sh",
+  "postStartCommand": "bash scripts/post-start.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "runArgs": ["--memory=4g", "--shm-size=1g"]
+}

@@ -13,6 +13,14 @@ if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
   console.error("Supabase environment variables are missing. Check your .env file and restart the server.");
 }
 
+if (import.meta.env.DEV) {
+  // Log the Supabase URL and key (first 8 chars only) for debugging
+  // eslint-disable-next-line no-console
+  console.log("Supabase URL:", SUPABASE_URL);
+  // eslint-disable-next-line no-console
+  console.log("Supabase ANON KEY (start):", SUPABASE_PUBLISHABLE_KEY?.slice(0, 8));
+}
+
 export const supabase = createClient<unknown>(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY,
