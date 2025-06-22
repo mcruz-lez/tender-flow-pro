@@ -19,7 +19,7 @@ import {
   Star,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/useAuth";
 
 const Index = () => {
   const { user } = useAuth();

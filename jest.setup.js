@@ -1,3 +1,5 @@
+import "@testing-library/jest-dom";
+
 // vitest.setup.js
 // Mock Supabase client for all tests to prevent real network calls
 

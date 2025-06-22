@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import { Link } from "react-router-dom";
+import AuditLogsNav from "@/components/audit/AuditLogsNav";
 
 // Animated glassmorphism and gradient helpers
 const animatedGradient =
@@ -252,6 +253,8 @@ const Dashboard = () => {
               </Button>
             </div>
           </header>
+          {/* Audit Logs Navigation */}
+          <AuditLogsNav />
           {/* Main Content */}
           <main className="p-6">
             {/* Stats Grid */}
@@ -638,9 +641,9 @@ const Dashboard = () => {
                         variant="outline"
                         className="w-full border-slate-200/40 dark:border-slate-600/40 text-slate-800 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all"
                       >
-                        <Link to="/vendors/analytics">
-                          <BarChart3 className="w-4 h-4 mr-2" />
-                          Performance Analytics
+                        <Link to="/vendors/audit-logs">
+                          <FileText className="w-4 h-4 mr-2" />
+                          Audit Logs
                         </Link>
                       </Button>
                     </CardContent>
@@ -649,93 +652,115 @@ const Dashboard = () => {
               </TabsContent>
               <TabsContent value="analytics">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <Card className={`${glassCard} border-blue-200/30`}>
+                  <Card className={`${glassCard} border-indigo-200/30`}>
                     <CardHeader>
                       <CardTitle className="text-xl font-semibold tracking-tight text-slate-800 dark:text-white">
-                        Procurement Analytics
+                        Tender Analytics
                       </CardTitle>
                       <CardDescription className="text-sm text-muted-foreground italic">
-                        Key insights and trends
+                        Insights on tender performance and vendor participation
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        <div className="flex justify-between items-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                          <span className="font-medium text-slate-800 dark:text-blue-200">
-                            Cost Savings This Quarter
-                          </span>
-                          <span className="text-2xl font-bold text-blue-600 dark:text-blue-300">
-                            €340K
-                          </span>
+                        {/* Example chart placeholder */}
+                        <div className="h-48 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400">
+                          <p className="text-sm font-medium">
+                            {/* Replace with actual chart component */}
+                            Tender analytics chart (e.g., bar chart, line graph)
+                          </p>
                         </div>
-                        <div className="flex justify-between items-center p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                          <span className="font-medium text-slate-800 dark:text-green-200">
-                            Average Tender Response
-                          </span>
-                          <span className="text-2xl font-bold text-green-600 dark:text-green-300">
-                            8.4
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                          <span className="font-medium text-slate-800 dark:text-purple-200">
-                            Vendor Satisfaction
-                          </span>
-                          <span className="text-2xl font-bold text-purple-600 dark:text-purple-300">
-                            4.8/5
-                          </span>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="p-4 rounded-xl bg-white shadow-md">
+                            <h5 className="text-sm font-semibold text-slate-800">
+                              Total Tenders
+                            </h5>
+                            <p className="text-2xl font-bold text-slate-900">
+                              1,024
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl bg-white shadow-md">
+                            <h5 className="text-sm font-semibold text-slate-800">
+                              Avg. Tender Value
+                            </h5>
+                            <p className="text-2xl font-bold text-slate-900">
+                              €45,000
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl bg-white shadow-md">
+                            <h5 className="text-sm font-semibold text-slate-800">
+                              Total Vendors
+                            </h5>
+                            <p className="text-2xl font-bold text-slate-900">
+                              156
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl bg-white shadow-md">
+                            <h5 className="text-sm font-semibold text-slate-800">
+                              Active Contracts
+                            </h5>
+                            <p className="text-2xl font-bold text-slate-900">
+                              342
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <Button
-                        asChild
-                        className="w-full mt-4 bg-gradient-to-r from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-white font-bold shadow-md rounded-lg transition-all"
-                      >
-                        <Link to="/analytics">
-                          <BarChart3 className="w-4 h-4 mr-2" />
-                          View Detailed Reports
-                        </Link>
-                      </Button>
                     </CardContent>
                   </Card>
                   <Card className={`${glassCard} border-purple-200/30`}>
                     <CardHeader>
                       <CardTitle className="text-xl font-semibold tracking-tight text-slate-800 dark:text-white">
-                        Quick Reports
+                        Vendor Engagement
                       </CardTitle>
                       <CardDescription className="text-sm text-muted-foreground italic">
-                        Generate and export reports
+                        Analysis of vendor interactions and feedback
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-3">
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full border-slate-200/40 dark:border-slate-600/40 text-slate-800 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all"
-                      >
-                        <Link to="/analytics/tender-analytics">
-                          <FileText className="w-4 h-4 mr-2" />
-                          Tender Performance
-                        </Link>
-                      </Button>
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full border-slate-200/40 dark:border-slate-600/40 text-slate-800 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all"
-                      >
-                        <Link to="/analytics/vendor-performance-analytics">
-                          <Users className="w-4 h-4 mr-2" />
-                          Vendor Analysis
-                        </Link>
-                      </Button>
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full border-slate-200/40 dark:border-slate-600/40 text-slate-800 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all"
-                      >
-                        <Link to="/analytics/financial-reports">
-                          <DollarSign className="w-4 h-4 mr-2" />
-                          Financial Reports
-                        </Link>
-                      </Button>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {/* Example chart placeholder */}
+                        <div className="h-48 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400">
+                          <p className="text-sm font-medium">
+                            {/* Replace with actual chart component */}
+                            Vendor engagement chart (e.g., pie chart, line
+                            graph)
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="p-4 rounded-xl bg-white shadow-md">
+                            <h5 className="text-sm font-semibold text-slate-800">
+                              Total Responses
+                            </h5>
+                            <p className="text-2xl font-bold text-slate-900">
+                              2,340
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl bg-white shadow-md">
+                            <h5 className="text-sm font-semibold text-slate-800">
+                              Positive Feedback
+                            </h5>
+                            <p className="text-2xl font-bold text-slate-900">
+                              87%
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl bg-white shadow-md">
+                            <h5 className="text-sm font-semibold text-slate-800">
+                              Total Meetings
+                            </h5>
+                            <p className="text-2xl font-bold text-slate-900">
+                              120
+                            </p>
+                          </div>
+                          <div className="p-4 rounded-xl bg-white shadow-md">
+                            <h5 className="text-sm font-semibold text-slate-800">
+                              Avg. Response Time
+                            </h5>
+                            <p className="text-2xl font-bold text-slate-900">
+                              3.2 days
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
@@ -744,9 +769,6 @@ const Dashboard = () => {
           </main>
         </div>
       </div>
-      {/* Next: Professionally enhance all analytics, contract, communication, and enhanced components/pages with the same vibrant, animated, accessible, and consistent design system as Dashboard.
-      This includes animated gradients, glassmorphism, badge pulse, animated CTAs, responsive layouts, and accessibility improvements for every remaining page and component.
-      All enhancements will follow the persistent design brief and instructions until the entire platform is fully and professionally enhanced. */}
     </>
   );
 };

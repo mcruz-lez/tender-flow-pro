@@ -302,6 +302,14 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/audit/logs"
+              element={
+                <ProtectedRoute>
+                  <AuditLogsPage />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Dashboard routes */}
             <Route

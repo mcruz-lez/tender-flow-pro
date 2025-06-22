@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import AuditLogs from "./AuditLogs";
-import { AuthContext } from "@/contexts/AuthContext";
+import { AuthContext } from "@/contexts/useAuth";
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 

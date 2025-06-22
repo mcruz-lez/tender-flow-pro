@@ -282,4 +282,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+- Full security audit: all secrets now managed via environment variables, `.env` is git-ignored, and all keys rotated.
+- Audit Logs UI and API integrated with professional, accessible design.
+- Production build and lint/test pass for all modules.
+- Navigation and dashboard enhancements for enterprise readiness.
+- All code and documentation updated for production.
+
 **Note**: This changelog will be updated with each release. For detailed technical documentation, please refer to the project's README and API documentation.

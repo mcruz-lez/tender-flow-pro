@@ -13,7 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { Building2, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/useAuth";
 import { useEffect } from "react";
 
 const Login = () => {

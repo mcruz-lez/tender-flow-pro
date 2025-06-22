@@ -4,16 +4,23 @@ import {
   getMessages,
   sendMessage,
 } from "@/integrations/supabase/api";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/useAuth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { canAccess } from "@/api/rbac";
 
 const MessagingPage = () => {
   const { user } = useAuth();
-  const [threads, setThreads] = useState<any[]>([]);
-  const [selectedThread, setSelectedThread] = useState<any>(null);
-  const [messages, setMessages] = useState<any[]>([]);
+  const [threads, setThreads] = useState<
+    Array<{ id: string; subject?: string }>
+  >([]);
+  const [selectedThread, setSelectedThread] = useState<{
+    id: string;
+    subject?: string;
+  } | null>(null);
+  const [messages, setMessages] = useState<
+    Array<{ sender_id: string; content: string; created_at: string }>
+  >([]);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
 

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { getDocuments, uploadDocument } from "@/integrations/supabase/api";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/useAuth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { canAccess } from "@/api/rbac";
 
 const DocumentManagementPage = () => {
   const { user } = useAuth();
-  const [documents, setDocuments] = useState<any[]>([]);
+  const [documents, setDocuments] = useState<
+    Array<{ name: string; url: string }>
+  >([]);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +37,7 @@ const DocumentManagementPage = () => {
     );
   if (
     !canAccess(
-      { role: user.role || user.user_metadata?.role || "user" },
+      { role: user?.role || user?.user_metadata?.role || "user" },
       "documents",
       "read",
     )
@@ -43,37 +45,33 @@ const DocumentManagementPage = () => {
     return <div className="p-8 text-center text-red-500">Access denied.</div>;
 
   return (
-    <div className="max-w-3xl mx-auto py-10">
-      <Card>
+    <div className="max-w-4xl mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <Card className="md:col-span-1">
         <CardHeader>
           <CardTitle>Document Management</CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="flex gap-2 mb-6" onSubmit={handleUpload}>
+          <form onSubmit={handleUpload} className="space-y-4">
             <input
               type="file"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
-              className="flex-1"
               disabled={loading}
+              className="flex-1"
             />
             <Button type="submit" disabled={loading || !file}>
               {loading ? "Uploading..." : "Upload"}
             </Button>
           </form>
           <ul className="space-y-2">
-            {documents.map((doc, idx) => (
-              <li
-                key={idx}
-                className="flex items-center justify-between border rounded p-2 bg-gray-50"
-              >
-                <span>{doc.name}</span>
+            {(documents || []).map((doc, idx) => (
+              <li key={idx}>
                 <a
                   href={doc.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline"
                 >
-                  View
+                  {doc.name}
                 </a>
               </li>
             ))}

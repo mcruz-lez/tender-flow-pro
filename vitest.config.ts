@@ -6,8 +6,13 @@ export default defineConfig({
     setupFiles: ["./jest.setup.js"],
     globals: true,
     environment: "jsdom",
+    include: ["src/**/*.test.{ts,tsx}"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
+    },
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
     },
   },
 });

@@ -3,11 +3,19 @@ import { getAuditLogs } from "@/integrations/supabase/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { canAccess } from "@/api/rbac";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/useAuth";
 
 const AuditLogsPage = () => {
   const { user } = useAuth();
-  const [logs, setLogs] = useState<any[]>([]);
+  const [logs, setLogs] = useState<
+    {
+      action: string;
+      user_email?: string;
+      user_id?: string;
+      created_at: string;
+      resource?: string;
+    }[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

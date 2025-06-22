@@ -1,4 +1,4 @@
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/useAuth";
 import { toast } from "sonner";
 import {
   getUserSettings,
@@ -13,7 +13,9 @@ import { canAccess } from "@/api/rbac";
 
 export default function SettingsPage() {
   const { user } = useAuth();
-  const [settings, setSettings] = useState<any>(null);
+  const [settings, setSettings] = useState<Record<string, unknown> | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState("light");
   const [notifications, setNotifications] = useState(true);

@@ -34,7 +34,7 @@ export async function setSetting({
   userId?: string;
   orgId?: string;
   key: string;
-  value: any;
+  value: unknown;
 }) {
   const { error } = await supabase.from("settings").upsert(
     {

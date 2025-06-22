@@ -30,7 +30,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/useAuth";
 import { useEffect } from "react";
 import { StripeCheckoutButton } from "@/components/StripeCheckoutButton";
 

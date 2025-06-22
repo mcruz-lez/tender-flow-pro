@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import DocumentManagementPage from "./DocumentManagementPage";
-import { AuthContext } from "@/contexts/AuthContext";
+import { AuthContext } from "@/contexts/useAuth";
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 

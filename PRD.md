@@ -583,6 +583,7 @@ TendProcure is a comprehensive, AI-powered tender management platform designed t
 | 1.2     | 2024-01-19 | Product Team | Enhanced evaluation system details                                                                |
 | 1.3.0   | 2024-01-20 | Product Team | Communication & Notification Hub, Q&A, Announcements                                              |
 | 1.4.0   | 2025-06-21 | Product Team | Full UI/UX overhaul, accessibility, technical improvements, bundle analysis, all modules enhanced |
+|         |            |              | Security & Production Readiness notes added.                                                      |
 
 ---
 
@@ -635,6 +636,7 @@ TendProcure is a comprehensive, AI-powered tender management platform designed t
 - ```tsx
 
   ```
+
 - <div className="bg-gradient-to-br from-[#1e1e3f] to-[#3c1d60] text-white p-6 rounded-2xl shadow-xl transition-all hover:scale-105">
 -      <h2 className="text-xl font-semibold tracking-tight">HVAC Contract</h2>
 - </div>
@@ -645,6 +647,7 @@ TendProcure is a comprehensive, AI-powered tender management platform designed t
 - ```
 
   ```
+
 -
 - 9.  🧩 PERFORMANT GRADING VISUALS:
 - - Use progress bars (`<progress>` or `div w-full bg-gray-200`) with `animate-[pulse]` or `transition-width`.

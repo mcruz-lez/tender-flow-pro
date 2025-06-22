@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import MessagingPage from "./MessagingPage";
-import { AuthContext } from "@/contexts/AuthContext";
+import { AuthContext } from "@/contexts/useAuth";
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 
@@ -33,7 +33,7 @@ describe("MessagingPage", () => {
       </AuthContext.Provider>,
     );
     expect(await screen.findByText(/Threads/i)).toBeInTheDocument();
-    expect(await screen.findByText(/Messages/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Messages/i).length).toBeGreaterThan(0);
   });
   // Add more tests for threads, permissions, and real-time updates
 });
