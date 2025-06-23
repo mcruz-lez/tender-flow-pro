@@ -1,0 +1,6 @@
+run = "yarn dev"
+entrypoint = "index.html"
+language = "nodejs"
+
+[nix]
+channel = "stable-23_05"
