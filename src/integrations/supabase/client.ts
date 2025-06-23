@@ -12,10 +12,13 @@ if (typeof window !== "undefined") {
 }
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  console.error("Supabase environment variables are missing. Check your .env file and restart the server.");
+  console.error(
+    "Supabase environment variables are missing. Check your .env file and restart the server.",
+  );
 }
 
-export const supabase = createClient<Database>(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY,
-);
+// NOTE: If Supabase JWT secrets are rotated, ensure any backend services that validate Supabase tokens
+// use the new secret. For frontend-only Vite apps, no change is needed unless you have custom backend validation.
+// If you add backend validation, load the new JWT secret from environment variables securely.
+
+export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY);

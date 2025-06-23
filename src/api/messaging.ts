@@ -32,4 +32,25 @@ export async function getThreads(userId: string) {
   return { data, error };
 }
 
-// Supabase client is disconnected. No URL or anon key present.
+// Test function to verify Supabase client connectivity
+export async function testSupabaseConnection() {
+  try {
+    const { data, error } = await supabase
+      .from("messages")
+      .select("*")
+      .limit(1);
+    if (error) {
+      console.error("[Supabase Test] Error:", error);
+      return false;
+    }
+    console.log("[Supabase Test] Success. Sample data:", data);
+    return true;
+  } catch (err) {
+    console.error("[Supabase Test] Exception:", err);
+    return false;
+  }
+}
+
+testSupabaseConnection();
+
+// (Supabase client is now connected and configured via @/integrations/supabase/client)
