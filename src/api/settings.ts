@@ -1,3 +1,5 @@
+import { supabase } from "@/integrations/supabase/client";
+
 // API for user/org settings management
 // Supabase client is disconnected. No URL or anon key present.
 
@@ -17,7 +19,8 @@ export async function getSetting({
     .eq(userId ? "user_id" : "organization_id", userId || orgId)
     .single();
   if (error) throw error;
-  return data?.value;
+  if (!data) return null;
+  return data.value;
 }
 
 export async function setSetting({

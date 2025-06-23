@@ -1,3 +1,5 @@
+import { supabase } from "@/integrations/supabase/client";
+
 // Messaging API endpoint for threads, messages, and read receipts
 // ...existing code...
 

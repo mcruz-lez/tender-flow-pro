@@ -1,3 +1,5 @@
+import { supabase } from "@/integrations/supabase/client";
+
 // Demo/sample data seeding for onboarding and testing
 // Supabase client is disconnected. No URL or anon key present.
 
