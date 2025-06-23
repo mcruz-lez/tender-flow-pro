@@ -32,7 +32,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/useAuth";
 import { useEffect } from "react";
-import { StripeCheckoutButton } from "@/components/StripeCheckoutButton";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -407,19 +406,6 @@ const Register = () => {
                   . I understand that TendProcure will process my data according
                   to these terms.
                 </Label>
-              </div>
-
-              {/* Registration Payment (optional/required) */}
-              <div className="my-4">
-                <StripeCheckoutButton
-                  amount={99}
-                  currency="usd"
-                  description="Registration Fee"
-                  type="registration"
-                  onSuccess={() =>
-                    toast.success("Registration payment successful!")
-                  }
-                />
               </div>
 
               <Button

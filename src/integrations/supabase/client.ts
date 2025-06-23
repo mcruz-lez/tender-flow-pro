@@ -5,23 +5,9 @@ import { createClient } from "@supabase/supabase-js";
 // @ts-expect-error: Database type may not exist in all environments, fallback to unknown for type safety
 import type { Database } from "./types";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-  // eslint-disable-next-line no-console
-  console.error("Supabase environment variables are missing. Check your .env file and restart the server.");
-}
-
-if (import.meta.env.DEV) {
-  // Log the Supabase URL and key (first 8 chars only) for debugging
-  // eslint-disable-next-line no-console
-  console.log("Supabase URL:", SUPABASE_URL);
-  // eslint-disable-next-line no-console
-  console.log("Supabase ANON KEY (start):", SUPABASE_PUBLISHABLE_KEY?.slice(0, 8));
-}
+// Supabase client is disconnected. No URL or anon key present.
 
 export const supabase = createClient<unknown>(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY,
+  "",
+  "",
 );

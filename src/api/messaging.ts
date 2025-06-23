@@ -1,11 +1,5 @@
 // Messaging API endpoint for threads, messages, and read receipts
 // ...existing code...
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
 
 export async function getMessages(threadId: string) {
   const { data, error } = await supabase
@@ -35,3 +29,5 @@ export async function getThreads(userId: string) {
     .order("updated_at", { ascending: false });
   return { data, error };
 }
+
+// Supabase client is disconnected. No URL or anon key present.

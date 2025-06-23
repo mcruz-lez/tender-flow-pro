@@ -1,10 +1,5 @@
 // API for user/org settings management
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+// Supabase client is disconnected. No URL or anon key present.
 
 export async function getSetting({
   userId,

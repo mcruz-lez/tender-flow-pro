@@ -1,19 +1,9 @@
 // Document Management API endpoint for upload, versioning, and access logs
-// ...existing code...
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+// Supabase client is disconnected. No URL or anon key present.
 
 export async function listDocuments(userId: string) {
-  const { data, error } = await supabase
-    .from("documents")
-    .select("*")
-    .eq("owner_id", userId)
-    .order("created_at", { ascending: false });
-  return { data, error };
+  // Placeholder function - implement your logic here
+  return { data: null, error: null };
 }
 
 export async function uploadDocument(ownerId: string, file: File) {
@@ -23,10 +13,6 @@ export async function uploadDocument(ownerId: string, file: File) {
 }
 
 export async function getDocumentVersions(documentId: string) {
-  const { data, error } = await supabase
-    .from("document_versions")
-    .select("*")
-    .eq("document_id", documentId)
-    .order("created_at", { ascending: false });
-  return { data, error };
+  // Placeholder function - implement your logic here
+  return { data: null, error: null };
 }

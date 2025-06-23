@@ -1,9 +1,5 @@
 // Demo/sample data seeding for onboarding and testing
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Supabase client is disconnected. No URL or anon key present.
 
 export async function seedDemoData() {
   // Insert demo users, properties, threads, messages, documents, etc.

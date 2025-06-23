@@ -11,11 +11,16 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { canAccess } from "@/api/rbac";
 
+export type UserSettings = {
+  theme?: string;
+  notifications?: boolean;
+  language?: string;
+  [key: string]: unknown;
+};
+
 export default function SettingsPage() {
   const { user } = useAuth();
-  const [settings, setSettings] = useState<Record<string, unknown> | null>(
-    null,
-  );
+  const [settings, setSettings] = useState<UserSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState("light");
   const [notifications, setNotifications] = useState(true);
@@ -24,11 +29,15 @@ export default function SettingsPage() {
   useEffect(() => {
     if (user) {
       getUserSettings(user.id)
-        .then((data) => {
+        .then((data: UserSettings | null) => {
           setSettings(data);
-          setTheme(data?.theme || "light");
-          setNotifications(data?.notifications ?? true);
-          setLanguage(data?.language || "en");
+          setTheme(data && data.theme ? data.theme : "light");
+          setNotifications(
+            data && typeof data.notifications === "boolean"
+              ? data.notifications
+              : true,
+          );
+          setLanguage(data && data.language ? data.language : "en");
         })
         .catch(() => toast.error("Failed to load settings"))
         .finally(() => setLoading(false));
