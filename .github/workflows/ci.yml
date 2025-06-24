@@ -21,6 +21,20 @@ jobs:
         run: npm run lint || true
       - name: Build
         run: npm run build
+      - name: Test Supabase API connectivity (all key tables)
+        run: |
+          npx tsc scripts/test-supabase-connection.ts
+          mv scripts/test-supabase-connection.js scripts/test-supabase-connection.cjs
+          node -r dotenv/config scripts/test-supabase-connection.cjs
+      - name: Test Supabase Auth (sign up, sign in, sign out)
+        run: |
+          node scripts/test-supabase-auth.cjs
+      - name: Test Supabase Storage (upload/download)
+        run: |
+          node scripts/test-supabase-storage.cjs
+      - name: Test Supabase Realtime (listen for changes)
+        run: |
+          node scripts/test-supabase-realtime.cjs
       - name: Run unit/integration tests
         run: npm test || npm run test:ci || true
       - name: Run Cypress E2E tests
