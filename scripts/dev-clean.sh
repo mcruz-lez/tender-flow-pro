@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+# Only clear recommended build and tool caches, not database or Supabase caches
 CLEAN_TARGETS=(dist .vite node_modules/.cache .next .nuxt .parcel-cache)
 
 before=$(df -h . | tail -1 | awk '{print $4}')
@@ -11,9 +12,15 @@ for target in "${CLEAN_TARGETS[@]}"; do
     rm -rf "$target"
     echo "Removed $target"
   fi
-done
+  if [ -f "$target" ]; then
+    rm -f "$target"
+    echo "Removed $target file"
+  fi
+  # Do not clear any Supabase or database cache here
+  # Only clear local build and tool caches
+fi
 
-# Clear npm and Vite cache
+# Clear npm and Vite cache (safe)
 npm cache clean --force || true
 npx vite --clearScreen false --force || true
 

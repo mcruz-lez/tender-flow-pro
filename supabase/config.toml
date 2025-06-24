@@ -1,1 +1,53 @@
 project_id = "lztlpenmmfsqyrwrjvnp"
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+root_key = ""
+[db.pooler]
+enabled = false
+
+[auth]
+enabled = true
+site_url = "http://tender-flow-pro.vercel.app/"
+additional_redirect_urls = [
+  "https://id-preview--7ab906bd-0d87-40da-8d9b-48e5f23f224d.lovable.app/**",
+  "https://preview--tender-flow-pro.lovable.app/**",
+  "https://tender-flow-pro.lovable.app/**",
+  "https://tender-flow-pro-tendprocs-projects.vercel.app/",
+  "https://tender-flow-pro-tendprocs-projects.vercel.app/**",
+  "https://tender-*-flow-pro-tendprocs-projects.vercel.app",
+  "https://tender-*-flow-pro-tendprocs-projects.vercel.app/**",
+  "http://tender-flow-pro.vercel.app/"
+]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_manual_linking = false
+enable_signup = true
+enable_anonymous_sign_ins = false
+minimum_password_length = 8
+password_requirements = ""
+jwt_secret = ""
+anon_key = ""
+
+[auth.mfa]
+max_enrolled_factors = 10
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+[auth.mfa.phone]
+enroll_enabled = false
+verify_enabled = false
+
+[auth.email]
+double_confirm_changes = true
+enable_confirmations = false
+secure_password_change = false
+max_frequency = "1m0s"
+otp_length = 6
+otp_expiry = 1200
+[auth.email.template]
+[auth.sms]
+enable_signup = false

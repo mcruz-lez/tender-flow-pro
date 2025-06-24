@@ -1,5 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
+// This file is for local test only. Remove from production builds.
+
 const supabaseUrl = "https://lztlpenmmfsqyrwrjvnp.supabase.co";
 const anonKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6dGxwZW5tbWZzcXlyd3Jqdm5wIiwicm9zZSI6ImFub24iLCJpYXQiOjE3NTAzMjg4NjIsImV4cCI6MjA2NTkwNDg2Mn0.ZY9EF-qaRCMo8Ucri4UvQ74IofUkP2ewnbuz2mAH_kA";
