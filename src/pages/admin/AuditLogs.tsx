@@ -46,13 +46,13 @@ const AuditLogsPage = () => {
         <CardContent>
           {loading ? (
             <div className="text-center py-8">Loading...</div>
-          ) : logs.length === 0 ? (
+          ) : (Array.isArray(logs) ? logs : []).length === 0 ? (
             <div className="text-center py-8 text-gray-500">
               No audit logs found.
             </div>
           ) : (
             <ul className="divide-y divide-gray-200">
-              {logs.map((log, idx) => (
+              {(Array.isArray(logs) ? logs : []).map((log, idx) => (
                 <li
                   key={idx}
                   className="py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2"

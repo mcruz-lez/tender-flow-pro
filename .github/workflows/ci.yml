@@ -32,9 +32,27 @@ jobs:
       - name: Test Supabase Storage (upload/download)
         run: |
           node scripts/test-supabase-storage.cjs
+      - name: Test Supabase Storage File Upload
+        run: |
+          node scripts/test-supabase-upload.cjs
       - name: Test Supabase Realtime (listen for changes)
         run: |
           node scripts/test-supabase-realtime.cjs
+      - name: Test Supabase Row-Level Security (RLS)
+        run: |
+          node scripts/test-supabase-rls.cjs
+      - name: Test Supabase Role-Based Access Control (RBAC)
+        run: |
+          node scripts/test-supabase-rbac.cjs
+      - name: Test Supabase Email Verification Flow
+        run: |
+          node scripts/test-supabase-email-verification.cjs
+      - name: Test Supabase Password Reset Flow
+        run: |
+          node scripts/test-supabase-password-reset.cjs
+      - name: Test Supabase Edge Function (hello-world)
+        run: |
+          node scripts/test-supabase-edge-function.cjs
       - name: Run unit/integration tests
         run: npm test || npm run test:ci || true
       - name: Run Cypress E2E tests

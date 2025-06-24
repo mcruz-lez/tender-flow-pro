@@ -18,7 +18,7 @@ for target in "${CLEAN_TARGETS[@]}"; do
   fi
   # Do not clear any Supabase or database cache here
   # Only clear local build and tool caches
-fi
+done
 
 # Clear npm and Vite cache (safe)
 npm cache clean --force || true

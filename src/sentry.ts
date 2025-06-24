@@ -1,8 +1,10 @@
 import * as Sentry from "@sentry/react";
+import { browserTracingIntegration } from "@sentry/browser";
+import { Replay } from "@sentry/replay";
 
 Sentry.init({
-  dsn: process.env.VITE_SENTRY_DSN,
-  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+  dsn: import.meta.env.VITE_SENTRY_DSN,
+  integrations: [browserTracingIntegration(), new Replay()],
   tracesSampleRate: 1.0,
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,

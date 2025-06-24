@@ -70,7 +70,7 @@ const MessagingPage = () => {
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">
-            {threads.map((thread, idx) => (
+            {(Array.isArray(threads) ? threads : []).map((thread, idx) => (
               <li key={idx}>
                 <Button
                   variant={
