@@ -1,19 +1,10 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import {
-  SIDEBAR_COOKIE_NAME,
-  SIDEBAR_COOKIE_MAX_AGE,
-  SIDEBAR_WIDTH,
-  SIDEBAR_WIDTH_MOBILE,
-  SIDEBAR_WIDTH_ICON,
-  SIDEBAR_KEYBOARD_SHORTCUT,
-  cva,
-  cn,
-} from "./sidebar-utils";
-import type { VariantProps } from "./sidebar-utils";
+import { VariantProps, cva } from "class-variance-authority";
 import { PanelLeft } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -25,6 +16,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  SIDEBAR_COOKIE_NAME,
+  SIDEBAR_COOKIE_MAX_AGE,
+  SIDEBAR_WIDTH,
+  SIDEBAR_WIDTH_MOBILE,
+  SIDEBAR_WIDTH_ICON,
+  SIDEBAR_KEYBOARD_SHORTCUT,
+} from "./sidebar-utils";
 
 type SidebarContext = {
   state: "expanded" | "collapsed";
@@ -282,7 +281,6 @@ const SidebarTrigger = React.forwardRef<
         toggleSidebar();
       }}
       {...props}
-      {...props}
     >
       <PanelLeft />
       <span className="sr-only">Toggle Sidebar</span>
@@ -533,6 +531,7 @@ const sidebarMenuButtonVariants = cva(
       },
     },
     defaultVariants: {
+      variant: "default",
       size: "default",
     },
   },
