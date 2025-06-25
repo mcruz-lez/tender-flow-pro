@@ -1,0 +1,7 @@
+Removed unnecessary files for professional project hygiene:
+- bundle-analysis.html (only needed for local analysis)
+- components.json (not referenced anywhere)
+- test-supabase-connection.js (compiled artifact, .ts and .cjs are used in CI)
+- .env.sentry-build-plugin (ignored and not used)
+
+If you need to restore any, check git history.

@@ -1,5 +1,15 @@
 import { vi } from "vitest";
 
+// Polyfill ResizeObserver for UI library compatibility in tests
+if (typeof window !== "undefined" && !window.ResizeObserver) {
+  class ResizeObserverPolyfill {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  window.ResizeObserver = ResizeObserverPolyfill;
+}
+
 vi.mock("@/integrations/supabase/client", () => {
   return {
     supabase: {

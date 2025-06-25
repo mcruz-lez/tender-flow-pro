@@ -1,52 +1,77 @@
-import { useEffect, useState } from "react";
-import {
-  getThreads,
-  getMessages,
-  sendMessage,
-} from "@/integrations/supabase/api";
-import { useAuth } from "@/contexts/useAuth";
+import { useEffect, useState, FormEvent, ChangeEvent } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { canAccess } from "@/api/rbac";
+import { useAuth } from "@/contexts/useAuth";
 
-const MessagingPage = () => {
+// Dependency injection for testability
+export interface Thread {
+  id: string;
+  subject?: string;
+}
+export interface Message {
+  sender_id: string;
+  content: string;
+  created_at: string;
+}
+
+export type MessagingApi = {
+  getThreads: (userId: string) => Promise<Thread[]>;
+  getMessages: (threadId: string) => Promise<Message[]>;
+  sendMessage: (
+    threadId: string,
+    senderId: string,
+    content: string
+  ) => Promise<Message>;
+};
+
+import * as defaultApi from "@/integrations/supabase/api";
+
+const defaultMessagingApi: MessagingApi = {
+  getThreads: defaultApi.getThreads,
+  getMessages: defaultApi.getMessages,
+  sendMessage: defaultApi.sendMessage,
+};
+
+interface MessagingPageProps {
+  api?: MessagingApi;
+}
+
+const MessagingPage = ({ api = defaultMessagingApi }: MessagingPageProps) => {
   const { user } = useAuth();
-  const [threads, setThreads] = useState<
-    Array<{ id: string; subject?: string }>
-  >([]);
-  const [selectedThread, setSelectedThread] = useState<{
-    id: string;
-    subject?: string;
-  } | null>(null);
-  const [messages, setMessages] = useState<
-    Array<{ sender_id: string; content: string; created_at: string }>
-  >([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [threads, setThreads] = useState<Thread[]>([]);
+  const [selectedThread, setSelectedThread] = useState<Thread | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [newMessage, setNewMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (user) {
-      getThreads(user.id).then(setThreads);
+      api.getThreads(user.id).then((data: Thread[]) => setThreads(data));
     }
-  }, [user]);
+  }, [user, api]);
 
   useEffect(() => {
     if (selectedThread) {
       setLoading(true);
-      getMessages(selectedThread.id)
-        .then(setMessages)
+      api.getMessages(selectedThread.id)
+        .then((data: Message[]) => setMessages(data))
         .finally(() => setLoading(false));
     }
-  }, [selectedThread]);
+  }, [selectedThread, api]);
 
-  const handleSend = async (e: React.FormEvent) => {
+  const handleSend = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user || !selectedThread || !newMessage.trim()) return;
     setLoading(true);
-    await sendMessage(selectedThread.id, user.id, newMessage.trim());
+    await api.sendMessage(selectedThread.id, user.id, newMessage.trim());
     setNewMessage("");
-    getMessages(selectedThread.id).then(setMessages);
+    api.getMessages(selectedThread.id).then((data: Message[]) => setMessages(data));
     setLoading(false);
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewMessage(e.target.value);
   };
 
   if (!user)
@@ -70,19 +95,23 @@ const MessagingPage = () => {
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">
-            {(Array.isArray(threads) ? threads : []).map((thread, idx) => (
-              <li key={idx}>
-                <Button
-                  variant={
-                    selectedThread?.id === thread.id ? "default" : "outline"
-                  }
-                  className="w-full"
-                  onClick={() => setSelectedThread(thread)}
-                >
-                  {thread.subject || `Thread #${thread.id}`}
-                </Button>
-              </li>
-            ))}
+            {(Array.isArray(threads) ? threads : []).length === 0 ? (
+              <li className="text-gray-500">No threads found.</li>
+            ) : (
+              (Array.isArray(threads) ? threads : []).map((thread: Thread, idx: number) => (
+                <li key={thread.id}>
+                  <Button
+                    variant={
+                      selectedThread?.id === thread.id ? "default" : "outline"
+                    }
+                    className="w-full"
+                    onClick={() => setSelectedThread(thread)}
+                  >
+                    {thread.subject || `Thread #${thread.id}`}
+                  </Button>
+                </li>
+              ))
+            )}
           </ul>
         </CardContent>
       </Card>
@@ -100,7 +129,7 @@ const MessagingPage = () => {
                   <div className="text-gray-500">No messages yet.</div>
                 ) : (
                   <ul className="space-y-2">
-                    {messages.map((msg, idx) => (
+                    {messages.map((msg: Message, idx: number) => (
                       <li
                         key={idx}
                         className={
@@ -125,7 +154,7 @@ const MessagingPage = () => {
                   className="flex-1 border rounded p-2"
                   placeholder="Type a message..."
                   value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
+                  onChange={handleInputChange}
                   disabled={loading}
                 />
                 <Button type="submit" disabled={loading || !newMessage.trim()}>

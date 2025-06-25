@@ -1,5 +1,15 @@
 import "@testing-library/jest-dom";
 
+// Polyfill ResizeObserver for UI library compatibility in tests
+if (typeof window !== "undefined" && !window.ResizeObserver) {
+  class ResizeObserverPolyfill {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  window.ResizeObserver = ResizeObserverPolyfill;
+}
+
 // vitest.setup.js
 // Mock Supabase client for all tests to prevent real network calls
 
