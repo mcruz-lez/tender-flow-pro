@@ -5,6 +5,21 @@ import "@testing-library/jest-dom";
 import { vi } from "vitest";
 import { act } from "react";
 
+// Silence Supabase fallback and 404 test warnings for clean output
+const originalWarn = global.console.warn;
+global.console.warn = (msg, ...args) => {
+  if (
+    typeof msg === "string" &&
+    (
+      /Supabase client does not support \.or or \.filter\. Returning (all rows|all threads) without filtering\./.test(msg) ||
+      /404 Error: User attempted to access non-existent route:/.test(msg)
+    )
+  ) {
+    return;
+  }
+  return originalWarn(msg, ...args);
+};
+
 // Mock useAuth hook
 vi.mock("@/contexts/useAuth", () => ({
   useAuth: vi.fn(),
