@@ -12,3 +12,16 @@ export const SIDEBAR_KEYBOARD_SHORTCUT = {
   key: "b",
   ctrlOrMeta: true,
 };
+
+// Copy of useSidebar hook for fast-refresh compliance
+import * as React from "react";
+
+const SidebarContext = React.createContext(null);
+
+export function useSidebar() {
+  const context = React.useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebar must be used within a SidebarProvider.");
+  }
+  return context;
+}

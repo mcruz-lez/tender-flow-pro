@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TendProcure FAQ</title>
+  <style>
+    #faq { max-width: 800px; margin: auto; padding: 2rem; }
+    dt { font-weight: bold; margin-top: 1rem; cursor: pointer; }
+    dd { margin-left: 1rem; display: none; }
+    dt.active + dd { display: block; }
+  </style>
+</head>
+<body>
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <dl>
+      <dt>How do I create a tender?</dt>
+      <dd>Go to Tender Management → New Tender, fill in details, attach docs, then Submit.</dd>
+      <dt>How do I submit a bid?</dt>
+      <dd>Navigate to the relevant tender, click Submit Bid, upload your documents, and confirm.</dd>
+      <dt>How do I register as a vendor?</dt>
+      <dd>Visit the Vendor & Contractor Hub, complete the registration form, and upload required documents.</dd>
+      <dt>How do I manage contracts?</dt>
+      <dd>Access the Contract Management section to view, sign, and track contract milestones.</dd>
+      <dt>Where can I find help?</dt>
+      <dd>Check this FAQ, the Help & Support page, or contact support@tendprocure.com.</dd>
+    </dl>
+  </section>
+  <script>
+    document.querySelectorAll('dt').forEach(dt => {
+      dt.addEventListener('click', () => {
+        dt.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

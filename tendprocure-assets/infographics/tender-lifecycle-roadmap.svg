@@ -1,0 +1,28 @@
+<!-- SVG: Tender Lifecycle Roadmap -->
+<svg width="800" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1B2E4B"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="300" fill="url(#bg)" rx="32"/>
+  <g font-family="Open Sans, Arial, sans-serif" font-size="18" fill="#fff">
+    <text x="40" y="60" font-size="28" font-weight="bold">Tender Lifecycle Roadmap</text>
+    <circle cx="100" cy="180" r="28" fill="#64748B"/>
+    <text x="80" y="185" font-size="16">NIT</text>
+    <rect x="128" y="172" width="80" height="16" fill="#2DD4BF" rx="8"/>
+    <circle cx="240" cy="180" r="28" fill="#64748B"/>
+    <text x="210" y="185" font-size="16">Docs</text>
+    <rect x="268" y="172" width="80" height="16" fill="#2DD4BF" rx="8"/>
+    <circle cx="380" cy="180" r="28" fill="#64748B"/>
+    <text x="350" y="185" font-size="16">Eval</text>
+    <rect x="408" y="172" width="80" height="16" fill="#2DD4BF" rx="8"/>
+    <circle cx="520" cy="180" r="28" fill="#64748B"/>
+    <text x="490" y="185" font-size="16">Award</text>
+    <rect x="548" y="172" width="80" height="16" fill="#2DD4BF" rx="8"/>
+    <circle cx="660" cy="180" r="28" fill="#64748B"/>
+    <text x="630" y="185" font-size="16">Contract</text>
+    <text x="40" y="260" font-size="14" fill="#fff">TendProcure — Simplify. Submit. Succeed.</text>
+  </g>
+</svg>

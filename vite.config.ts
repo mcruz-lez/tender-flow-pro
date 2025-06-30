@@ -26,21 +26,4 @@ export default defineConfig(({ mode }) => ({
   build: {
     chunkSizeWarningLimit: 3000, // Further increase chunk size warning limit
   },
-  optimizeDeps: {
-    exclude: [
-      '@sentry/react',
-      '@sentry/browser',
-      '@sentry/tracing',
-      '@sentry/integrations',
-      '@sentry/node',
-      '@sentry/utils',
-      '@sentry/replay',
-      '@supabase/supabase-js',
-      '@supabase/auth-helpers-react',
-      '@supabase/auth-helpers-shared',
-      '@supabase/auth-helpers-nextjs',
-      '@supabase/storage-js',
-      'supabase',
-    ],
-  },
 }));

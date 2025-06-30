@@ -1,0 +1,7 @@
+<!-- SVG: Contract Icon -->
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="6" y="4" width="20" height="24" rx="4" fill="#1B2E4B"/>
+  <rect x="10" y="10" width="12" height="2" rx="1" fill="#2DD4BF"/>
+  <rect x="10" y="14" width="8" height="2" rx="1" fill="#64748B"/>
+  <rect x="10" y="18" width="6" height="2" rx="1" fill="#64748B"/>
+</svg>

@@ -1,0 +1,6 @@
+<!-- SVG: Project Manager Avatar -->
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="26" r="15" fill="#64748B"/>
+  <ellipse cx="32" cy="50" rx="19" ry="9" fill="#2DD4BF"/>
+  <circle cx="32" cy="26" r="7" fill="#fff"/>
+</svg>

@@ -1,0 +1,26 @@
+{
+  "assets": [
+    {"file":"blog/blog-template.html","section":"blog"},
+    {"file":"infographics/vendor-evaluation-criteria.png","section":"infographics"},
+    {"file":"infographics/contract-management-flow.svg","section":"infographics"},
+    {"file":"infographics/bid-submission-checklist.png","section":"infographics"},
+    {"file":"infographics/bidder-success-path.svg","section":"infographics"},
+    {"file":"infographics/maintenance-planning-overview.png","section":"infographics"},
+    {"file":"infographics/ai-assistant-capabilities.svg","section":"infographics"},
+    {"file":"infographics/platform-security-compliance.svg","section":"infographics"},
+    {"file":"infographics/user-roles-permissions.svg","section":"infographics"},
+    {"file":"infographics/tender-lifecycle-roadmap.svg","section":"infographics"},
+    {"file":"faq/tendprocure-faq.html","section":"faq"},
+    {"file":"interactive-guides/contract-lifecycle.js","section":"interactive-guides"},
+    {"file":"interactive-guides/tender-wizard.html","section":"interactive-guides"},
+    {"file":"interactive-guides/contract-lifecycle.html","section":"interactive-guides"},
+    {"file":"interactive-guides/tender-wizard.js","section":"interactive-guides"},
+    {"file":"interactive-guides/contract-lifecycle.css","section":"interactive-guides"},
+    {"file":"interactive-guides/tender-wizard.css","section":"interactive-guides"},
+    {"file":"videos/onboarding-walkthrough.txt","section":"videos"},
+    {"file":"videos/tender-submission-tutorial.txt","section":"videos"},
+    {"file":"videos/contract-management-guide.txt","section":"videos"},
+    {"file":"videos/vendor-evaluation-process.txt","section":"videos"},
+    {"file":"videos/platform-security-overview.txt","section":"videos"}
+  ]
+}

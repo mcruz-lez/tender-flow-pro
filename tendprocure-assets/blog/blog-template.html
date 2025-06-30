@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TendProcure Blog</title>
+  <style>
+    body { font-family: sans-serif; background: #f9fafb; color: #333; margin: 0; }
+    header { background: #1B2E4B; color: #fff; padding: 2rem 1rem; text-align: center; }
+    #filters { margin: 1rem auto; text-align: center; }
+    #filters button { margin: 0 0.5rem; padding: 0.5rem 1rem; border: none; border-radius: .25rem; background: #2DD4BF; color: #fff; cursor: pointer; }
+    #posts { max-width: 800px; margin: 2rem auto; }
+    article { background: #fff; margin-bottom: 1.5rem; padding: 1.5rem; border-radius: .5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    h2 { margin-top: 0; }
+    .category { font-size: 0.9em; color: #64748B; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TendProcure Insights</h1>
+    <p>Best practices, industry news, and platform updates</p>
+  </header>
+  <div id="filters">
+    <button onclick="filter('All')">All</button>
+    <button onclick="filter('Insights')">Insights</button>
+    <button onclick="filter('Updates')">Updates</button>
+    <button onclick="filter('Case Studies')">Case Studies</button>
+  </div>
+  <main id="posts"></main>
+  <script>
+    const posts = [
+      { title: 'Industry Trends', date: '2025-06-01', excerpt: 'Explore the latest in procurement...', category: 'Insights', link: '#' },
+      { title: 'Platform Update: New Bid Wizard', date: '2025-05-15', excerpt: 'See what’s new in our tender creation flow...', category: 'Updates', link: '#' },
+      { title: 'Case Study: Vendor Success', date: '2025-04-20', excerpt: 'How one vendor won more contracts...', category: 'Case Studies', link: '#' }
+    ];
+    let current = 'All';
+    function filter(cat) {
+      current = cat;
+      render();
+    }
+    function render() {
+      const container = document.getElementById('posts');
+      container.innerHTML = '';
+      posts.filter(p => current === 'All' || p.category === current).forEach(p => {
+        container.innerHTML += `<article><h2>${p.title}</h2><div class='category'>${p.category} | ${p.date}</div><p>${p.excerpt}</p><a href='${p.link}'>Read more</a></article>`;
+      });
+    }
+    render();
+  </script>
+</body>
+</html>

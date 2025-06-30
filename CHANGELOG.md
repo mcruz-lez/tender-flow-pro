@@ -5,6 +5,33 @@ All notable changes to the TendProcure platform will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2025-06-30
+
+### Major Enhancements
+
+- Full visual asset system: all SVG infographics, guides, and asset manifest automation for TendProcure.
+- Dynamic React integration for infographics, FAQ, blog, and guides.
+- Asset manifest and script for auto-loading and embedding all visuals and videos.
+- Enhanced README and documentation for asset management and integration.
+- All code, prompts, and workflows now strictly follow super traits and prompt instructions.
+
+### Automation & Integration
+
+- Asset manifest script for `/tendprocure-assets/` auto-generation.
+- React utility for dynamic asset loading by section.
+- All infographics, guides, and FAQ/blog components auto-discoverable in the app.
+
+### Documentation
+
+- Updated `README.md`, `README_FEATURES.md`, and asset manifest guide.
+- All onboarding, FAQ, and blog markdowns referenced and up to date.
+- CONTRIBUTING and CODE_OF_CONDUCT reflect super traits and prompt philosophy.
+
+### Next Steps
+
+- Video/image production and upload (see asset manifest and README for instructions).
+- Continue to iterate for historical, top-notch quality.
+
 ## [1.4.0] - 2025-06-21
 
 ### Major Enhancements
@@ -219,15 +246,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Upcoming Features (Roadmap)
-
-### [1.5.0] - Planned for 2024-02-01
-
-- **Property Management Integration**
-  - Property portfolio dashboard with asset management
-  - Maintenance planning and scheduling system
-  - Service category management with performance tracking
-  - Cost analysis tools with ROI calculations
-  - Maintenance trend analysis and predictive insights
 
 ### [1.6.0] - Planned for 2024-02-15
 

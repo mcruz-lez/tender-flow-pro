@@ -7,6 +7,13 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Dashboard from "@/pages/Dashboard";
 import NotFound from "@/pages/NotFound";
+import AIChatbotRoot from "./components/AIChatbot/AIChatbotRoot";
+import { TenderWizard } from './components/Guides/TenderWizard';
+import { ContractLifecycleGuide } from './components/Guides/ContractLifecycleGuide';
+import FAQSection from './components/FAQ/FAQSection';
+import BlogTemplate from './components/Blog/BlogTemplate';
+import InfographicGallery from './components/Infographics/InfographicGallery';
+import VideoGallery from './components/Video/VideoGallery';
 
 export function AppRoutes() {
   return (
@@ -31,7 +38,16 @@ export function AppRoutes() {
 function App() {
   return (
     <AuthProvider>
-      <AppRoutes />
+      <div className="App">
+        <AppRoutes />
+        <AIChatbotRoot />
+        <TenderWizard />
+        <ContractLifecycleGuide />
+        <FAQSection />
+        <BlogTemplate />
+        <InfographicGallery />
+        <VideoGallery />
+      </div>
     </AuthProvider>
   );
 }

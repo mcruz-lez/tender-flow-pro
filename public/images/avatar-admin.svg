@@ -1,0 +1,6 @@
+<!-- SVG: Admin Avatar -->
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="24" r="16" fill="#2DD4BF"/>
+  <ellipse cx="32" cy="48" rx="20" ry="10" fill="#64748B"/>
+  <circle cx="32" cy="24" r="8" fill="#fff"/>
+</svg>

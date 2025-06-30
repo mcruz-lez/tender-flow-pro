@@ -1,0 +1,20 @@
+<!-- SVG: User Roles & Permissions -->
+<svg width="800" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1B2E4B"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="300" fill="url(#bg4)" rx="32"/>
+  <g font-family="Open Sans, Arial, sans-serif" font-size="18" fill="#fff">
+    <text x="40" y="60" font-size="28" font-weight="bold">User Roles & Permissions</text>
+    <circle cx="200" cy="150" r="40" fill="#64748B"/>
+    <text x="180" y="155" font-size="16">Admin</text>
+    <circle cx="400" cy="150" r="40" fill="#2DD4BF"/>
+    <text x="380" y="155" font-size="16">Vendor</text>
+    <circle cx="600" cy="150" r="40" fill="#64748B"/>
+    <text x="580" y="155" font-size="16">PM</text>
+    <text x="40" y="260" font-size="14" fill="#fff">TendProcure — Simplify. Submit. Succeed.</text>
+  </g>
+</svg>
