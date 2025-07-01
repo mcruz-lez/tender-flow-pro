@@ -1,30 +1,27 @@
-
 import { supabase } from "@/integrations/supabase/client";
+import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 
-// Settings API using existing profiles table for user settings
-// and organizations table for org settings since no dedicated settings table exists
+// Settings type based on our new database schema
+type Setting = Tables<"settings">;
+type SettingInsert = TablesInsert<"settings">;
 
 export async function getSetting({
   userId,
-  orgId,
   key,
 }: {
-  userId?: string;
-  orgId?: string;
+  userId: string;
   key: string;
 }) {
   try {
-    if (userId) {
-      // For user settings, use the profiles table and return null for now
-      // since profiles table doesn't have generic settings fields
-      console.log("Mock user setting get:", { userId, key });
-      return null;
-    } else if (orgId) {
-      // For org settings, use the organizations table
-      console.log("Mock org setting get:", { orgId, key });
-      return null;
-    }
-    return null;
+    const { data, error } = await supabase
+      .from("settings")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("key", key)
+      .maybeSingle();
+    
+    if (error) throw error;
+    return data?.value || null;
   } catch (error) {
     console.error("Error getting setting:", error);
     throw error;
@@ -33,30 +30,76 @@ export async function getSetting({
 
 export async function setSetting({
   userId,
-  orgId,
   key,
   value,
 }: {
-  userId?: string;
-  orgId?: string;
+  userId: string;
   key: string;
   value: unknown;
 }) {
   try {
-    if (userId) {
-      // For user settings, we'd need a proper settings table
-      // For now, just log the attempt
-      console.log("Mock user setting set:", { userId, key, value });
-      return true;
-    } else if (orgId) {
-      // For org settings, we'd need a proper settings table
-      // For now, just log the attempt
-      console.log("Mock org setting set:", { orgId, key, value });
-      return true;
-    }
-    return true;
+    const settingData: SettingInsert = {
+      user_id: userId,
+      key,
+      value: value as any // JSONB can store any JSON value
+    };
+
+    const { data, error } = await supabase
+      .from("settings")
+      .upsert(settingData, {
+        onConflict: "user_id,key"
+      })
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data as Setting;
   } catch (error) {
     console.error("Error setting setting:", error);
+    throw error;
+  }
+}
+
+export async function getAllUserSettings(userId: string) {
+  try {
+    const { data, error } = await supabase
+      .from("settings")
+      .select("*")
+      .eq("user_id", userId);
+    
+    if (error) throw error;
+    
+    // Convert to key-value object for easier use
+    const settings: Record<string, unknown> = {};
+    data?.forEach((setting: Setting) => {
+      settings[setting.key] = setting.value;
+    });
+    
+    return settings;
+  } catch (error) {
+    console.error("Error getting all user settings:", error);
+    throw error;
+  }
+}
+
+export async function deleteSetting({
+  userId,
+  key,
+}: {
+  userId: string;
+  key: string;
+}) {
+  try {
+    const { error } = await supabase
+      .from("settings")
+      .delete()
+      .eq("user_id", userId)
+      .eq("key", key);
+    
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.error("Error deleting setting:", error);
     throw error;
   }
 }
