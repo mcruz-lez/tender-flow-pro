@@ -1,3 +1,4 @@
+
 export {
   Sidebar,
   SidebarContent,
@@ -22,5 +23,6 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-  useSidebar,
 } from "./sidebar";
+
+// Note: useSidebar is not exported from sidebar.tsx - removing it

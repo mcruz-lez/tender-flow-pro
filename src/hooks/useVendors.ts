@@ -1,26 +1,11 @@
+
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 
-export interface Vendor {
-  id: string;
-  organization_id: string;
-  user_id?: string;
-  company_name: string;
-  contact_person?: string;
-  email: string;
-  phone?: string;
-  address?: string;
-  registration_number?: string;
-  tax_id?: string;
-  categories?: string[];
-  certifications?: unknown[];
-  prequalification_status: "pending" | "approved" | "rejected";
-  rating: number;
-  verified: boolean;
-  created_at: string;
-  updated_at: string;
-}
+export type Vendor = Tables<"vendors">;
+type VendorInsert = TablesInsert<"vendors">;
 
 export const useVendors = () => {
   return useQuery<Vendor[]>({
@@ -43,9 +28,7 @@ export const useCreateVendor = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (
-      vendor: Omit<Vendor, "id" | "created_at" | "updated_at">,
-    ) => {
+    mutationFn: async (vendor: VendorInsert) => {
       const { data, error } = await supabase
         .from("vendors")
         .insert([vendor])
