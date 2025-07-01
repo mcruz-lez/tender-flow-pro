@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from 'react';
 import { PromptContext } from './PromptContext';
 import { loadPrompt } from './PromptLoader';
@@ -30,7 +31,7 @@ const AIChatbot: React.FC = () => {
     <div className="ai-chatbot-container">
       <div className="prompt-header">
         <h2>AI Assistant</h2>
-        <select value={promptType} onChange={e => setPromptType(e.target.value)}>
+        <select value={promptType} onChange={e => setPromptType(e.target.value as any)}>
           <option value="onboarding">Onboarding</option>
           <option value="faq">FAQ</option>
           <option value="blog">Blog</option>

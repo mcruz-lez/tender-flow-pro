@@ -1,3 +1,4 @@
+
 // Tests for Stripe backend integration
 import { beforeEach, describe, it, expect, vi } from 'vitest';
 import request from 'supertest';
