@@ -1,2 +1,2 @@
 
-export { Button, buttonVariants } from "./button-helpers";
+export { Button, buttonVariants } from "./button";

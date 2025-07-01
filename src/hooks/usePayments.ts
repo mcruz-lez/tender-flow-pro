@@ -27,7 +27,7 @@ export function useCreatePayment() {
     mutationFn: async (payment: TablesInsert<"payments">) => {
       const { data, error } = await supabase
         .from("payments")
-        .insert([payment])
+        .insert(payment)
         .select()
         .single();
       if (error) throw error;
