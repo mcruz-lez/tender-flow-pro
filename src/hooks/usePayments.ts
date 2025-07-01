@@ -1,7 +1,7 @@
 
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import type { Tables } from "@/integrations/supabase/types";
+import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 
 // Use actual Supabase payment type
 type Payment = Tables<"payments">;
@@ -24,7 +24,7 @@ export function usePayments() {
 // Create a new payment (for Stripe checkout session)
 export function useCreatePayment() {
   return useMutation({
-    mutationFn: async (payment: Partial<Payment>) => {
+    mutationFn: async (payment: TablesInsert<"payments">) => {
       const { data, error } = await supabase
         .from("payments")
         .insert([payment])
