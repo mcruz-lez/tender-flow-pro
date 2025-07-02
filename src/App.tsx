@@ -168,6 +168,9 @@ import PasswordReset from "@/pages/auth/PasswordReset";
 // Audit Pages
 import AuditLogsPage from "@/pages/audit/AuditLogsPage";
 
+// Additional Pages
+import ComingSoon from "@/pages/ComingSoon";
+
 // Components
 import FloatingAIAssistant from "./components/AIChatbot/FloatingAIAssistant";
 
@@ -1240,6 +1243,9 @@ export function AppRoutes() {
       
       {/* Missing Finance Routes */}
       <Route path="/finance/budgets" element={<ProtectedRoute><FinanceDashboard /></ProtectedRoute>} />
+      
+      {/* Coming Soon route */}
+      <Route path="/coming-soon" element={<ProtectedRoute><ComingSoon /></ProtectedRoute>} />
       
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />
