@@ -1,8 +1,9 @@
 
-import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY!);
+// const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY!);
 
 interface StripeCheckoutButtonProps {
   priceId?: string;
@@ -32,16 +33,26 @@ export function StripeCheckoutButton({
   const handleCheckout = async () => {
     setLoading(true);
     try {
-      // Mock checkout for now since we don't have actual Stripe integration
-      console.log("Mock Stripe checkout:", { priceId, amount, currency, description, type });
+      const { data, error } = await supabase.functions.invoke("create-checkout", {
+        body: {
+          type: type || 'one_time',
+          amount,
+          currency,
+          description,
+          metadata: { priceId }
+        }
+      });
       
-      // Simulate success
-      setTimeout(() => {
+      if (error) throw error;
+      
+      if (data?.url) {
+        window.open(data.url, '_blank');
         if (onSuccess) onSuccess();
-        setLoading(false);
-      }, 1000);
+      }
     } catch (err) {
       console.error("Payment error:", err);
+      toast.error("Payment failed. Please try again.");
+    } finally {
       setLoading(false);
     }
   };

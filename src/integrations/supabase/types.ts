@@ -243,6 +243,39 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_methods: {
+        Row: {
+          card_brand: string | null
+          card_last_four: string | null
+          created_at: string | null
+          id: string
+          is_default: boolean | null
+          stripe_payment_method_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          card_brand?: string | null
+          card_last_four?: string | null
+          created_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          stripe_payment_method_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          card_brand?: string | null
+          card_last_four?: string | null
+          created_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          stripe_payment_method_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       payments: {
         Row: {
           amount: number
@@ -282,9 +315,15 @@ export type Database = {
           first_name: string | null
           id: string
           job_title: string | null
+          language_preference: string | null
+          last_login_at: string | null
           last_name: string | null
+          notification_preferences: Json | null
           organization_id: string | null
           phone: string | null
+          profile_completion_percentage: number | null
+          timezone: string | null
+          two_factor_enabled: boolean | null
           updated_at: string
           user_id: string
         }
@@ -296,9 +335,15 @@ export type Database = {
           first_name?: string | null
           id?: string
           job_title?: string | null
+          language_preference?: string | null
+          last_login_at?: string | null
           last_name?: string | null
+          notification_preferences?: Json | null
           organization_id?: string | null
           phone?: string | null
+          profile_completion_percentage?: number | null
+          timezone?: string | null
+          two_factor_enabled?: boolean | null
           updated_at?: string
           user_id: string
         }
@@ -310,9 +355,15 @@ export type Database = {
           first_name?: string | null
           id?: string
           job_title?: string | null
+          language_preference?: string | null
+          last_login_at?: string | null
           last_name?: string | null
+          notification_preferences?: Json | null
           organization_id?: string | null
           phone?: string | null
+          profile_completion_percentage?: number | null
+          timezone?: string | null
+          two_factor_enabled?: boolean | null
           updated_at?: string
           user_id?: string
         }
@@ -409,6 +460,33 @@ export type Database = {
           updated_at?: string
           user_id?: string
           value?: Json
+        }
+        Relationships: []
+      }
+      subscription_preferences: {
+        Row: {
+          created_at: string | null
+          features: Json | null
+          id: string
+          plan_type: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          features?: Json | null
+          id?: string
+          plan_type?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          features?: Json | null
+          id?: string
+          plan_type?: string
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -619,9 +697,25 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_bid_on_tender: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
+      can_create_tender: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
+      can_evaluate_bids: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
       get_user_organization: {
         Args: { _user_id: string }
         Returns: string
+      }
+      get_user_role: {
+        Args: { _user_id: string }
+        Returns: Database["public"]["Enums"]["app_role"]
       }
       has_role: {
         Args: {

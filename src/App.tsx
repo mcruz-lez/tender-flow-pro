@@ -170,6 +170,7 @@ import AuditLogsPage from "@/pages/audit/AuditLogsPage";
 
 // Additional Pages
 import ComingSoon from "@/pages/ComingSoon";
+import UserProfilePage from "@/components/UserProfile/UserProfilePage";
 
 // Components
 import FloatingAIAssistant from "./components/AIChatbot/FloatingAIAssistant";
@@ -284,6 +285,16 @@ export function AppRoutes() {
 
       {/* Password Reset Route */}
       <Route path="/password-reset" element={<PasswordReset />} />
+
+      {/* User Profile Route */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <UserProfilePage />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Tender Management Routes */}
       <Route
