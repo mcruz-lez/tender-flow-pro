@@ -1175,11 +1175,26 @@ export function AppRoutes() {
         }
       />
 
-      {/* Missing Routes - Adding comprehensive coverage */}
+      {/* Missing Dashboard Routes - Fix 404 errors */}
+      <Route path="/contractor-dashboard" element={<ProtectedRoute><ContractorDashboard /></ProtectedRoute>} />
+      <Route path="/finance-dashboard" element={<ProtectedRoute><FinanceDashboard /></ProtectedRoute>} />
+      <Route path="/pm-dashboard" element={<ProtectedRoute><PMDashboard /></ProtectedRoute>} />
+      <Route path="/vendor-dashboard" element={<ProtectedRoute><VendorDashboard /></ProtectedRoute>} />
+      <Route path="/admin-dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+      
+      {/* Additional helpful routes */}
       <Route path="/tenders/ai" element={<ProtectedRoute><AICreateTender /></ProtectedRoute>} />
       <Route path="/dashboard/custom-reports" element={<ProtectedRoute><CustomReports /></ProtectedRoute>} />
       <Route path="/dashboard/kpis" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="/dashboard/widgets" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      
+      {/* Missing Admin Routes - Fix broken links */}
+      <Route path="/admin/user-management" element={<ProtectedRoute><UserManagement /></ProtectedRoute>} />
+      <Route path="/admin/system-configuration" element={<ProtectedRoute><SystemConfiguration /></ProtectedRoute>} />
+      <Route path="/admin/audit-logs" element={<ProtectedRoute><AuditLogs /></ProtectedRoute>} />
+      
+      {/* Missing Finance Routes */}
+      <Route path="/finance/budgets" element={<ProtectedRoute><FinanceDashboard /></ProtectedRoute>} />
       
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />
