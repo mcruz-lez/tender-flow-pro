@@ -106,12 +106,12 @@ const Index = () => {
           AI-Powered Procurement Platform
         </Badge>
 
-        <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
+        <h1 className="text-5xl font-bold text-foreground mb-6 leading-tight">
           Streamline Your Property
-          <span className="text-blue-600"> Procurement Process</span>
+          <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent"> Procurement Process</span>
         </h1>
 
-        <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
           TendProcure is the complete tender management platform for property
           managers, contractors, and vendors. Manage the entire procurement
           lifecycle with AI-powered insights and seamless collaboration.
@@ -168,10 +168,10 @@ const Index = () => {
       {/* Features Grid */}
       <section className="container mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-foreground mb-4">
             Everything You Need for Procurement Excellence
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
             From tender creation to contract management, TendProcure covers
             every aspect of the procurement process.
           </p>
@@ -187,12 +187,12 @@ const Index = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <feature.icon className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-semibold text-gray-900">
+                <CardTitle className="text-xl font-semibold text-foreground">
                   {feature.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-gray-600 leading-relaxed">
+                <CardDescription className="text-muted-foreground leading-relaxed font-medium">
                   {feature.description}
                 </CardDescription>
               </CardContent>
@@ -206,10 +206,10 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-foreground mb-4">
                 Proven Results for Property Management
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-muted-foreground font-medium">
                 Join hundreds of organizations already transforming their
                 procurement processes
               </p>
@@ -224,7 +224,7 @@ const Index = () => {
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <CheckCircle className="w-6 h-6 text-green-600" />
                   </div>
-                  <span className="text-lg font-medium text-gray-900">
+                  <span className="text-lg font-semibold text-foreground">
                     {benefit}
                   </span>
                 </div>

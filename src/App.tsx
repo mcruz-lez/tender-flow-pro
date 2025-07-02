@@ -170,6 +170,7 @@ import AuditLogsPage from "@/pages/audit/AuditLogsPage";
 
 // Components
 import AIChatbotRoot from "./components/AIChatbot/AIChatbotRoot";
+import FloatingAIAssistant from "./components/AIChatbot/FloatingAIAssistant";
 
 export function AppRoutes() {
   return (
