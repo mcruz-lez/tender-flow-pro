@@ -13,7 +13,8 @@ global.console.warn = (msg, ...args) => {
   return originalWarn(msg, ...args);
 };
 
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { screen } from "@testing-library/dom";
 import { MemoryRouter } from "react-router-dom";
 import { AppRoutes } from "@/App";
 import { AuthProvider } from "@/contexts/AuthContext";
