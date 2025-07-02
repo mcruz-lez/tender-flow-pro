@@ -38,17 +38,7 @@ const Login = () => {
     const { error } = await signIn(email, password);
 
     if (error) {
-      if (error.message.includes("Invalid login credentials")) {
-        toast.error(
-          "Invalid email or password. Please check your credentials.",
-        );
-      } else if (error.message.includes("Email not confirmed")) {
-        toast.error(
-          "Please check your email and click the confirmation link before signing in.",
-        );
-      } else {
-        toast.error(error.message || "An error occurred during sign in.");
-      }
+      toast.error(error.message || "An error occurred during sign in.");
     } else {
       toast.success("Login successful! Welcome to TendProcure.");
       navigate("/dashboard");

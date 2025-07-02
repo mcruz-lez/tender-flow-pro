@@ -61,9 +61,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     metadata?: Record<string, unknown>,
   ) => {
     try {
-      const redirectUrl = `${window.location.origin}/`;
+      const redirectUrl = `${window.location.origin}/auth/verify`;
 
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -77,7 +77,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return { error };
       }
 
-      return { error: null };
+      // Check if user already exists but email is not confirmed
+      if (!data.user && !error) {
+        return { 
+          error: new Error("User already exists. Please check your email for verification or try signing in.") 
+        };
+      }
+
+      return { error: null, data };
     } catch (error) {
       console.error("Sign up error:", error);
       return { error };
@@ -86,17 +93,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) {
         console.error("Sign in error:", error);
+        
+        // Enhanced error handling for common auth issues
+        if (error.message.includes("Invalid login credentials")) {
+          return { 
+            error: new Error("Invalid email or password. If you just signed up, please check your email for verification link.") 
+          };
+        } else if (error.message.includes("Email not confirmed")) {
+          return { 
+            error: new Error("Please check your email and click the verification link before signing in.") 
+          };
+        }
+        
         return { error };
       }
 
-      return { error: null };
+      return { error: null, data };
     } catch (error) {
       console.error("Sign in error:", error);
       return { error };

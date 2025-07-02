@@ -237,6 +237,51 @@ export function AppRoutes() {
         }
       />
 
+      {/* Alternative Dashboard Route Paths */}
+      <Route
+        path="/pm-dashboard"
+        element={
+          <ProtectedRoute>
+            <PMDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/contractor-dashboard"
+        element={
+          <ProtectedRoute>
+            <ContractorDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor-dashboard"
+        element={
+          <ProtectedRoute>
+            <VendorDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/finance-dashboard"
+        element={
+          <ProtectedRoute>
+            <FinanceDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin-dashboard"
+        element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Password Reset Route */}
+      <Route path="/password-reset" element={<PasswordReset />} />
+
       {/* Tender Management Routes */}
       <Route
         path="/tenders"

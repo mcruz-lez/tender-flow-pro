@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,222 +8,178 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Building2, Mail, CheckCircle, AlertCircle } from "lucide-react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Building2, CheckCircle, XCircle, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/contexts/useAuth";
 
 const EmailVerification = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [verificationStatus, setVerificationStatus] = useState<"pending" | "success" | "error">("pending");
+  const [verificationStatus, setVerificationStatus] = useState<'loading' | 'success' | 'error' | 'pending'>('pending');
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
 
   useEffect(() => {
-    // Check if user is already verified
-    if (user?.email_confirmed_at) {
-      setVerificationStatus("success");
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 2000);
-    }
+    const handleEmailVerification = async () => {
+      const token = searchParams.get('token');
+      const type = searchParams.get('type');
 
-    // Handle email confirmation from URL params
-    const token_hash = searchParams.get("token_hash");
-    const type = searchParams.get("type");
+      if (token && type === 'signup') {
+        setVerificationStatus('loading');
+        try {
+          const { error } = await supabase.auth.verifyOtp({
+            token_hash: token,
+            type: 'signup'
+          });
 
-    if (token_hash && type === "signup") {
-      handleVerification(token_hash);
-    }
-  }, [user, searchParams, navigate]);
-
-  const handleVerification = async (tokenHash: string) => {
-    setIsLoading(true);
-    try {
-      const { error } = await supabase.auth.verifyOtp({
-        token_hash: tokenHash,
-        type: "signup",
-      });
-
-      if (error) {
-        console.error("Verification error:", error);
-        setVerificationStatus("error");
-        toast.error("Email verification failed. Please try again.");
-      } else {
-        setVerificationStatus("success");
-        toast.success("Email verified successfully!");
-        setTimeout(() => {
-          navigate("/auth/setup");
-        }, 2000);
+          if (error) {
+            console.error('Verification error:', error);
+            setVerificationStatus('error');
+            toast.error('Email verification failed. The link may be expired.');
+          } else {
+            setVerificationStatus('success');
+            toast.success('Email verified successfully!');
+            setTimeout(() => {
+              navigate('/dashboard');
+            }, 2000);
+          }
+        } catch (error) {
+          console.error('Verification error:', error);
+          setVerificationStatus('error');
+        }
       }
-    } catch (error) {
-      console.error("Verification error:", error);
-      setVerificationStatus("error");
-      toast.error("Email verification failed. Please try again.");
-    }
-    setIsLoading(false);
-  };
+    };
 
-  const resendVerification = async () => {
-    if (!user?.email) {
-      toast.error("No email address found. Please sign up again.");
-      navigate("/register");
-      return;
-    }
+    handleEmailVerification();
+  }, [searchParams, navigate]);
 
-    setIsLoading(true);
-    try {
-      const { error } = await supabase.auth.resend({
-        type: "signup",
-        email: user.email,
-      });
+  const renderContent = () => {
+    switch (verificationStatus) {
+      case 'loading':
+        return (
+          <>
+            <CardHeader className="space-y-2 text-center">
+              <CardTitle className="text-2xl font-bold text-foreground">
+                Verifying Email...
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Please wait while we verify your email address.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            </CardContent>
+          </>
+        );
 
-      if (error) {
-        toast.error("Failed to resend verification email");
-      } else {
-        toast.success("Verification email sent! Please check your inbox.");
-      }
-    } catch (error) {
-      toast.error("Failed to resend verification email");
+      case 'success':
+        return (
+          <>
+            <CardHeader className="space-y-2 text-center">
+              <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+              <CardTitle className="text-2xl font-bold text-foreground">
+                Email Verified!
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Your email has been successfully verified. You will be redirected to your dashboard shortly.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <Button
+                onClick={() => navigate('/dashboard')}
+                className="gradient-primary text-white hover-lift"
+              >
+                Go to Dashboard
+              </Button>
+            </CardContent>
+          </>
+        );
+
+      case 'error':
+        return (
+          <>
+            <CardHeader className="space-y-2 text-center">
+              <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+              <CardTitle className="text-2xl font-bold text-foreground">
+                Verification Failed
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                The verification link is invalid or has expired. Please try signing up again or contact support.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4 text-center">
+              <Button
+                onClick={() => navigate('/register')}
+                className="gradient-primary text-white hover-lift w-full"
+              >
+                Sign Up Again
+              </Button>
+              <Link
+                to="/login"
+                className="inline-block text-primary hover:text-primary-glow font-medium"
+              >
+                Try Signing In
+              </Link>
+            </CardContent>
+          </>
+        );
+
+      default:
+        return (
+          <>
+            <CardHeader className="space-y-2 text-center">
+              <Mail className="w-16 h-16 text-primary mx-auto mb-4" />
+              <CardTitle className="text-2xl font-bold text-foreground">
+                Check Your Email
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                We've sent you a verification email. Click the link in the email to verify your account.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4 text-center">
+              <p className="text-sm text-muted-foreground">
+                Didn't receive the email? Check your spam folder or wait a few minutes.
+              </p>
+              <div className="space-y-2">
+                <Button
+                  onClick={() => navigate('/register')}
+                  variant="outline"
+                  className="w-full glass-button"
+                >
+                  Try Different Email
+                </Button>
+                <Link
+                  to="/login"
+                  className="inline-block text-primary hover:text-primary-glow font-medium"
+                >
+                  Already verified? Sign In
+                </Link>
+              </div>
+            </CardContent>
+          </>
+        );
     }
-    setIsLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center p-6">
+    <div className="min-h-screen glass-ultra flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-3 group">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-luxury">
               <Building2 className="w-7 h-7 text-white" />
             </div>
             <div className="text-left">
-              <h1 className="text-2xl font-bold text-gray-900">TendProcure</h1>
-              <p className="text-sm text-blue-600 font-medium">
+              <h1 className="text-2xl font-bold text-gradient-luxury">TendProcure</h1>
+              <p className="text-sm text-primary font-medium">
                 Property Tender Management
               </p>
             </div>
           </Link>
         </div>
 
-        <Card className="border-0 shadow-xl bg-white/60 backdrop-blur-sm">
-          <CardHeader className="space-y-2 text-center">
-            <div className="mx-auto mb-4">
-              {verificationStatus === "success" ? (
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
-                </div>
-              ) : verificationStatus === "error" ? (
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
-                  <AlertCircle className="w-8 h-8 text-red-600" />
-                </div>
-              ) : (
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Mail className="w-8 h-8 text-blue-600" />
-                </div>
-              )}
-            </div>
-            
-            <CardTitle className="text-2xl font-bold text-gray-900">
-              {verificationStatus === "success" 
-                ? "Email Verified!"
-                : verificationStatus === "error"
-                ? "Verification Failed"
-                : "Verify Your Email"
-              }
-            </CardTitle>
-            
-            <CardDescription className="text-gray-600">
-              {verificationStatus === "success" 
-                ? "Your email has been successfully verified. Redirecting to setup..."
-                : verificationStatus === "error"
-                ? "We couldn't verify your email. Please try again or contact support."
-                : "We've sent a verification link to your email address. Please check your inbox and click the link to verify your account."
-              }
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent className="space-y-6">
-            {verificationStatus === "pending" && (
-              <>
-                <div className="text-center space-y-4">
-                  <p className="text-sm text-gray-600">
-                    Didn't receive the email? Check your spam folder or:
-                  </p>
-                  
-                  <Button
-                    onClick={resendVerification}
-                    variant="outline"
-                    className="w-full h-12"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Sending..." : "Resend Verification Email"}
-                  </Button>
-                </div>
-
-                <div className="border-t border-gray-200 pt-6">
-                  <div className="text-center space-y-2">
-                    <p className="text-sm text-gray-600">
-                      Need to use a different email?
-                    </p>
-                    <Link
-                      to="/register"
-                      className="text-blue-600 hover:text-blue-700 font-medium text-sm"
-                    >
-                      Sign up with different email
-                    </Link>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {verificationStatus === "success" && (
-              <div className="text-center">
-                <Button
-                  onClick={() => navigate("/auth/setup")}
-                  className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium"
-                >
-                  Continue to Setup
-                </Button>
-              </div>
-            )}
-
-            {verificationStatus === "error" && (
-              <div className="space-y-4">
-                <Button
-                  onClick={resendVerification}
-                  className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Sending..." : "Resend Verification Email"}
-                </Button>
-                
-                <div className="text-center">
-                  <Link
-                    to="/register"
-                    className="text-blue-600 hover:text-blue-700 font-medium text-sm"
-                  >
-                    Try signing up again
-                  </Link>
-                </div>
-              </div>
-            )}
-
-            <div className="text-center">
-              <p className="text-sm text-gray-500">
-                Need help?{" "}
-                <a
-                  href="/help/support"
-                  className="text-blue-600 hover:text-blue-700 font-medium"
-                >
-                  Contact Support
-                </a>
-              </p>
-            </div>
-          </CardContent>
+        <Card className="glass-premium border-0 shadow-luxury">
+          {renderContent()}
         </Card>
       </div>
     </div>

@@ -82,18 +82,18 @@ const Register = () => {
     });
 
     if (error) {
-      if (error.message.includes("User already registered")) {
+      if (error.message.includes("User already registered") || error.message.includes("User already exists")) {
         toast.error(
-          "An account with this email already exists. Please sign in instead.",
+          "An account with this email already exists. Please sign in instead or check your email for verification.",
         );
       } else {
         toast.error(error.message || "An error occurred during registration.");
       }
     } else {
       toast.success(
-        "Account created successfully! Please check your email to verify your account.",
+        "Account created successfully! Please check your email to verify your account before signing in.",
       );
-      navigate("/login");
+      navigate("/auth/verify");
     }
 
     setIsLoading(false);
