@@ -16,9 +16,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Building2, User, Phone, MapPin } from "lucide-react";
+import { Building2, User, Phone, Building } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/useAuth";
 
 const AccountSetup = () => {
   const [formData, setFormData] = useState({
@@ -27,21 +29,44 @@ const AccountSetup = () => {
     jobTitle: "",
     department: "",
     phone: "",
-    address: "",
-    role: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user) {
+      toast.error("Please sign in first");
+      navigate("/login");
+      return;
+    }
+
     setIsLoading(true);
 
-    // Simulate account setup process
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Update profile with additional information
+      const { error } = await supabase
+        .from("profiles")
+        .update({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          job_title: formData.jobTitle,
+          department: formData.department,
+          phone: formData.phone,
+        })
+        .eq("user_id", user.id);
 
-    toast.success("Account setup completed successfully!");
-    navigate("/dashboard");
+      if (error) throw error;
+
+      toast.success("Account setup completed successfully!");
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      toast.error("Failed to complete account setup");
+    }
+
     setIsLoading(false);
   };
 
@@ -83,16 +108,19 @@ const AccountSetup = () => {
                   >
                     First Name
                   </Label>
-                  <Input
-                    id="firstName"
-                    placeholder="Enter your first name"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, firstName: e.target.value })
-                    }
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                    required
-                  />
+                  <div className="relative">
+                    <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <Input
+                      id="firstName"
+                      placeholder="Enter your first name"
+                      value={formData.firstName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, firstName: e.target.value })
+                      }
+                      className="pl-10 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -102,16 +130,19 @@ const AccountSetup = () => {
                   >
                     Last Name
                   </Label>
-                  <Input
-                    id="lastName"
-                    placeholder="Enter your last name"
-                    value={formData.lastName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, lastName: e.target.value })
-                    }
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                    required
-                  />
+                  <div className="relative">
+                    <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <Input
+                      id="lastName"
+                      placeholder="Enter your last name"
+                      value={formData.lastName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, lastName: e.target.value })
+                      }
+                      className="pl-10 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -123,16 +154,20 @@ const AccountSetup = () => {
                   >
                     Job Title
                   </Label>
-                  <Input
-                    id="jobTitle"
-                    placeholder="e.g., Property Manager"
-                    value={formData.jobTitle}
-                    onChange={(e) =>
-                      setFormData({ ...formData, jobTitle: e.target.value })
-                    }
-                    className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                    required
-                  />
+                  <Select onValueChange={(value) => setFormData({ ...formData, jobTitle: value })}>
+                    <SelectTrigger className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500">
+                      <SelectValue placeholder="Select your job title" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="property_manager">Property Manager</SelectItem>
+                      <SelectItem value="procurement_manager">Procurement Manager</SelectItem>
+                      <SelectItem value="contractor">Contractor</SelectItem>
+                      <SelectItem value="vendor">Vendor</SelectItem>
+                      <SelectItem value="finance_manager">Finance Manager</SelectItem>
+                      <SelectItem value="evaluator">Evaluator</SelectItem>
+                      <SelectItem value="admin">Administrator</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="space-y-2">
@@ -142,55 +177,19 @@ const AccountSetup = () => {
                   >
                     Department
                   </Label>
-                  <Select
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, department: value })
-                    }
-                  >
-                    <SelectTrigger className="h-12 border-gray-200">
-                      <SelectValue placeholder="Select department" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="procurement">Procurement</SelectItem>
-                      <SelectItem value="property-management">
-                        Property Management
-                      </SelectItem>
-                      <SelectItem value="finance">Finance</SelectItem>
-                      <SelectItem value="operations">Operations</SelectItem>
-                      <SelectItem value="administration">
-                        Administration
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="relative">
+                    <Building className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <Input
+                      id="department"
+                      placeholder="Enter your department"
+                      value={formData.department}
+                      onChange={(e) =>
+                        setFormData({ ...formData, department: e.target.value })
+                      }
+                      className="pl-10 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="role" className="text-gray-700 font-medium">
-                  Role
-                </Label>
-                <Select
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, role: value })
-                  }
-                >
-                  <SelectTrigger className="h-12 border-gray-200">
-                    <SelectValue placeholder="Select your role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="property-manager">
-                      Property Manager
-                    </SelectItem>
-                    <SelectItem value="procurement-officer">
-                      Procurement Officer
-                    </SelectItem>
-                    <SelectItem value="finance-manager">
-                      Finance Manager
-                    </SelectItem>
-                    <SelectItem value="vendor">Vendor/Contractor</SelectItem>
-                    <SelectItem value="administrator">Administrator</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
 
               <div className="space-y-2">

@@ -271,52 +271,50 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "payments_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {
           avatar_url: string | null
-          created_at: string | null
+          created_at: string
           department: string | null
+          email: string | null
           first_name: string | null
           id: string
           job_title: string | null
           last_name: string | null
           organization_id: string | null
           phone: string | null
-          updated_at: string | null
+          updated_at: string
+          user_id: string
         }
         Insert: {
           avatar_url?: string | null
-          created_at?: string | null
+          created_at?: string
           department?: string | null
-          first_name?: string | null
-          id: string
-          job_title?: string | null
-          last_name?: string | null
-          organization_id?: string | null
-          phone?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          avatar_url?: string | null
-          created_at?: string | null
-          department?: string | null
+          email?: string | null
           first_name?: string | null
           id?: string
           job_title?: string | null
           last_name?: string | null
           organization_id?: string | null
           phone?: string | null
-          updated_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          first_name?: string | null
+          id?: string
+          job_title?: string | null
+          last_name?: string | null
+          organization_id?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: [
           {
@@ -378,13 +376,6 @@ export type Database = {
           year_built?: number | null
         }
         Relationships: [
-          {
-            foreignKeyName: "properties_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "properties_organization_id_fkey"
             columns: ["organization_id"]
@@ -477,13 +468,6 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "tenders_created_by_fkey"
-            columns: ["created_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "tenders_organization_id_fkey"
             columns: ["organization_id"]
@@ -626,13 +610,6 @@ export type Database = {
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "organizations"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "vendors_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
