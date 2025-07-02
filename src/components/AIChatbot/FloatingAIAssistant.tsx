@@ -71,21 +71,48 @@ const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({ className = '
     };
 
     setMessages(prev => [...prev, newMessage]);
+    const currentInput = inputValue;
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Call Supabase Edge Function for AI response
+      const response = await fetch('/functions/v1/ai-assistant', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: currentInput }],
+          context: 'general'
+        }),
+      });
+
+      const data = await response.json();
+      
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
         type: 'ai',
-        content: getAIResponse(inputValue),
+        content: data.response || data.fallbackResponse || getAIResponse(currentInput),
         timestamp: new Date(),
-        suggestions: getAISuggestions(inputValue)
+        suggestions: data.suggestions || getAISuggestions(currentInput)
+      };
+      
+      setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+      console.error('AI Assistant error:', error);
+      // Fallback to local response
+      const aiResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        type: 'ai',
+        content: getAIResponse(currentInput),
+        timestamp: new Date(),
+        suggestions: getAISuggestions(currentInput)
       };
       setMessages(prev => [...prev, aiResponse]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const getAIResponse = (input: string): string => {

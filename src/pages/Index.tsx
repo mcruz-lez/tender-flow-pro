@@ -108,10 +108,10 @@ const Index = () => {
 
         <h1 className="text-5xl font-bold text-foreground mb-6 leading-tight">
           Streamline Your Property
-          <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent"> Procurement Process</span>
+          <span className="gradient-text-animate"> Procurement Process</span>
         </h1>
 
-        <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
+        <p className="text-xl text-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
           TendProcure is the complete tender management platform for property
           managers, contractors, and vendors. Manage the entire procurement
           lifecycle with AI-powered insights and seamless collaboration.
@@ -171,7 +171,7 @@ const Index = () => {
           <h2 className="text-4xl font-bold text-foreground mb-4">
             Everything You Need for Procurement Excellence
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
+          <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-medium">
             From tender creation to contract management, TendProcure covers
             every aspect of the procurement process.
           </p>

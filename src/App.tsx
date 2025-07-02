@@ -169,7 +169,6 @@ import PasswordReset from "@/pages/auth/PasswordReset";
 import AuditLogsPage from "@/pages/audit/AuditLogsPage";
 
 // Components
-import AIChatbotRoot from "./components/AIChatbot/AIChatbotRoot";
 import FloatingAIAssistant from "./components/AIChatbot/FloatingAIAssistant";
 
 export function AppRoutes() {
@@ -1176,6 +1175,12 @@ export function AppRoutes() {
         }
       />
 
+      {/* Missing Routes - Adding comprehensive coverage */}
+      <Route path="/tenders/ai" element={<ProtectedRoute><AICreateTender /></ProtectedRoute>} />
+      <Route path="/dashboard/custom-reports" element={<ProtectedRoute><CustomReports /></ProtectedRoute>} />
+      <Route path="/dashboard/kpis" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path="/dashboard/widgets" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />
     </Routes>
@@ -1187,7 +1192,7 @@ function App() {
     <AuthProvider>
       <div className="App">
         <AppRoutes />
-        <AIChatbotRoot />
+        <FloatingAIAssistant />
       </div>
     </AuthProvider>
   );
