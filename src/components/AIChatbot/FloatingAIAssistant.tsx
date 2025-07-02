@@ -77,7 +77,7 @@ const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({ className = '
 
     try {
       // Call Supabase Edge Function for AI response
-      const response = await fetch('/functions/v1/ai-assistant', {
+      const response = await fetch('https://lztlpenmmfsqyrwrjvnp.supabase.co/functions/v1/ai-assistant', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
