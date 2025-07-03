@@ -210,7 +210,7 @@ const Dashboard = () => {
           onToggle={() => setSidebarOpen(!sidebarOpen)}
         />
         <div
-          className={`transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-16"}`}
+          className={`transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-16"} min-h-screen`}
         >
           {/* Top Header */}
           <header className="bg-gradient-to-r from-purple-600 to-indigo-500 text-white px-6 py-6 rounded-b-2xl shadow-2xl drop-shadow-lg mb-6 transition-all flex items-center justify-between">

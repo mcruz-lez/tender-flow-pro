@@ -161,22 +161,22 @@ const PageTemplate = ({
   const contextualRelatedPages = relatedPages || getRelatedPages();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-background">
       <DashboardSidebar
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
       />
 
       <div
-        className={`transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-16"}`}
+        className={`transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-16"} min-h-screen`}
       >
         <div className="p-6">
           <Breadcrumb />
 
           <div className="flex justify-between items-start mb-6">
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
-              <p className="text-gray-600 mt-2">{description}</p>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{title}</h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">{description}</p>
             </div>
 
             {contextualActions.length > 0 && (

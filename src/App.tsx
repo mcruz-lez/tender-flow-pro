@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { LayoutWithTheme } from "@/components/ui/layout-with-theme";
 
 // Public Pages
 import Index from "@/pages/Index";
@@ -1275,10 +1276,10 @@ export function AppRoutes() {
 function App() {
   return (
     <AuthProvider>
-      <div className="App">
+      <LayoutWithTheme>
         <AppRoutes />
         <FloatingAIAssistant />
-      </div>
+      </LayoutWithTheme>
     </AuthProvider>
   );
 }
