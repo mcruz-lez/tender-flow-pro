@@ -53,32 +53,32 @@ const Dashboard = () => {
       value: "24",
       change: "+12%",
       icon: FileText,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
+      color: "text-primary",
+      bgColor: "bg-primary/10",
     },
     {
       title: "Total Vendors",
       value: "156",
       change: "+8%",
       icon: Users,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
+      color: "text-secondary-foreground",
+      bgColor: "bg-secondary/10",
     },
     {
       title: "Contracts Value",
       value: "€2.4M",
       change: "+15%",
       icon: DollarSign,
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
+      color: "text-accent-foreground",
+      bgColor: "bg-accent/10",
     },
     {
       title: "Cost Savings",
       value: "€340K",
       change: "+22%",
       icon: TrendingUp,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
+      color: "text-primary",
+      bgColor: "bg-primary/10",
     },
   ];
 
@@ -167,28 +167,28 @@ const Dashboard = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Open":
-        return "bg-blue-100 text-blue-700";
+        return "bg-primary/20 text-primary";
       case "Evaluation":
-        return "bg-yellow-100 text-yellow-700";
+        return "bg-accent/20 text-accent-foreground";
       case "Draft":
-        return "bg-gray-100 text-gray-700";
+        return "bg-muted text-muted-foreground";
       case "Awarded":
-        return "bg-green-100 text-green-700";
+        return "bg-secondary/20 text-secondary-foreground";
       default:
-        return "bg-gray-100 text-gray-700";
+        return "bg-muted text-muted-foreground";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "High":
-        return "bg-red-100 text-red-700";
+        return "bg-destructive/20 text-destructive";
       case "Medium":
-        return "bg-yellow-100 text-yellow-700";
+        return "bg-accent/20 text-accent-foreground";
       case "Low":
-        return "bg-green-100 text-green-700";
+        return "bg-secondary/20 text-secondary-foreground";
       default:
-        return "bg-gray-100 text-gray-700";
+        return "bg-muted text-muted-foreground";
     }
   };
 

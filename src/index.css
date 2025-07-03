@@ -67,61 +67,61 @@
   }
 
   .dark {
-    /* Enhanced Dark Mode - 3 Color Theme: Deep Blue, Electric Purple, Cyan Glow */
-    --background: 225 27% 8%;           /* Deep midnight blue */
+    /* Enhanced Dark Mode - High Contrast Theme */
+    --background: 222 84% 4%;
     --foreground: 210 40% 98%;
 
-    --card: 225 25% 12%;                /* Slightly lighter midnight */
+    --card: 222 84% 5%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 225 25% 12%;
+    --popover: 222 84% 5%;
     --popover-foreground: 210 40% 98%;
 
-    /* Color 1: Electric Purple Primary */
-    --primary: 270 90% 70%;             /* Vibrant electric purple */
-    --primary-glow: 280 100% 75%;       /* Brighter purple glow */
-    --primary-foreground: 225 27% 8%;
+    /* High Contrast Primary */
+    --primary: 217 92% 76%;
+    --primary-glow: 217 100% 85%;
+    --primary-foreground: 222 84% 4%;
 
-    /* Color 2: Deep Teal Secondary */
-    --secondary: 195 85% 15%;           /* Rich teal-blue */
-    --secondary-foreground: 195 85% 95%;
+    /* High Contrast Secondary */
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    /* Color 3: Soft Cyan Accent */
-    --accent: 180 100% 25%;             /* Deep cyan */
-    --accent-foreground: 180 100% 95%;
+    /* High Contrast Accent */
+    --accent: 217 32% 17%;
+    --accent-foreground: 210 40% 98%;
 
-    --muted: 225 20% 18%;               /* Muted blue-gray */
-    --muted-foreground: 210 25% 70%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
 
-    --destructive: 0 75% 60%;
+    --destructive: 0 62% 30%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 225 15% 25%;              /* Subtle blue borders */
-    --input: 225 15% 25%;
-    --ring: 270 90% 70%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 217 92% 76%;
 
-    /* Enhanced 3-Color Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(270 90% 70%), hsl(280 100% 75%), hsl(180 100% 50%));
-    --gradient-secondary: linear-gradient(135deg, hsl(195 85% 15%), hsl(225 25% 20%), hsl(270 60% 25%));
-    --gradient-accent: linear-gradient(135deg, hsl(180 100% 25%), hsl(270 90% 70%), hsl(195 85% 40%));
-    --gradient-glass: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(0, 255, 255, 0.05));
-    --gradient-dark: linear-gradient(135deg, rgba(25, 25, 55, 0.8), rgba(15, 35, 45, 0.6));
+    /* High Contrast Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 92% 76%), hsl(217 100% 85%));
+    --gradient-secondary: linear-gradient(135deg, hsl(217 32% 17%), hsl(217 32% 25%));
+    --gradient-accent: linear-gradient(135deg, hsl(217 92% 76%), hsl(217 100% 85%));
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    --gradient-dark: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
 
-    /* Enhanced Dark Mode Shadows with Color */
-    --shadow-glass: 0 8px 32px rgba(25, 25, 55, 0.7);
-    --shadow-glass-hover: 0 25px 50px rgba(138, 43, 226, 0.3);
-    --shadow-premium: 0 20px 40px rgba(270, 90%, 70%, 0.4);
-    --shadow-luxury: 0 35px 70px rgba(0, 255, 255, 0.2);
+    /* High Contrast Shadows */
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.8);
+    --shadow-glass-hover: 0 25px 50px rgba(0, 0, 0, 0.9);
+    --shadow-premium: 0 20px 40px rgba(217, 92%, 76%, 0.3);
+    --shadow-luxury: 0 35px 70px rgba(0, 0, 0, 0.5);
 
-    /* Enhanced Dark Sidebar */
-    --sidebar-background: rgba(25, 30, 45, 0.9);
-    --sidebar-foreground: 210 30% 95%;
-    --sidebar-primary: 270 90% 70%;
-    --sidebar-primary-foreground: 225 27% 8%;
-    --sidebar-accent: rgba(138, 43, 226, 0.15);
-    --sidebar-accent-foreground: 210 30% 95%;
-    --sidebar-border: rgba(0, 255, 255, 0.15);
-    --sidebar-ring: 180 100% 50%;
+    /* High Contrast Sidebar */
+    --sidebar-background: hsl(222 84% 4% / 0.95);
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 92% 76%;
+    --sidebar-primary-foreground: 222 84% 4%;
+    --sidebar-accent: hsl(217 92% 76% / 0.1);
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: hsl(217 32% 17%);
+    --sidebar-ring: 217 92% 76%;
   }
 }
 

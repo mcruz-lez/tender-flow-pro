@@ -298,15 +298,15 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
 
   return (
     <div
-      className={`fixed left-0 top-0 h-full transition-all duration-500 z-40 backdrop-blur-xl shadow-luxury ${
+      className={`fixed left-0 top-0 h-full transition-all duration-500 z-40 ${
         isOpen ? "w-64" : "w-16"
       } 
-      bg-white/95 dark:bg-gradient-to-b dark:from-background dark:via-secondary/20 dark:to-background 
-      border-r border-gray-200 dark:border-accent/20
+      bg-white/98 dark:bg-card/98 backdrop-blur-xl
+      border-r border-border shadow-xl
       `}
     >
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 dark:border-accent/20 backdrop-blur-sm bg-white dark:bg-gradient-to-r dark:from-primary/10 dark:via-accent/10 dark:to-primary/10">
+      <div className="p-4 border-b border-border bg-background/95 backdrop-blur-sm">
         <div className="flex items-center justify-between">
           {isOpen && (
             <Link to="/" className="flex items-center space-x-3">
@@ -314,8 +314,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                 <Building2 className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-gray-900 dark:text-gradient-luxury">TendProcure</h1>
-                <p className="text-xs text-blue-600 dark:text-accent font-medium animate-fade-in">
+                <h1 className="text-lg font-bold text-foreground">TendProcure</h1>
+                <p className="text-xs text-primary font-medium">
                   Property Tender Platform
                 </p>
               </div>
@@ -345,29 +345,29 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
 
       {/* Quick Search - Only when expanded */}
       {isOpen && (
-        <div className="p-4 border-b border-gray-200 dark:border-accent/15 bg-gray-50 dark:bg-gradient-to-r dark:from-accent/10 dark:via-primary/10 dark:to-accent/10 backdrop-blur-sm">
+        <div className="p-4 border-b border-border bg-muted/50">
           <div className="relative">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-500 dark:text-accent/70" />
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Quick search..."
-              className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 dark:border-accent/30 rounded-md bg-white dark:bg-background/50 text-gray-900 dark:text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-accent/50 focus:border-transparent transition-all duration-300"
+              className="w-full pl-9 pr-3 py-2 text-sm border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-300"
             />
           </div>
         </div>
       )}
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto p-4 space-y-6 bg-white dark:bg-gradient-to-b dark:from-transparent dark:via-primary/5 dark:to-accent/10 scroll-smooth scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400 dark:scrollbar-thumb-primary/30 hover:scrollbar-thumb-gray-600 dark:hover:scrollbar-thumb-primary/50">
+      <nav className="flex-1 overflow-y-auto p-4 space-y-6 scroll-smooth scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary/30">
         {navigationItems.map((section, sectionIndex) => (
           <div key={section.section} className="animate-fade-in-up" style={{ animationDelay: `${sectionIndex * 100}ms` }}>
             {isOpen && (
               <div className="px-2 mb-3">
-                <h3 className="text-xs font-semibold text-gray-600 dark:text-accent/80 uppercase tracking-wider relative">
-                  <span className="text-gray-700 dark:bg-gradient-to-r dark:from-primary dark:via-accent dark:to-primary dark:bg-clip-text dark:text-transparent">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider relative">
+                  <span className="text-muted-foreground">
                     {section.title}
                   </span>
-                  <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-accent/30 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
                 </h3>
               </div>
             )}
@@ -376,24 +376,24 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
               {section.items.map((item, itemIndex) => (
                 <div key={item.href} className="animate-scale-in" style={{ animationDelay: `${(sectionIndex * section.items.length + itemIndex) * 50}ms` }}>
                   <div
-                    className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative group cursor-pointer hover-lift border ${
+                    className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative group cursor-pointer border ${
                       isActiveRoute(item.href) || hasActiveChild(item)
-                        ? "bg-blue-50 dark:bg-gradient-to-r dark:from-primary/30 dark:via-accent/25 dark:to-primary/30 text-blue-700 dark:text-accent border-blue-200 dark:border-accent/40 shadow-md"
-                        : "text-gray-700 dark:text-foreground/70 hover:bg-gray-100 dark:hover:bg-gradient-to-r dark:hover:from-primary/20 dark:hover:via-accent/15 dark:hover:to-primary/20 hover:text-gray-900 dark:hover:text-accent border-transparent hover:border-gray-200 dark:hover:border-accent/30"
+                        ? "bg-primary/10 text-primary border-primary/20 shadow-md"
+                        : "text-foreground hover:bg-accent/50 hover:text-accent-foreground border-transparent hover:border-border"
                     }`}
                     onClick={() => item.children && toggleItem(item.label)}
                   >
                     {/* Active indicator */}
                     {(isActiveRoute(item.href) || hasActiveChild(item)) && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 dark:bg-gradient-to-b dark:from-primary dark:via-accent dark:to-primary rounded-r-full"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r-full"></div>
                     )}
                     
                     <Link to={item.href} className="flex items-center flex-1 relative z-10">
                       <item.icon
                         className={`flex-shrink-0 transition-all duration-300 ${isOpen ? "w-5 h-5 mr-3" : "w-5 h-5"} ${
                           isActiveRoute(item.href) || hasActiveChild(item)
-                            ? "text-blue-600 dark:text-accent"
-                            : "group-hover:text-blue-600 dark:group-hover:text-accent group-hover:scale-110"
+                            ? "text-primary"
+                            : "text-muted-foreground group-hover:text-primary group-hover:scale-110"
                         }`}
                       />
 
@@ -405,8 +405,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                               variant="secondary"
                               className={`text-xs ml-2 transition-all duration-300 ${
                                 isActiveRoute(item.href) || hasActiveChild(item)
-                                  ? "bg-blue-100 text-blue-700 dark:bg-accent/20 dark:text-accent border border-blue-200 dark:border-accent/30"
-                                  : "bg-gray-100 text-gray-600 dark:bg-accent/10 dark:text-accent/70 group-hover:bg-blue-100 dark:group-hover:bg-accent/20 group-hover:text-blue-700 dark:group-hover:text-accent"
+                                  ? "bg-primary/20 text-primary border border-primary/30"
+                                  : "bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary"
                               } group-hover:scale-110`}
                             >
                               {item.badge}
@@ -419,24 +419,24 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                     {isOpen && item.children && (
                       <div className="ml-2 transition-all duration-300 group-hover:scale-110">
                         {expandedItems.includes(item.label) ? (
-                          <ChevronUp className="w-4 h-4 text-blue-600 dark:text-accent" />
+                          <ChevronUp className="w-4 h-4 text-primary" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-gray-500 dark:text-accent/70 group-hover:text-blue-600 dark:group-hover:text-accent" />
+                          <ChevronDown className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
                         )}
                       </div>
                     )}
 
                     {/* Enhanced tooltip for collapsed state */}
                     {!isOpen && (
-                      <div className="absolute left-16 px-3 py-2 bg-white dark:bg-card/90 backdrop-blur-md text-gray-900 dark:text-foreground text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap z-50 shadow-lg border border-gray-200 dark:border-accent/30 transform group-hover:translate-x-1">
+                      <div className="absolute left-16 px-3 py-2 bg-popover backdrop-blur-md text-popover-foreground text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap z-50 shadow-lg border border-border transform group-hover:translate-x-1">
                         <div className="font-medium">{item.label}</div>
                         {item.badge && (
-                          <span className="ml-2 px-2 py-0.5 bg-blue-100 dark:bg-accent/20 text-blue-700 dark:text-accent rounded-full text-xs">
+                          <span className="ml-2 px-2 py-0.5 bg-primary/20 text-primary rounded-full text-xs">
                             {item.badge}
                           </span>
                         )}
                         {/* Tooltip arrow */}
-                        <div className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 bg-white dark:bg-card/90 border-l border-b border-gray-200 dark:border-accent/30 rotate-45"></div>
+                        <div className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 bg-popover border-l border-b border-border rotate-45"></div>
                       </div>
                     )}
                   </div>
@@ -446,23 +446,23 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                     item.children &&
                     expandedItems.includes(item.label) && (
                       <div className="ml-8 mt-2 space-y-1 animate-slide-in-right">
-                        <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-accent/30 to-transparent mb-2"></div>
+                        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-2"></div>
                         {item.children.map((child, childIndex) => (
                           <Link
                             key={child.href}
                             to={child.href}
-                            className={`flex items-center px-3 py-2 rounded-md text-sm transition-all duration-300 border hover-lift ${
+                            className={`flex items-center px-3 py-2 rounded-md text-sm transition-all duration-300 border ${
                               isActiveRoute(child.href)
-                                ? "bg-blue-50 dark:bg-gradient-to-r dark:from-primary/25 dark:via-accent/20 dark:to-primary/25 text-blue-700 dark:text-accent font-medium border-blue-200 dark:border-accent/30"
-                                : "text-gray-600 dark:text-foreground/60 hover:bg-gray-100 dark:hover:bg-gradient-to-r dark:hover:from-primary/15 dark:hover:via-accent/10 dark:hover:to-primary/15 hover:text-gray-900 dark:hover:text-accent border-transparent hover:border-gray-200 dark:hover:border-accent/20"
+                                ? "bg-primary/10 text-primary font-medium border-primary/20"
+                                : "text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground border-transparent hover:border-border"
                             } group relative`}
                             style={{ animationDelay: `${childIndex * 50}ms` }}
                           >
                             {/* Child item indicator */}
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-px bg-gray-300 dark:bg-gradient-to-r dark:from-primary/50 dark:to-accent/50"></div>
+                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-px bg-border"></div>
                             
                             {child.icon && (
-                              <child.icon className="w-4 h-4 mr-2 transition-all duration-300 group-hover:text-blue-600 dark:group-hover:text-accent group-hover:scale-110" />
+                              <child.icon className="w-4 h-4 mr-2 transition-all duration-300 group-hover:text-primary group-hover:scale-110" />
                             )}
                             <span className="transition-all duration-300 group-hover:translate-x-1">{child.label}</span>
                           </Link>
@@ -473,13 +473,13 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
               ))}
             </div>
 
-            {section.section !== "system" && <Separator className="my-6 bg-gradient-to-r from-transparent via-gray-300 dark:via-accent/50 to-transparent h-px border-0" />}
+            {section.section !== "system" && <Separator className="my-6 bg-gradient-to-r from-transparent via-border to-transparent h-px border-0" />}
           </div>
         ))}
       </nav>
 
       {/* User Profile & Logout */}
-      <div className="border-t border-gray-200 dark:border-accent/20 p-4 bg-gray-50 dark:bg-gradient-to-r dark:from-primary/10 dark:via-accent/10 dark:to-primary/10 backdrop-blur-sm">
+      <div className="border-t border-border p-4 bg-muted/50">
         {isOpen ? (
           <div className="space-y-3">
             <div className="flex items-center space-x-3 px-2">
@@ -487,10 +487,10 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
                 <span className="text-xs font-semibold text-white">JD</span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                <p className="text-sm font-medium text-foreground truncate">
                   John Doe
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                <p className="text-xs text-muted-foreground truncate">
                   Property Manager
                 </p>
               </div>
@@ -498,7 +498,7 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             <Button
               variant="ghost"
               size="sm"
-              className="w-full justify-start text-gray-700 dark:text-gray-300 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+              className="w-full justify-start text-muted-foreground hover:text-destructive hover:bg-destructive/10"
             >
               <LogOut className="w-4 h-4 mr-2" />
               Sign Out
@@ -512,7 +512,7 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
             <Button
               variant="ghost"
               size="sm"
-              className="w-8 h-8 p-0 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600"
+              className="w-8 h-8 p-0 hover:bg-destructive/10 hover:text-destructive"
             >
               <LogOut className="w-4 h-4" />
             </Button>
