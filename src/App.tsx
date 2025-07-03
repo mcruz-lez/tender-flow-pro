@@ -626,6 +626,14 @@ export function AppRoutes() {
         }
       />
       <Route
+        path="/vendors/profile/:id"
+        element={
+          <ProtectedRoute>
+            <VendorProfile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/vendor-portal"
         element={
           <ProtectedRoute>

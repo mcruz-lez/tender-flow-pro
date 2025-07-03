@@ -355,7 +355,7 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
       )}
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto p-4 space-y-6 bg-gradient-to-b from-transparent via-primary/2 to-accent/5 dark:from-transparent dark:via-primary/5 dark:to-accent/10">
+      <nav className="flex-1 overflow-y-auto p-4 space-y-6 bg-gradient-to-b from-transparent via-primary/2 to-accent/5 dark:from-transparent dark:via-primary/5 dark:to-accent/10 scroll-smooth scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary/30 hover:scrollbar-thumb-primary/50">
         {navigationItems.map((section, sectionIndex) => (
           <div key={section.section} className="animate-fade-in-up" style={{ animationDelay: `${sectionIndex * 100}ms` }}>
             {isOpen && (

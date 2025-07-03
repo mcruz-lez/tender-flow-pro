@@ -6,39 +6,39 @@
 
 @layer base {
   :root {
-    /* Ultra-Modern Glassmorphism Color Palette */
-    --background: 235 30% 98%;
-    --foreground: 222 84% 4.9%;
+    /* Ultra-Modern Glassmorphism Color Palette - ENHANCED FOR VISIBILITY */
+    --background: 250 25% 98%;
+    --foreground: 222 84% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 84% 4.9%;
+    --card: 255 100% 100%;
+    --card-foreground: 222 84% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 4.9%;
+    --popover: 255 100% 100%;
+    --popover-foreground: 222 84% 15%;
 
     /* Luxury Primary Gradient - Electric Blue to Violet */
-    --primary: 240 100% 65%;
-    --primary-glow: 252 100% 75%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 240 100% 60%;
+    --primary-glow: 252 100% 70%;
+    --primary-foreground: 255 100% 98%;
 
-    /* Elegant Secondary - Soft Lavender */
-    --secondary: 270 30% 92%;
-    --secondary-foreground: 222 47% 11%;
+    /* Elegant Secondary - Enhanced Contrast */
+    --secondary: 270 25% 88%;
+    --secondary-foreground: 222 60% 20%;
 
-    /* Muted Glass Tones */
-    --muted: 220 14% 96%;
-    --muted-foreground: 215 16% 47%;
+    /* Muted Glass Tones - Better Visibility */
+    --muted: 220 20% 93%;
+    --muted-foreground: 215 25% 35%;
 
-    /* Accent Crystalline */
-    --accent: 280 60% 88%;
-    --accent-foreground: 222 47% 11%;
+    /* Accent Crystalline - High Contrast */
+    --accent: 280 70% 85%;
+    --accent-foreground: 222 60% 20%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 240 100% 65%;
+    --border: 220 20% 85%;
+    --input: 220 20% 90%;
+    --ring: 240 100% 60%;
 
     --radius: 1rem;
 
@@ -450,28 +450,49 @@
 
 /* === ULTRA-PREMIUM SCROLLBAR === */
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--gradient-primary);
-  border-radius: 10px;
-  border: 2px solid transparent;
+  border-radius: 8px;
+  border: 1px solid transparent;
   background-clip: padding-box;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gradient-accent);
+  box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
 }
 
 ::-webkit-scrollbar-corner {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Mobile-friendly scroll utilities */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.3) transparent;
+}
+
+.scrollbar-track-transparent {
+  scrollbar-track-color: transparent;
+}
+
+.scrollbar-thumb-primary\/30 {
+  scrollbar-color: hsl(var(--primary) / 0.3) transparent;
 }
 
 /* === GLOBAL PERFORMANCE OPTIMIZATIONS === */
